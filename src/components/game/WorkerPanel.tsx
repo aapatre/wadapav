@@ -9,9 +9,10 @@ interface Props {
   currency: number;
   onBuy: (id: string) => void;
   getCost: (worker: Worker) => number;
+  highlightFirst?: boolean;
 }
 
-export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props) {
+export default function WorkerPanel({ workers, currency, onBuy, getCost, highlightFirst }: Props) {
   // Find first worker with 0 quantity — that's the next to unlock
   const nextUnlockedIdx = workers.findIndex(w => w.quantity === 0);
 
@@ -62,6 +63,7 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props
 
         // Next unlockable worker
         if (isNext) {
+          const shouldGlow = highlightFirst && i === 0;
           return (
             <motion.button
               key={worker.id}
@@ -72,9 +74,11 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props
               onClick={() => { if (canAfford) { sfxBuy(); onBuy(worker.id); } }}
               disabled={!canAfford}
               className={`w-full flex items-center gap-3 p-2.5 border-2 transition-all ${
-                canAfford
-                  ? 'bg-card/90 border-primary/50 hover:border-primary hover:bg-card cursor-pointer active:bg-primary/10'
-                  : 'bg-card/60 border-border/40 opacity-50'
+                shouldGlow
+                  ? 'bg-primary/10 border-primary shadow-[0_0_12px_hsl(var(--primary)),0_0_24px_hsl(var(--primary)/0.4)] animate-pulse'
+                  : canAfford
+                    ? 'bg-card/90 border-primary/50 hover:border-primary hover:bg-card cursor-pointer active:bg-primary/10'
+                    : 'bg-card/60 border-border/40 opacity-50'
               }`}
             >
               <div className={`p-1.5 ${canAfford ? 'bg-primary/10' : 'bg-muted/30'}`}>
