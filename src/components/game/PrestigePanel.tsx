@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { formatCurrency } from '@/hooks/useGameState';
 import PixelIcon from './PixelIcon';
+import { sfxPrestige } from '@/hooks/useSfx';
 
 interface Props {
   canPrestige: boolean;
