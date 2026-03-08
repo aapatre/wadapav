@@ -97,7 +97,7 @@ async function renderMidiToPCM(): Promise<{ pcm: Float32Array; sampleRate: numbe
 // ——— Load PCM: from cache or render fresh ———
 async function loadPCM(): Promise<{ pcm: Float32Array; sampleRate: number }> {
   const cached = await getCachedPCM();
-  if (cached) return { pcm: cached, sampleRate: 22050 };
+  if (cached) return { pcm: cached, sampleRate: 8000 };
   const result = await renderMidiToPCM();
   cachePCM(result.pcm); // fire-and-forget
   return result;
