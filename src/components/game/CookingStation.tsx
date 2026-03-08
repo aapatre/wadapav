@@ -26,14 +26,16 @@ interface Props {
   currency: number;
   productionPerSecond: number;
   onSteal: (amount: number) => void;
+  blocked?: boolean;
 }
 
 let floatId = 0;
 
-export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, currency, productionPerSecond, onSteal }: Props) {
+export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, currency, productionPerSecond, onSteal, blocked }: Props) {
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
+  const [showBlockedPrompt, setShowBlockedPrompt] = useState(false);
   const lastComboTierRef = useRef(0);
 
   const handleTap = useCallback((e: React.MouseEvent | React.TouchEvent) => {
