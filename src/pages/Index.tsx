@@ -50,30 +50,43 @@ const Index = () => {
         }}
       />
 
-      {/* Title */}
-      <div className="text-center pt-4 pb-1 relative z-10">
-        <h1 className="text-xs font-display font-extrabold text-primary tracking-wider">
-          {"<< WADA PAV TYCOON >>"}
-        </h1>
+      {/* Location background */}
+      <div className="relative">
+        <div
+          className="absolute inset-0 bg-cover bg-center z-0"
+          style={{
+            backgroundImage: `url(${LOCATION_BACKGROUNDS[currentLocation.bg]})`,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background z-[1]" />
+
+        <div className="relative z-10">
+          {/* Title */}
+          <div className="text-center pt-4 pb-1">
+            <h1 className="text-xs font-display font-extrabold text-primary tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+              {"<< WADA PAV TYCOON >>"}
+            </h1>
+          </div>
+
+          {/* Currency */}
+          <CurrencyDisplay
+            currency={state.currency}
+            perSecond={state.productionPerSecond}
+            location={currentLocation}
+            prestigePoints={state.prestigePoints}
+          />
+
+          {/* Cooking Station */}
+          <CookingStation
+            tapPower={state.tapPower}
+            tapMultiplier={state.tapMultiplier}
+            prestigeMultiplier={state.prestigeMultiplier}
+            locationMultiplier={currentLocation.multiplier}
+            comboCount={state.comboCount}
+            onTap={tap}
+          />
+        </div>
       </div>
-
-      {/* Currency */}
-      <CurrencyDisplay
-        currency={state.currency}
-        perSecond={state.productionPerSecond}
-        location={currentLocation}
-        prestigePoints={state.prestigePoints}
-      />
-
-      {/* Cooking Station */}
-      <CookingStation
-        tapPower={state.tapPower}
-        tapMultiplier={state.tapMultiplier}
-        prestigeMultiplier={state.prestigeMultiplier}
-        locationMultiplier={currentLocation.multiplier}
-        comboCount={state.comboCount}
-        onTap={tap}
-      />
 
       {/* Tab Bar */}
       <div className="flex border-b-2 border-border bg-card sticky top-0 z-20">
