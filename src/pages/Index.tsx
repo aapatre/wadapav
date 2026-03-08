@@ -318,7 +318,19 @@ const Index = () => {
           )}
         </AnimatePresence>
 
-          {/* Nudge: earn ₹500 for a surprise — only after first upgrade bought */}
+        {/* Periodic reminder notifications */}
+        {!showTutorial && !forceUpgradeTab && !forceCrewTab && !postUpgradeToast && !postCrewToast && (
+          <ReminderNotification
+            canAffordUpgrade={canAffordUpgrade}
+            canAffordWorker={canAffordWorker}
+            canPrestige={canPrestige}
+            prestigeTabUnlocked={prestigeTabUnlocked}
+            activeTab={activeTab}
+            onSwitchTab={setActiveTab}
+          />
+        )}
+
+
         <AnimatePresence>
           {!showTutorial && hasFirstUpgrade && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
             <motion.div
