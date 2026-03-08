@@ -52,7 +52,7 @@ const Index = () => {
   const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
   const prestigeUnlockShownRef = useRef(hasSeenPrestigeUnlock());
-  const prestigeNudgeShownRef = useRef(hasSeenPrestigeNudge());
+  const prestigeNudgeShownRef = useRef(false); // resets each session, triggers per-location
   const prestigeTabUnlocked = state.currentLocation > 0 || state.totalEarned >= 100_000;
 
   // Show crew hint when player can afford first worker (₹500)
