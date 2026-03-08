@@ -27,6 +27,7 @@ interface Props {
   productionPerSecond: number;
   onSteal: (amount: number) => void;
   blocked?: boolean;
+  blockedMessage?: { title: string; body: string };
 }
 
 let floatId = 0;
