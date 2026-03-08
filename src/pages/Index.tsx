@@ -251,7 +251,7 @@ const Index = () => {
       </div>
 
       {/* ===== BOTTOM HALF: Shop Panel ===== */}
-      <div className="flex-1 flex flex-col min-h-0 bg-card/95 backdrop-blur-sm border-t-2 border-primary/30">
+      <div className="relative z-30 flex flex-col min-h-[100dvh] md:min-h-0 md:w-[380px] md:flex-none md:order-1 md:h-[100dvh] bg-card/95 backdrop-blur-sm border-t-2 md:border-t-0 md:border-r-2 border-primary/30">
         {/* Tab Bar */}
         <div className="flex shrink-0 border-b border-border/50">
           {tabs.map(tab => {
