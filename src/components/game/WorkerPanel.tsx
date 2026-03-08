@@ -100,17 +100,17 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="w-full flex items-center gap-3 p-2.5 border-2 border-border/20 bg-card/20 opacity-40"
+              className="w-full flex items-center gap-3 p-2.5 border-2 border-border/40 bg-card/40 opacity-60"
             >
-              <div className="p-1.5 bg-muted/20">
-                <div className="w-7 h-7 flex items-center justify-center text-lg text-muted-foreground/50">?</div>
+              <div className="p-1.5 bg-muted/30">
+                <div className="w-7 h-7 flex items-center justify-center text-lg font-display text-muted-foreground">?</div>
               </div>
               <div className="flex-1 text-left min-w-0">
-                <div className="font-display font-semibold text-[7px] text-muted-foreground/50">???</div>
-                <div className="text-xs font-body text-muted-foreground/30">Hire previous crew first</div>
+                <div className="font-display font-semibold text-[7px] text-muted-foreground/70">???</div>
+                <div className="text-xs font-body text-muted-foreground/50">Hire previous crew first</div>
               </div>
               <div className="text-right shrink-0">
-                <div className="text-xs font-body text-muted-foreground/30">🔒</div>
+                <div className="text-sm text-muted-foreground/50">🔒</div>
               </div>
             </motion.div>
           );
