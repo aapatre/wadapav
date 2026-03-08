@@ -65,23 +65,45 @@ export default function PrestigePanel({
 
       <h4 className="font-display font-semibold text-[8px] text-foreground px-1 pt-2">&gt; LOCATIONS</h4>
       <div className="space-y-1.5">
-        {locations.map((loc, i) => (
-          <div
-            key={i}
-            className={`flex items-center gap-2 p-2 border-2 text-sm font-body ${
-              i === currentLocation
-                ? 'bg-primary/10 border-primary/40 text-foreground pixel-border-primary'
-                : i <= totalPrestiges
-                  ? 'border-border text-muted-foreground pixel-border'
-                  : 'border-border/30 text-muted-foreground/30 pixel-border'
-            }`}
-          >
-            <PixelIcon id={`loc${i}`} size={24} />
-            <span className="flex-1">{loc.name}</span>
-            <span className="font-display text-[8px]">{loc.multiplier}x</span>
-            {i === currentLocation && <span className="text-primary font-display text-[8px] animate-blink">&lt;</span>}
-          </div>
-        ))}
+        {locations.map((loc, i) => {
+          const isCurrentOrPast = i <= currentLocation;
+          const isNext = i === currentLocation + 1;
+          const isFuture = i > currentLocation + 1;
+
+          if (isFuture) {
+            return (
+              <div
+                key={i}
+                className="flex items-center gap-2 p-2 border-2 border-border/20 text-sm font-body opacity-40"
+              >
+                <div className="w-6 h-6 flex items-center justify-center text-muted-foreground/50">?</div>
+                <span className="flex-1 text-muted-foreground/50">???</span>
+                <span className="text-xs text-muted-foreground/30">🔒</span>
+              </div>
+            );
+          }
+
+          return (
+            <div
+              key={i}
+              className={`flex items-center gap-2 p-2 border-2 text-sm font-body ${
+                i === currentLocation
+                  ? 'bg-primary/10 border-primary/40 text-foreground pixel-border-primary'
+                  : isCurrentOrPast
+                    ? 'border-border text-muted-foreground pixel-border'
+                    : isNext
+                      ? 'border-border/60 text-muted-foreground/70 pixel-border'
+                      : 'border-border/30 text-muted-foreground/30 pixel-border'
+              }`}
+            >
+              <PixelIcon id={`loc${i}`} size={24} />
+              <span className="flex-1">{loc.name}</span>
+              <span className="font-display text-[8px]">{loc.multiplier}x</span>
+              {i === currentLocation && <span className="text-primary font-display text-[8px] animate-blink">&lt;</span>}
+              {isNext && <span className="font-display text-[8px] text-muted-foreground">{formatCurrency(loc.prestigeCost)}</span>}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
