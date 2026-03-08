@@ -74,11 +74,11 @@ export default function PrestigePanel({
             return (
               <div
                 key={i}
-                className="flex items-center gap-2 p-2 border-2 border-border/20 text-sm font-body opacity-40"
+                className="flex items-center gap-2 p-2 border-2 border-border/40 bg-card/40 text-sm font-body opacity-60"
               >
-                <div className="w-6 h-6 flex items-center justify-center text-muted-foreground/50">?</div>
-                <span className="flex-1 text-muted-foreground/50">???</span>
-                <span className="text-xs text-muted-foreground/30">🔒</span>
+                <div className="w-6 h-6 flex items-center justify-center font-display text-muted-foreground">?</div>
+                <span className="flex-1 text-muted-foreground/70">???</span>
+                <span className="text-sm text-muted-foreground/50">🔒</span>
               </div>
             );
           }
