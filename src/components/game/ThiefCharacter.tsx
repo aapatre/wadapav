@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatCurrency } from '@/hooks/useGameState';
+import { sfxThiefCaught, sfxThiefStole } from '@/hooks/useSfx';
 
 type ThiefSize = 'small' | 'medium' | 'large';
 
@@ -276,6 +277,7 @@ export default function ThiefCharacter({ currency, onSteal }: Props) {
       stealTimerRef.current = window.setTimeout(() => {
         setPhase('stealing');
         onSteal(newThief.stealAmount);
+        sfxThiefStole();
         setStolenText({ amount: newThief.stealAmount, caught: false });
         setTimeout(() => {
           setPhase('escaped');
@@ -309,6 +311,7 @@ export default function ThiefCharacter({ currency, onSteal }: Props) {
       // Caught!
       if (stealTimerRef.current) clearTimeout(stealTimerRef.current);
       setPhase('caught');
+      sfxThiefCaught();
       setStolenText({ amount: 0, caught: true });
       setTimeout(() => {
         setThief(null);

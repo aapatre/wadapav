@@ -2,6 +2,7 @@ import { Upgrade } from '@/hooks/useGameState';
 import { formatCurrency } from '@/hooks/useGameState';
 import { motion } from 'framer-motion';
 import PixelIcon from './PixelIcon';
+import { sfxBuy } from '@/hooks/useSfx';
 
 interface Props {
   upgrades: Upgrade[];
@@ -25,7 +26,7 @@ export default function UpgradePanel({ upgrades, currency, onBuy, getCost }: Pro
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.05 }}
             whileTap={canAfford && !maxed ? { scale: 0.97 } : {}}
-            onClick={() => !maxed && canAfford && onBuy(upgrade.id)}
+            onClick={() => { if (!maxed && canAfford) { sfxBuy(); onBuy(upgrade.id); } }}
             disabled={!canAfford || maxed}
             className={`w-full flex items-center gap-3 p-2.5 border-2 transition-all ${
               maxed

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { formatCurrency } from '@/hooks/useGameState';
 import PixelIcon from './PixelIcon';
+import { sfxPrestige } from '@/hooks/useSfx';
 
 interface Props {
   canPrestige: boolean;
@@ -47,7 +48,7 @@ export default function PrestigePanel({
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            onClick={onPrestige}
+            onClick={() => { sfxPrestige(); onPrestige(); }}
             className="w-full py-3 bg-primary text-primary-foreground font-display font-bold text-[9px] pixel-border-primary flex items-center justify-center gap-2"
           >
             <PixelIcon id="star" size={16} /> PRESTIGE +{pointsAvailable} PP

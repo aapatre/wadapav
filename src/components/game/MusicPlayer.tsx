@@ -1,14 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import * as Tone from 'tone';
 import { Midi } from '@tonejs/midi';
-import { Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX, Zap, ZapOff } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import PixelIcon from './PixelIcon';
+import { getSfxMuted, setSfxMuted } from '@/hooks/useSfx';
 
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 
 const MusicPlayer = () => {
+  const [sfxOff, setSfxOff] = useState(() => getSfxMuted());
   const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(() => {
     const saved = localStorage.getItem('wadapav-music-muted');
@@ -145,6 +147,24 @@ const MusicPlayer = () => {
                 }}
                 className="flex-1 h-1 accent-primary cursor-pointer"
               />
+            </div>
+
+            {/* SFX toggle */}
+            <div className="flex items-center gap-2 mt-2">
+              <button
+                onClick={() => {
+                  const next = !getSfxMuted();
+                  setSfxMuted(next);
+                  setSfxOff(next);
+                }}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Toggle SFX"
+              >
+                {sfxOff ? <ZapOff size={14} /> : <Zap size={14} />}
+              </button>
+              <span className="text-[9px] font-body text-muted-foreground">
+                SFX {sfxOff ? 'OFF' : 'ON'}
+              </span>
             </div>
 
             {/* Credit */}

@@ -2,6 +2,7 @@ import { Worker } from '@/hooks/useGameState';
 import { formatCurrency } from '@/hooks/useGameState';
 import { motion } from 'framer-motion';
 import PixelIcon from './PixelIcon';
+import { sfxBuy } from '@/hooks/useSfx';
 
 interface Props {
   workers: Worker[];
@@ -32,7 +33,7 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.05 }}
               whileTap={canAfford ? { scale: 0.97 } : {}}
-              onClick={() => canAfford && onBuy(worker.id)}
+              onClick={() => { if (canAfford) { sfxBuy(); onBuy(worker.id); } }}
               disabled={!canAfford}
               className={`w-full flex items-center gap-3 p-2.5 border-2 transition-all ${
                 canAfford
@@ -68,7 +69,7 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.05 }}
               whileTap={canAfford ? { scale: 0.97 } : {}}
-              onClick={() => canAfford && onBuy(worker.id)}
+              onClick={() => { if (canAfford) { sfxBuy(); onBuy(worker.id); } }}
               disabled={!canAfford}
               className={`w-full flex items-center gap-3 p-2.5 border-2 transition-all ${
                 canAfford

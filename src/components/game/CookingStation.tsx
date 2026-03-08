@@ -1,9 +1,10 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
 import CustomerCrowd from './CustomerCrowd';
 import ThiefCharacter from './ThiefCharacter';
 import { formatCurrency } from '@/hooks/useGameState';
+import { sfxTap, sfxComboStart, sfxComboUp } from '@/hooks/useSfx';
 
 interface FloatingText {
   id: number;
@@ -31,9 +32,21 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
+  const lastComboTierRef = useRef(0);
 
   const handleTap = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     onTap();
+    sfxTap();
+
+    // Detect combo tier changes for SFX
+    const newCombo = comboCount + 1;
+    const tier = newCombo >= 100 ? 3 : newCombo >= 50 ? 2 : newCombo >= 20 ? 1 : 0;
+    if (tier > 0 && tier !== lastComboTierRef.current) {
+      if (tier === 1) sfxComboStart();
+      else sfxComboUp();
+    }
+    lastComboTierRef.current = tier;
+
     const isCombo = comboCount >= 20;
     const comboMultiplier = comboCount >= 100 ? 2 : comboCount >= 50 ? 1.8 : comboCount >= 20 ? 1.2 : 1;
     const earned = tapPower * tapMultiplier * prestigeMultiplier * locationMultiplier * comboMultiplier;
