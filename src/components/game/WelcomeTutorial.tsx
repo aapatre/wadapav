@@ -23,7 +23,7 @@ const STEPS = [
   {
     title: 'The Wada Pav',
     text: 'A crispy fried potato dumpling, stuffed inside a soft pav bun, slathered with spicy chutneys and a fried green chilli on the side. Simple. Deadly. Addictive.',
-    icon: potatoIcon,
+    icon: wadapavChiliIcon,
     type: 'story' as const,
   },
   {
