@@ -267,7 +267,7 @@ export default function ThiefCharacter({ currency, productionPerSecond, onSteal 
       size,
       tapsRequired: config.taps,
       tapsReceived: 0,
-      stealAmount: getStealAmount(currencyRef.current),
+      stealAmount: getStealAmount(currencyRef.current, ppsRef.current),
       fromLeft,
       offsetX: (Math.random() - 0.5) * 80,
       height: config.height,
