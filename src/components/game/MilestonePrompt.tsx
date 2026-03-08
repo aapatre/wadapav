@@ -32,10 +32,10 @@ export default function MilestonePrompt({ onComplete }: Props) {
         className="bg-card border-2 border-primary/60 p-5 max-w-xs text-center space-y-3"
         onClick={e => e.stopPropagation()}
       >
-        <div className="text-2xl">🎉</div>
+        <PixelIcon id="party" size={32} className="mx-auto" />
         <h2 className="font-display text-[9px] text-primary tracking-wider">₹50K TYCOON!</h2>
         <p className="font-body text-[11px] text-foreground/80 leading-relaxed">
-          Whoa, you're printing rupees faster than RBI! 🏦💸
+          Whoa, you're printing rupees faster than RBI!
         </p>
         <p className="font-body text-[10px] text-muted-foreground leading-relaxed">
           If you're enjoying the game, install it on your home screen for the full experience!
