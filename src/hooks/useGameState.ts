@@ -320,6 +320,9 @@ export function useGameState() {
   const canPrestige = state.currentLocation < LOCATIONS.length - 1 && state.totalEarned >= prestigeCostRequired;
   const prestigePointsAvailable = Math.floor(state.totalEarned / 1_000_000);
 
+  const getWorkerCostAtLocation = useCallback((worker: Worker) => getWorkerCost(worker, state.currentLocation), [state.currentLocation]);
+  const getUpgradeCostAtLocation = useCallback((upgrade: Upgrade) => getUpgradeCost(upgrade, state.currentLocation), [state.currentLocation]);
+
   return {
     state,
     tap,
@@ -331,8 +334,8 @@ export function useGameState() {
     canPrestige,
     prestigePointsAvailable,
     prestigeCostRequired,
-    getWorkerCost,
-    getUpgradeCost,
+    getWorkerCost: getWorkerCostAtLocation,
+    getUpgradeCost: getUpgradeCostAtLocation,
     locations: LOCATIONS,
     formatCurrency,
   };
