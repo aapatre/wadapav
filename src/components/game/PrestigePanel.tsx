@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function PrestigePanel({
-  canPrestige, pointsAvailable, currentPoints, totalEarned,
+  canPrestige, pointsAvailable, prestigeCostRequired, currentPoints, totalEarned,
   totalPrestiges, prestigeMultiplier, onPrestige, locations, currentLocation
 }: Props) {
   return (
