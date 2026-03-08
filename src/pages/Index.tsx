@@ -11,6 +11,11 @@ import WelcomeTutorial, { hasSeenTutorial, hasSeenCrewHint } from '@/components/
 import { CrewHintPrompt } from '@/components/game/WelcomeTutorial';
 import MusicPlayer from '@/components/game/MusicPlayer';
 import MilestonePrompt, { hasSeenMilestone, markMilestoneSeen } from '@/components/game/MilestonePrompt';
+import {
+  PrestigeMysteryPrompt, PrestigeUnlockPrompt, PrestigeNudgeBanner,
+  hasSeenPrestigeUnlock, markPrestigeUnlockSeen,
+  hasSeenPrestigeNudge, markPrestigeNudgeSeen,
+} from '@/components/game/PrestigeUnlockPrompts';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
