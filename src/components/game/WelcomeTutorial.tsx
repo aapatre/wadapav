@@ -220,7 +220,7 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
         transition={{ duration: 0.3 }}
         className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
       >
-        <div className="text-4xl">🤝</div>
+        <img src={handshakeIcon} alt="Handshake" className="w-14 h-14 mx-auto object-contain [image-rendering:pixelated]" draggable={false} />
         <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
           Time to Hire! 👥
         </h2>
