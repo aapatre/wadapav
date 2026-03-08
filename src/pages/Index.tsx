@@ -15,6 +15,7 @@ import {
   PrestigeMysteryPrompt, PrestigeUnlockPrompt, PrestigeNudgeBanner,
   hasSeenPrestigeUnlock, markPrestigeUnlockSeen,
 } from '@/components/game/PrestigeUnlockPrompts';
+import PolicemanCharacter from '@/components/game/PolicemanCharacter';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
