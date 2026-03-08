@@ -259,7 +259,7 @@ export function useGameState() {
         prestigePoints: newPrestigePoints,
         prestigeMultiplier: newPrestigeMultiplier,
         totalPrestiges: prev.totalPrestiges + 1,
-        currentLocation: newLocation,
+        currentLocation: nextLocation,
         workers: INITIAL_WORKERS.map(w => ({ ...w })),
         upgrades: INITIAL_UPGRADES.map(u => ({ ...u })),
         lastSaved: Date.now(),
