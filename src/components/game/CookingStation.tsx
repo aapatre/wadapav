@@ -27,11 +27,12 @@ interface Props {
   productionPerSecond: number;
   onSteal: (amount: number) => void;
   blocked?: boolean;
+  blockedMessage?: { title: string; body: string };
 }
 
 let floatId = 0;
 
-export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, currency, productionPerSecond, onSteal, blocked }: Props) {
+export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, currency, productionPerSecond, onSteal, blocked, blockedMessage }: Props) {
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
@@ -225,11 +226,11 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             className="absolute top-1/3 left-1/2 -translate-x-1/2 z-40 bg-card/95 backdrop-blur-sm border-2 border-primary/60 px-4 py-3 text-center max-w-[250px] shadow-[0_0_16px_hsl(var(--primary)/0.3)]"
           >
             <p className="font-display text-[8px] text-primary tracking-wide mb-1">
-              HIRE YOUR CREW FIRST! 👥
+              {blockedMessage?.title ?? 'HIRE YOUR CREW FIRST! 👥'}
             </p>
-            <p className="font-body text-[10px] text-foreground/80 leading-relaxed">
-              More customers are coming! Head to the <span className="font-bold text-primary">Crew tab</span> and hire a <span className="font-bold text-coin">Potato Masher</span> to keep up with demand.
-            </p>
+            <p className="font-body text-[10px] text-foreground/80 leading-relaxed"
+               dangerouslySetInnerHTML={{ __html: blockedMessage?.body ?? 'More customers are coming! Head to the <span class="font-bold text-primary">Crew tab</span> and hire a <span class="font-bold text-coin">Potato Masher</span> to keep up with demand.' }}
+            />
           </motion.div>
         )}
       </AnimatePresence>

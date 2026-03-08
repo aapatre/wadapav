@@ -368,7 +368,11 @@ const Index = () => {
             currency={state.currency}
             productionPerSecond={state.productionPerSecond}
             onSteal={stealCurrency}
-            blocked={forceCrewTab}
+            blocked={forceCrewTab || forceUpgradeTab}
+            blockedMessage={forceUpgradeTab ? {
+              title: 'UPGRADE YOUR POTATOES! 🥔',
+              body: 'Oh come on, your customers deserve better potatoes! Head to the <span class="font-bold" style="color:hsl(var(--primary))">Upgrades tab</span> and grab <span class="font-bold" style="color:hsl(var(--coin-gold))">Better Potatoes</span> — they\'ll make you more money too!'
+            } : undefined}
           />
         </div>
       </div>
