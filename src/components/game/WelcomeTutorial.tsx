@@ -220,9 +220,9 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
         transition={{ duration: 0.3 }}
         className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
       >
-        <div className="text-4xl">🤝</div>
-        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
-          Time to Hire! 👥
+        <PixelIcon id="handshake" size={40} />
+        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide flex items-center justify-center gap-2">
+          Time to Hire! <PixelIcon id="crew" size={18} />
         </h2>
         <p className="font-body text-xs text-foreground/80 leading-relaxed">
           You need a <span className="font-bold text-coin">Potato Masher</span> to keep up with demand! Head to the Crew tab and hire one to continue your wada pav empire.
