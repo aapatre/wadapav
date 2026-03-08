@@ -11,6 +11,11 @@ import WelcomeTutorial, { hasSeenTutorial, hasSeenCrewHint } from '@/components/
 import { CrewHintPrompt } from '@/components/game/WelcomeTutorial';
 import MusicPlayer from '@/components/game/MusicPlayer';
 import MilestonePrompt, { hasSeenMilestone, markMilestoneSeen } from '@/components/game/MilestonePrompt';
+import {
+  PrestigeMysteryPrompt, PrestigeUnlockPrompt, PrestigeNudgeBanner,
+  hasSeenPrestigeUnlock, markPrestigeUnlockSeen,
+  hasSeenPrestigeNudge, markPrestigeNudgeSeen,
+} from '@/components/game/PrestigeUnlockPrompts';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -43,6 +48,12 @@ const Index = () => {
   const [forceCrewTab, setForceCrewTab] = useState(false);
   const crewHintShownRef = useRef(hasSeenCrewHint());
   const milestoneShownRef = useRef(hasSeenMilestone());
+  const [showPrestigeMystery, setShowPrestigeMystery] = useState(false);
+  const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
+  const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
+  const prestigeUnlockShownRef = useRef(hasSeenPrestigeUnlock());
+  const prestigeNudgeShownRef = useRef(hasSeenPrestigeNudge());
+  const prestigeTabUnlocked = state.totalEarned >= 100_000;
 
   // Show crew hint when player can afford first worker (₹500)
   const firstWorkerCost = getWorkerCost(state.workers[0]);
@@ -66,7 +77,19 @@ const Index = () => {
       markMilestoneSeen();
       setShowMilestone(true);
     }
-  }, [state.currency, firstWorkerCost, showTutorial, hasAnyWorker]);
+    // 100k prestige unlock
+    if (!prestigeUnlockShownRef.current && !showTutorial && state.totalEarned >= 100_000) {
+      prestigeUnlockShownRef.current = true;
+      markPrestigeUnlockSeen();
+      setShowPrestigeUnlock(true);
+    }
+    // 1M prestige nudge
+    if (!prestigeNudgeShownRef.current && !showTutorial && state.totalEarned >= 1_000_000) {
+      prestigeNudgeShownRef.current = true;
+      markPrestigeNudgeSeen();
+      setShowPrestigeNudge(true);
+    }
+  }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker]);
 
   const currentLocation = locations[state.currentLocation];
 
@@ -81,13 +104,13 @@ const Index = () => {
   const tabHasAffordable: Record<Tab, boolean> = {
     upgrades: canAffordUpgrade,
     workers: canAffordWorker,
-    prestige: canPrestige,
+    prestige: prestigeTabUnlocked && canPrestige,
   };
 
   const tabs: { key: Tab; label: string; iconId: string }[] = [
     { key: 'upgrades', label: 'UPGRADES', iconId: 'tap3' },
     { key: 'workers', label: 'CREW', iconId: 'masher' },
-    { key: 'prestige', label: 'PRESTIGE', iconId: 'star' },
+    { key: 'prestige', label: prestigeTabUnlocked ? 'PRESTIGE' : '????', iconId: 'star' },
   ];
 
   return (
@@ -118,6 +141,23 @@ const Index = () => {
       <AnimatePresence>
         {showMilestone && (
           <MilestonePrompt onComplete={() => setShowMilestone(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* Prestige mystery prompt (tapped locked tab) */}
+      <AnimatePresence>
+        {showPrestigeMystery && (
+          <PrestigeMysteryPrompt onClose={() => setShowPrestigeMystery(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* Prestige unlock explanation at 100k */}
+      <AnimatePresence>
+        {showPrestigeUnlock && (
+          <PrestigeUnlockPrompt
+            onClose={() => setShowPrestigeUnlock(false)}
+            onSwitchTab={() => setActiveTab('prestige')}
+          />
         )}
       </AnimatePresence>
 
@@ -154,7 +194,17 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Nudge: earn ₹500 for a surprise */}
+          {/* Prestige nudge at 1M */}
+        <AnimatePresence>
+          {showPrestigeNudge && (
+            <PrestigeNudgeBanner
+              onDismiss={() => setShowPrestigeNudge(false)}
+              onGoToPrestige={() => { setActiveTab('prestige'); setShowPrestigeNudge(false); }}
+            />
+          )}
+        </AnimatePresence>
+
+          {/* Nudge: earn ₹500 for a surprise */}
         <AnimatePresence>
           {!showTutorial && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
             <motion.div
@@ -206,19 +256,23 @@ const Index = () => {
         <div className="flex shrink-0 border-b border-border/50">
           {tabs.map(tab => {
             const isLocked = forceCrewTab && tab.key !== 'workers';
+            const isPrestigeLocked = tab.key === 'prestige' && !prestigeTabUnlocked;
             return (
             <button
               key={tab.key}
-              onClick={() => { if (!isLocked) setActiveTab(tab.key); }}
+              onClick={() => {
+                if (isPrestigeLocked) { setShowPrestigeMystery(true); return; }
+                if (!isLocked) setActiveTab(tab.key);
+              }}
               className={`flex-1 py-2 text-[7px] font-display transition-all flex items-center justify-center gap-1.5 relative ${
-                isLocked
+                isLocked || isPrestigeLocked
                   ? 'text-muted-foreground/30 cursor-not-allowed'
                   : activeTab === tab.key
                     ? 'text-primary bg-background/50'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
               }`}
             >
-              <PixelIcon id={tab.iconId} size={16} />
+              {isPrestigeLocked ? <span className="text-[10px]">🔮</span> : <PixelIcon id={tab.iconId} size={16} />}
               {tab.label}
               {/* Affordability notification dot */}
               {!isLocked && activeTab !== tab.key && tabHasAffordable[tab.key] && (

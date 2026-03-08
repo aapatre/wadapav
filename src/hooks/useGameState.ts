@@ -290,6 +290,9 @@ export function useGameState() {
     localStorage.removeItem('wadapav-thief-tutorial-seen');
     localStorage.removeItem('wadapav-crew-hint');
     localStorage.removeItem('wadapav-tutorial');
+    localStorage.removeItem('wadapav-prestige-unlock');
+    localStorage.removeItem('wadapav-prestige-nudge');
+    localStorage.removeItem('wadapav-milestone');
     setState({
       currency: 0,
       totalEarned: 0,
