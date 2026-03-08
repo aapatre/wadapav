@@ -10,6 +10,7 @@ const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 
 const MusicPlayer = () => {
+  const [sfxOff, setSfxOff] = useState(() => getSfxMuted());
   const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(() => {
     const saved = localStorage.getItem('wadapav-music-muted');
