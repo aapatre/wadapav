@@ -22,7 +22,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
       style={{
         width: height * 0.45,
         height,
-        imageRendering: 'pixelated',
+        filter: 'url(#pixelate)',
       }}
     >
       {/* Head */}
@@ -137,7 +137,7 @@ export default function CustomerCrowd() {
       offsetX: (Math.random() - 0.5) * 60, // spread around center
     };
 
-    setCustomers(prev => [...prev.slice(-5), customer]);
+    setCustomers(prev => [...prev.slice(-3), customer]);
     setPhases(prev => ({ ...prev, [id]: 'entering' }));
 
     // After walk-in, stand
@@ -184,6 +184,19 @@ export default function CustomerCrowd() {
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* SVG pixelation filter — defined once, referenced by sprites */}
+      <svg className="absolute w-0 h-0" aria-hidden="true">
+        <defs>
+          <filter id="pixelate">
+            <feFlood x="0" y="0" height="2" width="2" />
+            <feComposite width="5" height="5" />
+            <feTile result="a" />
+            <feComposite in="SourceGraphic" in2="a" operator="in" />
+            <feMorphology operator="dilate" radius="2.5" />
+          </filter>
+        </defs>
+      </svg>
+
       <AnimatePresence mode="popLayout">
         {customers.map(c => {
           const phase = phases[c.id] || 'entering';
@@ -198,7 +211,6 @@ export default function CustomerCrowd() {
               style={{
                 bottom: 44,
                 left: '50%',
-                willChange: 'transform, opacity',
               }}
               initial={{ x: enterX, opacity: 0 }}
               animate={{
