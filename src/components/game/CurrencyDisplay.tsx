@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 interface Props {
   currency: number;
   perSecond: number;
-  location: { name: string; emoji: string; multiplier: number };
+  location: { name: string; icon: string; multiplier: number };
   prestigePoints: number;
 }
 
@@ -12,7 +12,8 @@ export default function CurrencyDisplay({ currency, perSecond, location, prestig
   return (
     <div className="text-center py-3 px-4">
       <div className="flex items-center justify-center gap-2 mb-1">
-        <span className="text-sm font-body text-muted-foreground">{location.emoji} {location.name}</span>
+        <span className="text-sm font-display text-muted-foreground">{location.icon}</span>
+        <span className="text-sm font-body text-muted-foreground">{location.name}</span>
         {location.multiplier > 1 && (
           <span className="text-sm bg-secondary/30 text-secondary px-2 py-0.5 font-body">
             {location.multiplier}x
@@ -30,7 +31,7 @@ export default function CurrencyDisplay({ currency, perSecond, location, prestig
       <div className="flex items-center justify-center gap-4 mt-1 text-sm font-body text-muted-foreground">
         <span>{formatCurrency(perSecond)}/sec</span>
         {prestigePoints > 0 && (
-          <span className="text-coin">⭐ {prestigePoints} PP</span>
+          <span className="text-coin">* {prestigePoints} PP</span>
         )}
       </div>
     </div>

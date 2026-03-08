@@ -18,10 +18,10 @@ const Index = () => {
 
   const currentLocation = locations[state.currentLocation];
 
-  const tabs: { key: Tab; label: string; emoji: string }[] = [
-    { key: 'upgrades', label: 'UPGR', emoji: '⚒️' },
-    { key: 'workers', label: 'CREW', emoji: '👥' },
-    { key: 'prestige', label: 'STAR', emoji: '⭐' },
+  const tabs: { key: Tab; label: string; icon: string }[] = [
+    { key: 'upgrades', label: 'UPGR', icon: '[+]' },
+    { key: 'workers', label: 'CREW', icon: '[=]' },
+    { key: 'prestige', label: 'STAR', icon: '[*]' },
   ];
 
   return (
@@ -36,7 +36,7 @@ const Index = () => {
       {/* Title */}
       <div className="text-center pt-4 pb-1 relative z-10">
         <h1 className="text-xs font-display font-extrabold text-primary tracking-wider">
-          🌶️ WADA PAV TYCOON 🌶️
+          {"<< WADA PAV TYCOON >>"}
         </h1>
       </div>
 
@@ -64,13 +64,13 @@ const Index = () => {
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`flex-1 py-2.5 text-xs font-display transition-all ${
+            className={`flex-1 py-2.5 text-[8px] font-display transition-all ${
               activeTab === tab.key
                 ? 'text-primary border-b-3 border-primary bg-muted'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            {tab.emoji} {tab.label}
+            {tab.icon} {tab.label}
           </button>
         ))}
       </div>
@@ -110,8 +110,8 @@ const Index = () => {
 
       {/* Stats footer */}
       <div className="bg-card border-t-2 border-border px-4 py-2 flex justify-between text-sm font-body text-muted-foreground">
-        <span>🍽️ {state.totalProduced.toLocaleString()} served</span>
-        <span>💰 {formatCurrency(state.totalEarned)} earned</span>
+        <span>[=] {state.totalProduced.toLocaleString()} served</span>
+        <span>[$] {formatCurrency(state.totalEarned)} earned</span>
       </div>
     </div>
   );

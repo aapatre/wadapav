@@ -12,7 +12,7 @@ interface Props {
 export default function UpgradePanel({ upgrades, currency, onBuy, getCost }: Props) {
   return (
     <div className="space-y-2">
-      <h3 className="font-display font-bold text-[10px] text-foreground px-1">⚒️ UPGRADES</h3>
+      <h3 className="font-display font-bold text-[10px] text-foreground px-1">&gt;&gt; UPGRADES</h3>
       {upgrades.map(upgrade => {
         const cost = getCost(upgrade);
         const canAfford = currency >= cost;
@@ -32,7 +32,7 @@ export default function UpgradePanel({ upgrades, currency, onBuy, getCost }: Pro
                   : 'bg-card border-border opacity-60 pixel-border'
             }`}
           >
-            <span className="text-2xl">{upgrade.emoji}</span>
+            <span className="font-display text-[10px] text-primary">{upgrade.icon}</span>
             <div className="flex-1 text-left">
               <div className="font-display font-semibold text-[8px] text-foreground">{upgrade.name}</div>
               <div className="text-sm font-body text-muted-foreground">{upgrade.description}</div>

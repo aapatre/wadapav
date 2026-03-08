@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 export interface Worker {
   id: string;
   name: string;
-  emoji: string;
+  icon: string;
   baseCost: number;
   baseProduction: number;
   quantity: number;
@@ -13,7 +13,7 @@ export interface Worker {
 export interface Upgrade {
   id: string;
   name: string;
-  emoji: string;
+  icon: string;
   baseCost: number;
   level: number;
   maxLevel: number;
@@ -41,30 +41,30 @@ export interface GameState {
 }
 
 const LOCATIONS = [
-  { name: 'Dadar Station', multiplier: 1, emoji: '🚉' },
-  { name: 'CST/VT Station', multiplier: 1.5, emoji: '🏛️' },
-  { name: 'Juhu Beach', multiplier: 2, emoji: '🏖️' },
-  { name: 'BKC Business District', multiplier: 3, emoji: '🏢' },
-  { name: 'Girgaon Chowpatty', multiplier: 5, emoji: '🎪' },
-  { name: 'Mumbai Airport', multiplier: 10, emoji: '✈️' },
+  { name: 'Dadar Station', multiplier: 1, icon: '[#]' },
+  { name: 'CST/VT Station', multiplier: 1.5, icon: '[=]' },
+  { name: 'Juhu Beach', multiplier: 2, icon: '[~]' },
+  { name: 'BKC Business', multiplier: 3, icon: '[^]' },
+  { name: 'Girgaon', multiplier: 5, icon: '[*]' },
+  { name: 'Mumbai Airport', multiplier: 10, icon: '[>]' },
 ];
 
 const INITIAL_WORKERS: Worker[] = [
-  { id: 'masher', name: 'Potato Masher', emoji: '🥔', baseCost: 500, baseProduction: 1, quantity: 0, description: 'Prepares ingredients' },
-  { id: 'fryer', name: 'Fryer Expert', emoji: '🍳', baseCost: 3000, baseProduction: 10, quantity: 0, description: 'Fries vadas automatically' },
-  { id: 'slicer', name: 'Pav Slicer', emoji: '🍞', baseCost: 15000, baseProduction: 50, quantity: 0, description: 'Assembles sandwiches' },
-  { id: 'chutney', name: 'Chutney Master', emoji: '🌿', baseCost: 80000, baseProduction: 250, quantity: 0, description: 'Adds toppings' },
-  { id: 'delivery', name: 'Delivery Boy', emoji: '🛵', baseCost: 500000, baseProduction: 1000, quantity: 0, description: 'Serves customers faster' },
-  { id: 'manager', name: 'Cart Manager', emoji: '👨‍💼', baseCost: 3000000, baseProduction: 5000, quantity: 0, description: 'Manages operations' },
+  { id: 'masher', name: 'Potato Masher', icon: '<O>', baseCost: 500, baseProduction: 1, quantity: 0, description: 'Prepares ingredients' },
+  { id: 'fryer', name: 'Fryer Expert', icon: '{~}', baseCost: 3000, baseProduction: 10, quantity: 0, description: 'Fries vadas' },
+  { id: 'slicer', name: 'Pav Slicer', icon: '[/]', baseCost: 15000, baseProduction: 50, quantity: 0, description: 'Assembles pav' },
+  { id: 'chutney', name: 'Chutney Master', icon: '{+}', baseCost: 80000, baseProduction: 250, quantity: 0, description: 'Adds toppings' },
+  { id: 'delivery', name: 'Delivery Boy', icon: '>>>', baseCost: 500000, baseProduction: 1000, quantity: 0, description: 'Serves faster' },
+  { id: 'manager', name: 'Cart Manager', icon: '[!]', baseCost: 3000000, baseProduction: 5000, quantity: 0, description: 'Manages ops' },
 ];
 
 const INITIAL_UPGRADES: Upgrade[] = [
-  { id: 'tap1', name: 'Better Potatoes', emoji: '🥔', baseCost: 100, level: 0, maxLevel: 50, effect: 5, type: 'tap', description: '+₹5 per tap' },
-  { id: 'tap2', name: 'Sharper Knife', emoji: '🔪', baseCost: 1000, level: 0, maxLevel: 50, effect: 25, type: 'tap', description: '+₹25 per tap' },
-  { id: 'tap3', name: 'Golden Tawa', emoji: '✨', baseCost: 10000, level: 0, maxLevel: 50, effect: 100, type: 'tap', description: '+₹100 per tap' },
-  { id: 'mult1', name: 'Premium Oil', emoji: '🫒', baseCost: 5000, level: 0, maxLevel: 10, effect: 0.25, type: 'multiplier', description: '+25% all earnings' },
-  { id: 'mult2', name: 'Special Spices', emoji: '🌶️', baseCost: 50000, level: 0, maxLevel: 10, effect: 0.5, type: 'multiplier', description: '+50% all earnings' },
-  { id: 'mult3', name: 'Secret Recipe', emoji: '📜', baseCost: 500000, level: 0, maxLevel: 5, effect: 1.0, type: 'multiplier', description: '+100% all earnings' },
+  { id: 'tap1', name: 'Better Potatoes', icon: '<O>', baseCost: 100, level: 0, maxLevel: 50, effect: 5, type: 'tap', description: '+5/tap' },
+  { id: 'tap2', name: 'Sharper Knife', icon: '/!\\', baseCost: 1000, level: 0, maxLevel: 50, effect: 25, type: 'tap', description: '+25/tap' },
+  { id: 'tap3', name: 'Golden Tawa', icon: '(*)', baseCost: 10000, level: 0, maxLevel: 50, effect: 100, type: 'tap', description: '+100/tap' },
+  { id: 'mult1', name: 'Premium Oil', icon: '{o}', baseCost: 5000, level: 0, maxLevel: 10, effect: 0.25, type: 'multiplier', description: '+25% earn' },
+  { id: 'mult2', name: 'Special Spices', icon: '<!>', baseCost: 50000, level: 0, maxLevel: 10, effect: 0.5, type: 'multiplier', description: '+50% earn' },
+  { id: 'mult3', name: 'Secret Recipe', icon: '[?]', baseCost: 500000, level: 0, maxLevel: 5, effect: 1.0, type: 'multiplier', description: '+100% earn' },
 ];
 
 const SAVE_KEY = 'wadapav_tycoon_save';

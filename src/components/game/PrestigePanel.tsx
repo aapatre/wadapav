@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { formatCurrency } from '@/hooks/useGameState';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   totalPrestiges: number;
   prestigeMultiplier: number;
   onPrestige: () => void;
-  locations: { name: string; emoji: string; multiplier: number }[];
+  locations: { name: string; icon: string; multiplier: number }[];
   currentLocation: number;
 }
 
@@ -19,7 +19,7 @@ export default function PrestigePanel({
 }: Props) {
   return (
     <div className="space-y-3">
-      <h3 className="font-display font-bold text-[10px] text-foreground px-1">⭐ MUMBAI MAP</h3>
+      <h3 className="font-display font-bold text-[10px] text-foreground px-1">&gt;&gt; MUMBAI MAP</h3>
 
       <div className="bg-card border-2 border-border p-4 space-y-3 pixel-border">
         <div className="flex justify-between text-sm font-body">
@@ -28,7 +28,7 @@ export default function PrestigePanel({
         </div>
         <div className="flex justify-between text-sm font-body">
           <span className="text-muted-foreground">Prestige Pts</span>
-          <span className="font-bold text-coin">⭐ {currentPoints}</span>
+          <span className="font-bold text-coin">* {currentPoints}</span>
         </div>
         <div className="flex justify-between text-sm font-body">
           <span className="text-muted-foreground">Bonus</span>
@@ -46,18 +46,18 @@ export default function PrestigePanel({
             onClick={onPrestige}
             className="w-full py-3 bg-primary text-primary-foreground font-display font-bold text-[9px] pixel-border-primary"
           >
-            ⭐ PRESTIGE +{pointsAvailable} PP
+            * PRESTIGE +{pointsAvailable} PP *
           </motion.button>
         )}
 
         {!canPrestige && (
           <div className="text-center text-sm font-body text-muted-foreground py-2">
-            Earn ₹1M to unlock prestige...
+            Earn 1M to unlock prestige...
           </div>
         )}
       </div>
 
-      <h4 className="font-display font-semibold text-[8px] text-foreground px-1 pt-2">📍 LOCATIONS</h4>
+      <h4 className="font-display font-semibold text-[8px] text-foreground px-1 pt-2">&gt; LOCATIONS</h4>
       <div className="space-y-1.5">
         {locations.map((loc, i) => (
           <div
@@ -70,10 +70,10 @@ export default function PrestigePanel({
                   : 'border-border/30 text-muted-foreground/30 pixel-border'
             }`}
           >
-            <span>{loc.emoji}</span>
+            <span className="font-display text-[8px]">{loc.icon}</span>
             <span className="flex-1">{loc.name}</span>
-            <span className="text-xs">{loc.multiplier}x</span>
-            {i === currentLocation && <span className="text-xs text-primary font-bold animate-blink">◄</span>}
+            <span className="font-display text-[8px]">{loc.multiplier}x</span>
+            {i === currentLocation && <span className="text-primary font-display text-[8px] animate-blink">&lt;</span>}
           </div>
         ))}
       </div>
