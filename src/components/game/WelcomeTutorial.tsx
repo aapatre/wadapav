@@ -193,7 +193,7 @@ export default function WelcomeTutorial({ onComplete }: Props) {
               onClick={handleNext}
               className="flex-1 py-2.5 text-xs font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-wider"
             >
-              {isLast ? 'LET\'S COOK! 🔥' : 'NEXT →'}
+              {isLast ? 'LET\'S COOK!' : 'NEXT →'}
             </button>
           </div>
         </motion.div>
