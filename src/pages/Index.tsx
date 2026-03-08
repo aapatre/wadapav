@@ -143,6 +143,19 @@ const Index = () => {
         )}
       </AnimatePresence>
 
+      {/* Upgrade hint — forces player to upgrades tab */}
+      <AnimatePresence>
+        {showUpgradeHint && (
+          <UpgradeHintPrompt
+            onComplete={() => setShowUpgradeHint(false)}
+            onSwitchToUpgradeTab={() => {
+              setActiveTab('upgrades');
+              setForceUpgradeTab(true);
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Crew hire hint — forces player to crew tab */}
       <AnimatePresence>
         {showCrewHint && (
