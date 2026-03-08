@@ -8,16 +8,16 @@ import WorkerPanel from '@/components/game/WorkerPanel';
 import PrestigePanel from '@/components/game/PrestigePanel';
 import PixelIcon from '@/components/game/PixelIcon';
 
-import bgDadar from '@/assets/backgrounds/dadar-station.png';
 import bgCST from '@/assets/backgrounds/cst-station.png';
+import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
 import bgJuhu from '@/assets/backgrounds/juhu-beach.png';
 import bgBKC from '@/assets/backgrounds/bkc-business.png';
 import bgGirgaon from '@/assets/backgrounds/girgaon.png';
 import bgAirport from '@/assets/backgrounds/mumbai-airport.png';
 
 const LOCATION_BACKGROUNDS: Record<string, string> = {
-  'dadar-station': bgDadar,
   'cst-station': bgCST,
+  'gateway-of-india': bgGateway,
   'juhu-beach': bgJuhu,
   'bkc-business': bgBKC,
   'girgaon': bgGirgaon,
