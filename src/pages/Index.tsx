@@ -36,6 +36,18 @@ const Index = () => {
   } = useGameState();
   const [activeTab, setActiveTab] = useState<Tab>('upgrades');
   const [showTutorial, setShowTutorial] = useState(() => !hasSeenTutorial());
+  const [showCrewHint, setShowCrewHint] = useState(false);
+  const crewHintShownRef = useRef(hasSeenCrewHint());
+
+  // Show crew hint when player can afford first worker (₹500)
+  const firstWorkerCost = getWorkerCost(state.workers[0]);
+  const hasAnyWorker = state.workers.some(w => w.quantity > 0);
+  useEffect(() => {
+    if (!crewHintShownRef.current && !showTutorial && !hasAnyWorker && state.currency >= firstWorkerCost) {
+      crewHintShownRef.current = true;
+      setShowCrewHint(true);
+    }
+  }, [state.currency, firstWorkerCost, showTutorial, hasAnyWorker]);
 
   const currentLocation = locations[state.currentLocation];
 
