@@ -311,6 +311,7 @@ export default function ThiefCharacter({ currency, onSteal }: Props) {
       // Caught!
       if (stealTimerRef.current) clearTimeout(stealTimerRef.current);
       setPhase('caught');
+      sfxThiefCaught();
       setStolenText({ amount: 0, caught: true });
       setTimeout(() => {
         setThief(null);
