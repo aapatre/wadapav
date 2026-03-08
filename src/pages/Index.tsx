@@ -7,8 +7,8 @@ import UpgradePanel from '@/components/game/UpgradePanel';
 import WorkerPanel from '@/components/game/WorkerPanel';
 import PrestigePanel from '@/components/game/PrestigePanel';
 import PixelIcon from '@/components/game/PixelIcon';
-import WelcomeTutorial, { hasSeenTutorial, hasSeenCrewHint } from '@/components/game/WelcomeTutorial';
-import { CrewHintPrompt } from '@/components/game/WelcomeTutorial';
+import WelcomeTutorial, { hasSeenTutorial, hasSeenCrewHint, hasSeenUpgradeHint } from '@/components/game/WelcomeTutorial';
+import { CrewHintPrompt, UpgradeHintPrompt } from '@/components/game/WelcomeTutorial';
 import MusicPlayer from '@/components/game/MusicPlayer';
 import MilestonePrompt, { hasSeenMilestone, markMilestoneSeen } from '@/components/game/MilestonePrompt';
 import {
@@ -43,10 +43,12 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>('upgrades');
   const [showTutorial, setShowTutorial] = useState(() => !hasSeenTutorial());
   const [showCrewHint, setShowCrewHint] = useState(false);
+  const [showUpgradeHint, setShowUpgradeHint] = useState(false);
   const [showMilestone, setShowMilestone] = useState(false);
   const [forceCrewTab, setForceCrewTab] = useState(false);
+  const [forceUpgradeTab, setForceUpgradeTab] = useState(false);
   const crewHintShownRef = useRef(hasSeenCrewHint());
-  const milestoneShownRef = useRef(hasSeenMilestone());
+  const upgradeHintShownRef = useRef(hasSeenUpgradeHint());
   const [showPrestigeMystery, setShowPrestigeMystery] = useState(false);
   const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
@@ -54,9 +56,22 @@ const Index = () => {
   const prestigeNudgeShownRef = useRef(false); // resets each session, triggers per-location
   const prestigeTabUnlocked = state.currentLocation > 0 || state.totalEarned >= 100_000;
 
+  // Show upgrade hint when player can afford first upgrade (₹100)
+  const firstUpgrade = state.upgrades[0];
+  const hasFirstUpgrade = firstUpgrade.level > 0;
+  const firstUpgradeCost = getUpgradeCost(firstUpgrade);
+
   // Show crew hint when player can afford first worker (₹500)
   const firstWorkerCost = getWorkerCost(state.workers[0]);
   const hasAnyWorker = state.workers.some(w => w.quantity > 0);
+  const milestoneShownRef = useRef(hasSeenMilestone());
+
+  // Release upgrade tab lock after first upgrade bought
+  useEffect(() => {
+    if (forceUpgradeTab && hasFirstUpgrade) {
+      setForceUpgradeTab(false);
+    }
+  }, [hasFirstUpgrade, forceUpgradeTab]);
 
   // Once player buys first worker, release the lock
   useEffect(() => {
@@ -66,6 +81,12 @@ const Index = () => {
   }, [hasAnyWorker, forceCrewTab]);
 
   useEffect(() => {
+    // ₹100 upgrade hint
+    if (!upgradeHintShownRef.current && !showTutorial && !hasFirstUpgrade && state.currency >= firstUpgradeCost) {
+      upgradeHintShownRef.current = true;
+      setShowUpgradeHint(true);
+    }
+    // ₹500 crew hint
     if (!crewHintShownRef.current && !showTutorial && !hasAnyWorker && state.currency >= firstWorkerCost) {
       crewHintShownRef.current = true;
       setShowCrewHint(true);
@@ -87,7 +108,7 @@ const Index = () => {
       prestigeNudgeShownRef.current = true;
       setShowPrestigeNudge(true);
     }
-  }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker, canPrestige]);
+  }, [state.currency, state.totalEarned, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige]);
 
   const currentLocation = locations[state.currentLocation];
 
@@ -118,6 +139,19 @@ const Index = () => {
         {showTutorial && (
           <WelcomeTutorial
             onComplete={() => setShowTutorial(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Upgrade hint — forces player to upgrades tab */}
+      <AnimatePresence>
+        {showUpgradeHint && (
+          <UpgradeHintPrompt
+            onComplete={() => setShowUpgradeHint(false)}
+            onSwitchToUpgradeTab={() => {
+              setActiveTab('upgrades');
+              setForceUpgradeTab(true);
+            }}
           />
         )}
       </AnimatePresence>
@@ -204,21 +238,29 @@ const Index = () => {
           )}
         </AnimatePresence>
 
-          {/* Nudge: earn ₹500 for a surprise */}
+          {/* Nudge: earn ₹500 for a surprise — only after first upgrade bought */}
         <AnimatePresence>
-          {!showTutorial && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
+          {!showTutorial && hasFirstUpgrade && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               className="relative z-10 mx-3 mt-1"
             >
-              <div className="bg-card/80 backdrop-blur-sm border border-accent/50 px-3 py-1.5 flex items-center justify-center gap-2 animate-pulse">
-                <span className="text-[10px] font-display text-accent">🎁</span>
+              <div className="bg-card/80 backdrop-blur-sm border border-secondary/50 px-3 py-1.5 flex items-center justify-center gap-2">
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="text-[10px] font-display text-secondary"
+                >🎁</motion.span>
                 <span className="text-[10px] font-body text-foreground/80">
-                  Earn <span className="font-bold text-coin">₹500</span> to unlock a surprise!
+                  Keep tapping! <span className="font-bold text-coin">{formatCurrency(firstWorkerCost)}</span> unlocks your first crew member!
                 </span>
-                <span className="text-[10px] font-display text-accent">🎁</span>
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                  className="text-[10px] font-display text-secondary"
+                >👥</motion.span>
               </div>
             </motion.div>
           )}
@@ -256,7 +298,7 @@ const Index = () => {
         {/* Tab Bar */}
         <div className="flex shrink-0 border-b border-border/50">
           {tabs.map(tab => {
-            const isLocked = forceCrewTab && tab.key !== 'workers';
+            const isLocked = (forceCrewTab && tab.key !== 'workers') || (forceUpgradeTab && tab.key !== 'upgrades');
             const isPrestigeLocked = tab.key === 'prestige' && !prestigeTabUnlocked;
             return (
             <button

@@ -47,33 +47,30 @@ const STEPS = [
 
 const TUTORIAL_KEY = 'wadapav_tutorial_done';
 const CREW_HINT_KEY = 'wadapav_crew_hint_done';
+const UPGRADE_HINT_KEY = 'wadapav_upgrade_hint_done';
 
 export function hasSeenTutorial(): boolean {
-  try {
-    return localStorage.getItem(TUTORIAL_KEY) === 'true';
-  } catch {
-    return false;
-  }
+  try { return localStorage.getItem(TUTORIAL_KEY) === 'true'; } catch { return false; }
 }
 
 export function hasSeenCrewHint(): boolean {
-  try {
-    return localStorage.getItem(CREW_HINT_KEY) === 'true';
-  } catch {
-    return false;
-  }
+  try { return localStorage.getItem(CREW_HINT_KEY) === 'true'; } catch { return false; }
+}
+
+export function hasSeenUpgradeHint(): boolean {
+  try { return localStorage.getItem(UPGRADE_HINT_KEY) === 'true'; } catch { return false; }
 }
 
 export function markTutorialDone() {
-  try {
-    localStorage.setItem(TUTORIAL_KEY, 'true');
-  } catch {}
+  try { localStorage.setItem(TUTORIAL_KEY, 'true'); } catch {}
 }
 
 export function markCrewHintDone() {
-  try {
-    localStorage.setItem(CREW_HINT_KEY, 'true');
-  } catch {}
+  try { localStorage.setItem(CREW_HINT_KEY, 'true'); } catch {}
+}
+
+export function markUpgradeHintDone() {
+  try { localStorage.setItem(UPGRADE_HINT_KEY, 'true'); } catch {}
 }
 
 export default function WelcomeTutorial({ onComplete }: Props) {
@@ -229,6 +226,45 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
           className="w-full py-2.5 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors animate-pulse"
         >
           GO TO CREW TAB →
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+export function UpgradeHintPrompt({ onComplete, onSwitchToUpgradeTab }: { onComplete: () => void; onSwitchToUpgradeTab: () => void }) {
+  const handleGo = () => {
+    markUpgradeHintDone();
+    onSwitchToUpgradeTab();
+    onComplete();
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm px-6"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
+      >
+        <div className="text-4xl">🥔</div>
+        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
+          Upgrade Time! ⬆️
+        </h2>
+        <p className="font-body text-xs text-foreground/80 leading-relaxed">
+          Your potatoes need an upgrade! Buy <span className="font-bold text-coin">Better Potatoes</span> to earn more per tap and grow faster.
+        </p>
+
+        <button
+          onClick={handleGo}
+          className="w-full py-2.5 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors animate-pulse"
+        >
+          GO TO UPGRADES →
         </button>
       </motion.div>
     </motion.div>
