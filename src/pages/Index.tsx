@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useGameState } from '@/hooks/useGameState';
 import CurrencyDisplay from '@/components/game/CurrencyDisplay';
 import CookingStation from '@/components/game/CookingStation';
@@ -36,47 +37,55 @@ const Index = () => {
   const currentLocation = locations[state.currentLocation];
 
   const tabs: { key: Tab; label: string; iconId: string }[] = [
-    { key: 'upgrades', label: 'UPGR', iconId: 'tap3' },
+    { key: 'upgrades', label: 'UPGRADES', iconId: 'tap3' },
     { key: 'workers', label: 'CREW', iconId: 'masher' },
-    { key: 'prestige', label: 'STAR', iconId: 'star' },
+    { key: 'prestige', label: 'PRESTIGE', iconId: 'star' },
   ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden">
+    <div className="h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden">
       {/* Scanline overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03]"
+      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02]"
         style={{
           backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(0 0% 0%) 2px, hsl(0 0% 0%) 4px)',
         }}
       />
 
-      {/* Location background */}
-      <div className="relative">
+      {/* ===== TOP HALF: Game Scene ===== */}
+      <div className="relative flex-shrink-0" style={{ minHeight: '46vh' }}>
+        {/* Background image */}
         <div
-          className="absolute inset-0 bg-cover bg-center z-0"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url(${LOCATION_BACKGROUNDS[currentLocation.bg]})`,
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background z-[1]" />
+        {/* Gradient overlays for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/20 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
-        <div className="relative z-10">
-          {/* Title */}
-          <div className="text-center pt-4 pb-1">
-            <h1 className="text-xs font-display font-extrabold text-primary tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              {"<< WADA PAV TYCOON >>"}
-            </h1>
+        {/* HUD - Title bar */}
+        <div className="relative z-10 flex items-center justify-between px-3 pt-3 pb-1">
+          <h1 className="text-[7px] font-display font-extrabold text-primary tracking-wider drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+            WADA PAV TYCOON
+          </h1>
+          <div className="flex items-center gap-1 bg-card/70 backdrop-blur-sm px-2 py-0.5 text-[10px] font-body text-muted-foreground">
+            {state.totalProduced.toLocaleString()} served
           </div>
+        </div>
 
-          {/* Currency */}
+        {/* Currency HUD */}
+        <div className="relative z-10">
           <CurrencyDisplay
             currency={state.currency}
             perSecond={state.productionPerSecond}
             location={currentLocation}
             prestigePoints={state.prestigePoints}
           />
+        </div>
 
-          {/* Cooking Station */}
+        {/* Cart + Cooking area */}
+        <div className="relative z-10 flex-1 flex items-end justify-center pb-4">
           <CookingStation
             tapPower={state.tapPower}
             tapMultiplier={state.tapMultiplier}
@@ -88,61 +97,72 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Tab Bar */}
-      <div className="flex border-b-2 border-border bg-card sticky top-0 z-20">
-        {tabs.map(tab => (
-          <button
-            key={tab.key}
-            onClick={() => setActiveTab(tab.key)}
-            className={`flex-1 py-2 text-[8px] font-display transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === tab.key
-                ? 'text-primary border-b-3 border-primary bg-muted'
-                : 'text-muted-foreground hover:text-foreground'
-            }`}
-          >
-            <PixelIcon id={tab.iconId} size={18} />
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      {/* ===== BOTTOM HALF: Shop Panel ===== */}
+      <div className="flex-1 flex flex-col min-h-0 bg-card/95 backdrop-blur-sm border-t-2 border-primary/30">
+        {/* Tab Bar */}
+        <div className="flex shrink-0 border-b border-border/50">
+          {tabs.map(tab => (
+            <button
+              key={tab.key}
+              onClick={() => setActiveTab(tab.key)}
+              className={`flex-1 py-2 text-[7px] font-display transition-all flex items-center justify-center gap-1.5 relative ${
+                activeTab === tab.key
+                  ? 'text-primary bg-background/50'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+              }`}
+            >
+              <PixelIcon id={tab.iconId} size={16} />
+              {tab.label}
+              {activeTab === tab.key && (
+                <motion.div
+                  layoutId="activeTab"
+                  className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary"
+                />
+              )}
+            </button>
+          ))}
+        </div>
 
-      {/* Tab Content */}
-      <div className="flex-1 overflow-y-auto p-3 pb-8">
-        {activeTab === 'upgrades' && (
-          <UpgradePanel
-            upgrades={state.upgrades}
-            currency={state.currency}
-            onBuy={buyUpgrade}
-            getCost={getUpgradeCost}
-          />
-        )}
-        {activeTab === 'workers' && (
-          <WorkerPanel
-            workers={state.workers}
-            currency={state.currency}
-            onBuy={buyWorker}
-            getCost={getWorkerCost}
-          />
-        )}
-        {activeTab === 'prestige' && (
-          <PrestigePanel
-            canPrestige={canPrestige}
-            pointsAvailable={prestigePointsAvailable}
-            currentPoints={state.prestigePoints}
-            totalEarned={state.totalEarned}
-            totalPrestiges={state.totalPrestiges}
-            prestigeMultiplier={state.prestigeMultiplier}
-            onPrestige={prestige}
-            locations={locations}
-            currentLocation={state.currentLocation}
-          />
-        )}
-      </div>
-
-      {/* Stats footer */}
-      <div className="bg-card border-t-2 border-border px-4 py-2 flex justify-between text-sm font-body text-muted-foreground">
-        <span>{state.totalProduced.toLocaleString()} served</span>
-        <span>{formatCurrency(state.totalEarned)} earned</span>
+        {/* Tab Content */}
+        <div className="flex-1 overflow-y-auto p-2.5 pb-4">
+          <AnimatePresence mode="wait">
+            {activeTab === 'upgrades' && (
+              <motion.div key="upgrades" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
+                <UpgradePanel
+                  upgrades={state.upgrades}
+                  currency={state.currency}
+                  onBuy={buyUpgrade}
+                  getCost={getUpgradeCost}
+                />
+              </motion.div>
+            )}
+            {activeTab === 'workers' && (
+              <motion.div key="workers" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
+                <WorkerPanel
+                  workers={state.workers}
+                  currency={state.currency}
+                  onBuy={buyWorker}
+                  getCost={getWorkerCost}
+                />
+              </motion.div>
+            )}
+            {activeTab === 'prestige' && (
+              <motion.div key="prestige" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
+                <PrestigePanel
+                  canPrestige={canPrestige}
+                  pointsAvailable={prestigePointsAvailable}
+                  currentPoints={state.prestigePoints}
+                  totalEarned={state.totalEarned}
+                  totalPrestiges={state.totalPrestiges}
+                  prestigeMultiplier={state.prestigeMultiplier}
+                  onPrestige={prestige}
+                  locations={locations}
+                  currentLocation={state.currentLocation}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
