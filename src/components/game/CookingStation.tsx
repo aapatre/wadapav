@@ -39,6 +39,11 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
   const lastComboTierRef = useRef(0);
 
   const handleTap = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+    if (blocked) {
+      setShowBlockedPrompt(true);
+      setTimeout(() => setShowBlockedPrompt(false), 2500);
+      return;
+    }
     onTap();
     sfxTap();
 
