@@ -43,10 +43,12 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>('upgrades');
   const [showTutorial, setShowTutorial] = useState(() => !hasSeenTutorial());
   const [showCrewHint, setShowCrewHint] = useState(false);
+  const [showUpgradeHint, setShowUpgradeHint] = useState(false);
   const [showMilestone, setShowMilestone] = useState(false);
   const [forceCrewTab, setForceCrewTab] = useState(false);
+  const [forceUpgradeTab, setForceUpgradeTab] = useState(false);
   const crewHintShownRef = useRef(hasSeenCrewHint());
-  const milestoneShownRef = useRef(hasSeenMilestone());
+  const upgradeHintShownRef = useRef(hasSeenUpgradeHint());
   const [showPrestigeMystery, setShowPrestigeMystery] = useState(false);
   const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
