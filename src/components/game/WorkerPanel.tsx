@@ -9,9 +9,10 @@ interface Props {
   currency: number;
   onBuy: (id: string) => void;
   getCost: (worker: Worker) => number;
+  highlightFirst?: boolean;
 }
 
-export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props) {
+export default function WorkerPanel({ workers, currency, onBuy, getCost, highlightFirst }: Props) {
   // Find first worker with 0 quantity — that's the next to unlock
   const nextUnlockedIdx = workers.findIndex(w => w.quantity === 0);
 
