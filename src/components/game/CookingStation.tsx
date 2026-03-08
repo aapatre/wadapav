@@ -214,6 +214,25 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
           </motion.div>
         ))}
       </AnimatePresence>
+
+      {/* Blocked prompt — hire crew first */}
+      <AnimatePresence>
+        {showBlockedPrompt && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 10 }}
+            className="absolute top-1/3 left-1/2 -translate-x-1/2 z-40 bg-card/95 backdrop-blur-sm border-2 border-primary/60 px-4 py-3 text-center max-w-[250px] shadow-[0_0_16px_hsl(var(--primary)/0.3)]"
+          >
+            <p className="font-display text-[8px] text-primary tracking-wide mb-1">
+              HIRE YOUR CREW FIRST! 👥
+            </p>
+            <p className="font-body text-[10px] text-foreground/80 leading-relaxed">
+              More customers are coming! Head to the <span className="font-bold text-primary">Crew tab</span> and hire a <span className="font-bold text-coin">Potato Masher</span> to keep up with demand.
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.button>
   );
 }
