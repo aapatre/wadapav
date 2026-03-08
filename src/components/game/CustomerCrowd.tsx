@@ -139,7 +139,7 @@ export default function CustomerCrowd() {
       id,
       fromLeft,
       shade: SHADES[Math.floor(Math.random() * SHADES.length)],
-      height: 28 + Math.random() * 12, // 28-40px
+      height: 75 + Math.random() * 30, // 75-105px (~2.7x of old 28-40)
       delay: 0,
       stayDuration: 2000 + Math.random() * 3000,
       offsetX: (Math.random() - 0.5) * 60, // spread around center
