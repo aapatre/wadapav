@@ -110,29 +110,29 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="w-full max-w-sm text-center space-y-6"
+          className="w-full max-w-sm text-center space-y-8"
         >
           {/* Big pixel title */}
           <motion.div
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <div className="text-5xl mb-3">🟠</div>
-            <h1 className="font-display font-extrabold text-lg text-primary tracking-widest drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            <div className="text-6xl mb-4">🟠</div>
+            <h1 className="font-display font-extrabold text-2xl text-primary tracking-[0.25em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
               WADA PAV
             </h1>
-            <h1 className="font-display font-extrabold text-lg text-coin tracking-widest drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            <h1 className="font-display font-extrabold text-2xl text-coin tracking-[0.25em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
               TYCOON
             </h1>
           </motion.div>
 
-          <p className="font-body text-xs text-muted-foreground italic">
+          <p className="font-body text-sm text-muted-foreground italic tracking-wide">
             Mumbai's street food empire awaits
           </p>
 
           <motion.button
             onClick={handleNext}
-            className="px-8 py-3 font-display font-bold text-[10px] bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-widest animate-pulse"
+            className="px-10 py-3.5 font-display font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-[0.2em] animate-pulse"
             whileTap={{ scale: 0.95 }}
           >
             TAP TO START
@@ -140,7 +140,7 @@ export default function WelcomeTutorial({ onComplete }: Props) {
 
           <button
             onClick={handleSkip}
-            className="block mx-auto text-[9px] font-body text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+            className="block mx-auto text-[10px] font-body text-muted-foreground/50 hover:text-muted-foreground transition-colors tracking-wide"
           >
             skip intro
           </button>
