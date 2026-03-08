@@ -88,7 +88,7 @@ const Index = () => {
       prestigeNudgeShownRef.current = true;
       setShowPrestigeNudge(true);
     }
-  }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker]);
+  }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker, canPrestige]);
 
   const currentLocation = locations[state.currentLocation];
 
