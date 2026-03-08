@@ -151,6 +151,7 @@ const Index = () => {
                 <PrestigePanel
                   canPrestige={canPrestige}
                   pointsAvailable={prestigePointsAvailable}
+                  prestigeCostRequired={prestigeCostRequired}
                   currentPoints={state.prestigePoints}
                   totalEarned={state.totalEarned}
                   totalPrestiges={state.totalPrestiges}

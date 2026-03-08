@@ -282,6 +282,7 @@ export function useGameState() {
     prestige,
     canPrestige,
     prestigePointsAvailable,
+    prestigeCostRequired,
     getWorkerCost,
     getUpgradeCost,
     locations: LOCATIONS,
