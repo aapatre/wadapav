@@ -259,9 +259,9 @@ export function UpgradeHintPrompt({ onComplete, onSwitchToUpgradeTab }: { onComp
         transition={{ duration: 0.3 }}
         className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
       >
-        <div className="text-4xl">🥔</div>
-        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
-          Upgrade Time! ⬆️
+        <PixelIcon id="masher" size={40} />
+        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide flex items-center justify-center gap-2">
+          Upgrade Time! <PixelIcon id="chart-up" size={18} />
         </h2>
         <p className="font-body text-xs text-foreground/80 leading-relaxed">
           Your potatoes need an upgrade! Buy <span className="font-bold text-coin">Better Potatoes</span> to earn more per tap and grow faster.
