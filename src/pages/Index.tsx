@@ -18,6 +18,7 @@ import {
 import PolicemanCharacter from '@/components/game/PolicemanCharacter';
 import BehindThePav, { hasSeenBehindThePav } from '@/components/game/BehindThePav';
 import ReminderNotification from '@/components/game/ReminderNotification';
+import FinalMapDialog, { hasSeenFinalMap, markFinalMapSeen } from '@/components/game/FinalMapDialog';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -63,6 +64,8 @@ const Index = () => {
   const prestigeNudgeShownRef = useRef(false);
   const [showBehindThePav, setShowBehindThePav] = useState(false);
   const behindThePavShownRef = useRef(hasSeenBehindThePav());
+  const [showFinalMap, setShowFinalMap] = useState(false);
+  const finalMapShownRef = useRef(hasSeenFinalMap());
   // 10-minute timer for Behind the Pav
   useEffect(() => {
     if (behindThePavShownRef.current) return;
@@ -143,7 +146,13 @@ const Index = () => {
       behindThePavShownRef.current = true;
       setTimeout(() => setShowBehindThePav(true), 1500); // slight delay after prestige animation
     }
-  }, [state.currency, state.totalEarned, state.totalPrestiges, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige]);
+    // Final map dialog — when reaching the last location (Mumbai Airport)
+    if (!finalMapShownRef.current && state.currentLocation === locations.length - 1) {
+      finalMapShownRef.current = true;
+      markFinalMapSeen();
+      setTimeout(() => setShowFinalMap(true), 1000);
+    }
+  }, [state.currency, state.totalEarned, state.totalPrestiges, state.currentLocation, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige, locations.length]);
 
   const currentLocation = locations[state.currentLocation];
 
@@ -497,6 +506,9 @@ const Index = () => {
 
       {/* Policeman random appearance */}
       <PolicemanCharacter currency={state.currency} />
+
+      {/* Final map congratulations dialog */}
+      <FinalMapDialog open={showFinalMap} onClose={() => setShowFinalMap(false)} />
     </div>
   );
 };
