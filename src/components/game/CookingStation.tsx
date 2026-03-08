@@ -76,36 +76,24 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
         )}
       </AnimatePresence>
 
-      {/* Cart scene - the stall owner */}
+      {/* Cart scene - tap target */}
       <div className="relative">
-        <motion.div
-          animate={isPressed ? { y: -2 } : { y: 0 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 20 }}
-        >
-          <img
-            src={cartScene}
-            alt="Wada Pav Cart"
-            className="w-56 h-auto object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)] pointer-events-none"
-            draggable={false}
-          />
-        </motion.div>
-
-        {/* Tap target - wada pav on the cart */}
         <motion.button
           onMouseDown={handleTap}
           onTouchStart={handleTap}
-          whileTap={{ scale: 0.88 }}
-          className="absolute -top-4 left-1/2 -translate-x-1/2 cursor-pointer select-none z-10"
+          whileTap={{ scale: 0.95 }}
+          className="cursor-pointer select-none z-10 relative"
           style={{
             filter: isPressed ? 'brightness(1.4) drop-shadow(0 0 12px hsl(var(--coin-gold)))' : 'brightness(1)',
           }}
         >
           <motion.img
-            src={wadapavImg}
-            alt="Tap to cook!"
-            className="w-24 h-24 object-contain pointer-events-none"
+            src={cartScene}
+            alt="Wada Pav Cart - Tap to cook!"
+            className="w-56 h-auto object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)] pointer-events-none"
+            style={{ imageRendering: 'pixelated' }}
             draggable={false}
-            animate={isPressed ? { rotate: [0, -8, 8, -4, 0] } : {}}
+            animate={isPressed ? { rotate: [0, -2, 2, -1, 0] } : {}}
             transition={{ duration: 0.3 }}
           />
           {/* Sizzle particles */}
