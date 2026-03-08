@@ -265,14 +265,14 @@ const Index = () => {
                 if (!isLocked) setActiveTab(tab.key);
               }}
               className={`flex-1 py-2 text-[7px] font-display transition-all flex items-center justify-center gap-1.5 relative ${
-                isLocked
+                isLocked || isPrestigeLocked
                   ? 'text-muted-foreground/30 cursor-not-allowed'
                   : activeTab === tab.key
                     ? 'text-primary bg-background/50'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
               }`}
             >
-              <PixelIcon id={tab.iconId} size={16} />
+              {isPrestigeLocked ? <span className="text-[10px]">🔮</span> : <PixelIcon id={tab.iconId} size={16} />}
               {tab.label}
               {/* Affordability notification dot */}
               {!isLocked && activeTab !== tab.key && tabHasAffordable[tab.key] && (
