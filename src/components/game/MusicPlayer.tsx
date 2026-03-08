@@ -148,6 +148,24 @@ const MusicPlayer = () => {
               />
             </div>
 
+            {/* SFX toggle */}
+            <div className="flex items-center gap-2 mt-2">
+              <button
+                onClick={() => {
+                  const next = !getSfxMuted();
+                  setSfxMuted(next);
+                  setSfxOff(next);
+                }}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Toggle SFX"
+              >
+                {sfxOff ? <ZapOff size={14} /> : <Zap size={14} />}
+              </button>
+              <span className="text-[9px] font-body text-muted-foreground">
+                SFX {sfxOff ? 'OFF' : 'ON'}
+              </span>
+            </div>
+
             {/* Credit */}
             <div className="mt-2 pt-1.5 border-t border-border/30">
               <a
