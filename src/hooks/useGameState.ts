@@ -289,31 +289,27 @@ export function useGameState() {
   }, []);
 
   const resetGame = useCallback(() => {
-    localStorage.removeItem(SAVE_KEY);
-    localStorage.removeItem('wadapav-thief-tutorial-seen');
-    localStorage.removeItem('wadapav-crew-hint');
-    localStorage.removeItem('wadapav-tutorial');
-    localStorage.removeItem('wadapav-prestige-unlock');
-    localStorage.removeItem('wadapav-prestige-nudge');
-    localStorage.removeItem('wadapav-milestone');
-    localStorage.removeItem('wadapav_upgrade_hint_done');
-    setState({
-      currency: 0,
-      totalEarned: 0,
-      totalProduced: 0,
-      tapPower: 10,
-      tapMultiplier: 1,
-      productionPerSecond: 0,
-      prestigePoints: 0,
-      prestigeMultiplier: 1,
-      totalPrestiges: 0,
-      currentLocation: 0,
-      workers: INITIAL_WORKERS.map(w => ({ ...w })),
-      upgrades: INITIAL_UPGRADES.map(u => ({ ...u })),
-      lastSaved: Date.now(),
-      comboCount: 0,
-      lastTapTime: 0,
-    });
+    // Clear all game-related localStorage keys
+    const keysToRemove = [
+      SAVE_KEY,
+      'wadapav-thief-tutorial-seen',
+      'wadapav-crew-hint',
+      'wadapav-tutorial',
+      'wadapav-prestige-unlock',
+      'wadapav-prestige-nudge',
+      'wadapav-milestone',
+      'wadapav_upgrade_hint_done',
+      'wadapav-music-muted',
+      'wadapav-music-volume',
+      'wadapav-sfx-muted',
+    ];
+    keysToRemove.forEach(k => localStorage.removeItem(k));
+
+    // Clear IndexedDB audio cache
+    try { indexedDB.deleteDatabase('wadapav-audio'); } catch {}
+
+    // Hard reload for a truly fresh start
+    window.location.reload();
   }, []);
 
   const nextLocation = Math.min(LOCATIONS.length - 1, state.currentLocation + 1);
