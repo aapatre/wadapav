@@ -18,22 +18,6 @@ import carnival from '@/assets/icons/carnival.png';
 import airport from '@/assets/icons/airport.png';
 import star from '@/assets/icons/star.png';
 import gear from '@/assets/icons/gear.png';
-import tapFinger from '@/assets/icons/tap-finger.png';
-import fire from '@/assets/icons/fire.png';
-import crew from '@/assets/icons/crew.png';
-import crystalBall from '@/assets/icons/crystal-ball.png';
-import party from '@/assets/icons/party.png';
-import rocket from '@/assets/icons/rocket.png';
-import lightning from '@/assets/icons/lightning.png';
-import chartUp from '@/assets/icons/chart-up.png';
-import heart from '@/assets/icons/heart.png';
-import city from '@/assets/icons/city.png';
-import burger from '@/assets/icons/burger.png';
-import gift from '@/assets/icons/gift.png';
-import coolFace from '@/assets/icons/cool-face.png';
-import moneyBag from '@/assets/icons/money-bag.png';
-import muscle from '@/assets/icons/muscle.png';
-import handshake from '@/assets/icons/handshake.png';
 
 export const ICON_MAP: Record<string, string> = {
   // Workers
@@ -60,23 +44,6 @@ export const ICON_MAP: Record<string, string> = {
   // UI
   star: star,
   gear: gear,
-  // Emoji replacements
-  'tap-finger': tapFinger,
-  fire: fire,
-  crew: crew,
-  'crystal-ball': crystalBall,
-  party: party,
-  rocket: rocket,
-  lightning: lightning,
-  'chart-up': chartUp,
-  heart: heart,
-  city: city,
-  burger: burger,
-  gift: gift,
-  'cool-face': coolFace,
-  'money-bag': moneyBag,
-  muscle: muscle,
-  handshake: handshake,
 };
 
 interface PixelIconProps {

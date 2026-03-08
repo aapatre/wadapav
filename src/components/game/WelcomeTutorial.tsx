@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
-import PixelIcon from './PixelIcon';
 
 interface Props {
   onComplete: () => void;
@@ -11,42 +10,37 @@ const STEPS = [
   {
     title: 'WADA PAV TYCOON',
     text: '',
-    iconId: '',
+    emoji: '🟠',
     type: 'splash' as const,
   },
   {
-    title: 'The Wada Pav',
-    titleIcon: 'burger',
+    title: 'The Wada Pav 🍔',
     text: 'A crispy fried potato dumpling, stuffed inside a soft pav bun, slathered with spicy chutneys and a fried green chilli on the side. Simple. Deadly. Addictive.',
-    iconId: 'masher',
+    emoji: '🥔',
     type: 'story' as const,
   },
   {
-    title: 'Mumbai\'s Soul Food',
-    titleIcon: 'city',
+    title: 'Mumbai\'s Soul Food 🏙️',
     text: 'From CST station to Juhu beach, wada pav is Mumbai\'s great equaliser — ₹15 feeds a billionaire and a taxi driver the same joy. It\'s not just food, it\'s the heartbeat of the city.',
-    iconId: 'heart',
+    emoji: '❤️',
     type: 'story' as const,
   },
   {
-    title: 'Your Empire Begins',
-    titleIcon: 'fire',
+    title: 'Your Empire Begins 🔥',
     text: 'You just bought a small cart near CST station. One tawa, one dream. Can you build Mumbai\'s greatest wada pav empire? Let\'s find out, boss!',
-    iconId: 'loc0',
+    emoji: '🛒',
     type: 'story' as const,
   },
   {
-    title: 'Tap to Cook!',
-    titleIcon: 'tap-finger',
+    title: 'Tap to Cook! 👆',
     text: 'Tap the cart to fry wada pavs and earn ₹ rupees. The faster you tap, the bigger your combo multiplier!',
-    iconId: 'lightning',
+    emoji: '⚡',
     type: 'tutorial' as const,
   },
   {
-    title: 'Grow Your Business',
-    titleIcon: 'chart-up',
+    title: 'Grow Your Business 📈',
     text: 'Buy upgrades to boost earnings, hire crew to automate production, and prestige to unlock new Mumbai locations with bigger multipliers!',
-    iconId: 'rocket',
+    emoji: '🚀',
     type: 'tutorial' as const,
   },
 ];
@@ -159,10 +153,9 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           transition={{ duration: 0.3 }}
           className="w-full max-w-sm bg-card border-2 border-primary/50 p-6 text-center space-y-5"
         >
-          <PixelIcon id={current.iconId} size={48} />
-          <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em] flex items-center justify-center gap-2">
+          <div className="text-5xl">{current.emoji}</div>
+          <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em]">
             {current.title}
-            {'titleIcon' in current && current.titleIcon && <PixelIcon id={current.titleIcon as string} size={20} />}
           </h2>
           <p className="font-body text-sm text-foreground/80 leading-relaxed tracking-wide">
             {current.text}
@@ -191,7 +184,7 @@ export default function WelcomeTutorial({ onComplete }: Props) {
               onClick={handleNext}
               className="flex-1 py-2.5 text-xs font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-wider"
             >
-              {isLast ? <span className="flex items-center gap-1">LET'S COOK! <PixelIcon id="fire" size={12} /></span> : 'NEXT →'}
+              {isLast ? 'LET\'S COOK! 🔥' : 'NEXT →'}
             </button>
           </div>
         </motion.div>
@@ -220,9 +213,9 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
         transition={{ duration: 0.3 }}
         className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
       >
-        <PixelIcon id="handshake" size={40} />
-        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide flex items-center justify-center gap-2">
-          Time to Hire! <PixelIcon id="crew" size={18} />
+        <div className="text-4xl">🤝</div>
+        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
+          Time to Hire! 👥
         </h2>
         <p className="font-body text-xs text-foreground/80 leading-relaxed">
           You need a <span className="font-bold text-coin">Potato Masher</span> to keep up with demand! Head to the Crew tab and hire one to continue your wada pav empire.
@@ -259,9 +252,9 @@ export function UpgradeHintPrompt({ onComplete, onSwitchToUpgradeTab }: { onComp
         transition={{ duration: 0.3 }}
         className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
       >
-        <PixelIcon id="masher" size={40} />
-        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide flex items-center justify-center gap-2">
-          Upgrade Time! <PixelIcon id="chart-up" size={18} />
+        <div className="text-4xl">🥔</div>
+        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
+          Upgrade Time! ⬆️
         </h2>
         <p className="font-body text-xs text-foreground/80 leading-relaxed">
           Your potatoes need an upgrade! Buy <span className="font-bold text-coin">Better Potatoes</span> to earn more per tap and grow faster.

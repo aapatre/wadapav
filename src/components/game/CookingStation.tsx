@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
 import CustomerCrowd from './CustomerCrowd';
 import ThiefCharacter from './ThiefCharacter';
-import PixelIcon from './PixelIcon';
 import { formatCurrency } from '@/hooks/useGameState';
 import { sfxTap, sfxComboStart, sfxComboUp } from '@/hooks/useSfx';
 
@@ -98,9 +97,9 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="absolute top-2 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground font-display font-bold text-[8px] px-3 py-1 z-20 pixel-border-primary animate-blink flex items-center gap-1"
+            className="absolute top-2 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground font-display font-bold text-[8px] px-3 py-1 z-20 pixel-border-primary animate-blink"
           >
-            <PixelIcon id="fire" size={12} /> COMBO x{comboCount}! {comboCount >= 100 ? '2x' : comboCount >= 50 ? '1.8x' : '1.2x'} <PixelIcon id="fire" size={12} />
+            🔥 COMBO x{comboCount}! {comboCount >= 100 ? '2x' : comboCount >= 50 ? '1.8x' : '1.2x'} 🔥
           </motion.div>
         )}
       </AnimatePresence>
@@ -121,8 +120,9 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             <motion.div
               animate={{ y: [0, 10, 0], scale: [1, 1.15, 1] }}
               transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+              className="text-4xl"
             >
-              <PixelIcon id="tap-finger" size={48} />
+              👆
             </motion.div>
             <motion.span
               animate={{ opacity: [0.5, 1, 0.5] }}
