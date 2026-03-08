@@ -22,12 +22,12 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
       style={{
         width: height * 0.45,
         height,
-        filter: 'url(#pixelate)',
+        imageRendering: 'pixelated',
       }}
     >
       {/* Head */}
       <div
-        className="absolute rounded-full"
+        className="absolute"
         style={{
           width: height * 0.22,
           height: height * 0.22,
@@ -35,6 +35,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           left: '50%',
           transform: 'translateX(-50%)',
           backgroundColor: shade,
+          borderRadius: '2px',
         }}
       />
       {/* Body */}
@@ -47,7 +48,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           left: '50%',
           transform: 'translateX(-50%)',
           backgroundColor: shade,
-          borderRadius: '3px 3px 0 0',
+          borderRadius: '2px 2px 0 0',
         }}
       />
       {/* Left leg */}
@@ -61,6 +62,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           backgroundColor: shade,
           borderRadius: '0 0 2px 2px',
           transformOrigin: 'top center',
+          willChange: walking ? 'transform' : 'auto',
         }}
         animate={walking ? { rotate: [15, -15, 15] } : { rotate: 0 }}
         transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
@@ -76,6 +78,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           backgroundColor: shade,
           borderRadius: '0 0 2px 2px',
           transformOrigin: 'top center',
+          willChange: walking ? 'transform' : 'auto',
         }}
         animate={walking ? { rotate: [-15, 15, -15] } : { rotate: 0 }}
         transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
@@ -91,6 +94,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           backgroundColor: shade,
           borderRadius: '2px',
           transformOrigin: 'top center',
+          willChange: walking ? 'transform' : 'auto',
         }}
         animate={walking ? { rotate: [-20, 20, -20] } : { rotate: 0 }}
         transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
@@ -106,6 +110,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           backgroundColor: shade,
           borderRadius: '2px',
           transformOrigin: 'top center',
+          willChange: walking ? 'transform' : 'auto',
         }}
         animate={walking ? { rotate: [20, -20, 20] } : { rotate: 0 }}
         transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
@@ -179,20 +184,7 @@ export default function CustomerCrowd() {
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {/* SVG pixelation filter */}
-      <svg className="absolute w-0 h-0">
-        <defs>
-          <filter id="pixelate">
-            <feFlood x="0" y="0" height="2" width="2" />
-            <feComposite width="5" height="5" />
-            <feTile result="a" />
-            <feComposite in="SourceGraphic" in2="a" operator="in" />
-            <feMorphology operator="dilate" radius="2.5" />
-          </filter>
-        </defs>
-      </svg>
-
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {customers.map(c => {
           const phase = phases[c.id] || 'entering';
           const enterX = c.fromLeft ? -200 : 200;
@@ -206,17 +198,14 @@ export default function CustomerCrowd() {
               style={{
                 bottom: 44,
                 left: '50%',
-                opacity: 0.7,
+                willChange: 'transform, opacity',
               }}
               initial={{ x: enterX, opacity: 0 }}
-              animate={
-                phase === 'entering'
-                  ? { x: standX, opacity: 0.7 }
-                  : phase === 'standing'
-                  ? { x: standX, opacity: 0.7 }
-                  : { x: leaveX, opacity: 0 }
-              }
-              exit={{ opacity: 0 }}
+              animate={{
+                x: phase === 'leaving' ? leaveX : standX,
+                opacity: phase === 'leaving' ? 0 : 0.7,
+              }}
+              exit={{ opacity: 0, transition: { duration: 0.3 } }}
               transition={{ duration: 3.75, ease: 'easeInOut' }}
             >
               <CustomerSprite
