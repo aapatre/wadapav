@@ -285,6 +285,30 @@ export function useGameState() {
     }));
   }, []);
 
+  const resetGame = useCallback(() => {
+    localStorage.removeItem(SAVE_KEY);
+    localStorage.removeItem('wadapav-thief-tutorial-seen');
+    localStorage.removeItem('wadapav-crew-hint');
+    localStorage.removeItem('wadapav-tutorial');
+    setState({
+      currency: 0,
+      totalEarned: 0,
+      totalProduced: 0,
+      tapPower: 10,
+      tapMultiplier: 1,
+      productionPerSecond: 0,
+      prestigePoints: 0,
+      prestigeMultiplier: 1,
+      totalPrestiges: 0,
+      currentLocation: 0,
+      workers: INITIAL_WORKERS.map(w => ({ ...w })),
+      upgrades: INITIAL_UPGRADES.map(u => ({ ...u })),
+      lastSaved: Date.now(),
+      comboCount: 0,
+      lastTapTime: 0,
+    });
+  }, []);
+
   const nextLocation = Math.min(LOCATIONS.length - 1, state.currentLocation + 1);
   const prestigeCostRequired = LOCATIONS[nextLocation].prestigeCost;
   const canPrestige = state.currentLocation < LOCATIONS.length - 1 && state.totalEarned >= prestigeCostRequired;
@@ -297,6 +321,7 @@ export function useGameState() {
     buyUpgrade,
     prestige,
     stealCurrency,
+    resetGame,
     canPrestige,
     prestigePointsAvailable,
     prestigeCostRequired,
