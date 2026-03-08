@@ -6,6 +6,7 @@ import heartIcon from '@/assets/icons/heart.png';
 import crownIcon from '@/assets/icons/crown.png';
 import tawaFireIcon from '@/assets/icons/tawa-fire.png';
 import growthIcon from '@/assets/icons/growth.png';
+import handshakeIcon from '@/assets/icons/handshake.png';
 
 interface Props {
   onComplete: () => void;
