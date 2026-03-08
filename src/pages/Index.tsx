@@ -144,6 +144,23 @@ const Index = () => {
         )}
       </AnimatePresence>
 
+      {/* Prestige mystery prompt (tapped locked tab) */}
+      <AnimatePresence>
+        {showPrestigeMystery && (
+          <PrestigeMysteryPrompt onClose={() => setShowPrestigeMystery(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* Prestige unlock explanation at 100k */}
+      <AnimatePresence>
+        {showPrestigeUnlock && (
+          <PrestigeUnlockPrompt
+            onClose={() => setShowPrestigeUnlock(false)}
+            onSwitchTab={() => setActiveTab('prestige')}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
         style={{
