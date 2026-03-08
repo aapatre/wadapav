@@ -293,8 +293,8 @@ export function useGameState() {
     const keysToRemove = [
       SAVE_KEY,
       'wadapav-thief-tutorial-seen',
-      'wadapav-crew-hint',
-      'wadapav-tutorial',
+      'wadapav_crew_hint_done',
+      'wadapav_tutorial_done',
       'wadapav-prestige-unlock',
       'wadapav-prestige-nudge',
       'wadapav-milestone',
