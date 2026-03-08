@@ -269,7 +269,9 @@ export function useGameState() {
     });
   }, []);
 
-  const canPrestige = state.totalEarned >= 1_000_000;
+  const nextLocation = Math.min(LOCATIONS.length - 1, state.currentLocation + 1);
+  const prestigeCostRequired = LOCATIONS[nextLocation].prestigeCost;
+  const canPrestige = state.currentLocation < LOCATIONS.length - 1 && state.totalEarned >= prestigeCostRequired;
   const prestigePointsAvailable = Math.floor(state.totalEarned / 1_000_000);
 
   return {
