@@ -14,7 +14,6 @@ import MilestonePrompt, { hasSeenMilestone, markMilestoneSeen } from '@/componen
 import {
   PrestigeMysteryPrompt, PrestigeUnlockPrompt, PrestigeNudgeBanner,
   hasSeenPrestigeUnlock, markPrestigeUnlockSeen,
-  hasSeenPrestigeNudge, markPrestigeNudgeSeen,
 } from '@/components/game/PrestigeUnlockPrompts';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
@@ -52,7 +51,7 @@ const Index = () => {
   const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
   const prestigeUnlockShownRef = useRef(hasSeenPrestigeUnlock());
-  const prestigeNudgeShownRef = useRef(hasSeenPrestigeNudge());
+  const prestigeNudgeShownRef = useRef(false); // resets each session, triggers per-location
   const prestigeTabUnlocked = state.currentLocation > 0 || state.totalEarned >= 100_000;
 
   // Show crew hint when player can afford first worker (₹500)
@@ -83,13 +82,12 @@ const Index = () => {
       markPrestigeUnlockSeen();
       setShowPrestigeUnlock(true);
     }
-    // 1M prestige nudge
-    if (!prestigeNudgeShownRef.current && !showTutorial && state.totalEarned >= 1_000_000) {
+    // Prestige nudge — when player can prestige at current location
+    if (!prestigeNudgeShownRef.current && !showTutorial && canPrestige) {
       prestigeNudgeShownRef.current = true;
-      markPrestigeNudgeSeen();
       setShowPrestigeNudge(true);
     }
-  }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker]);
+  }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker, canPrestige]);
 
   const currentLocation = locations[state.currentLocation];
 
@@ -200,6 +198,8 @@ const Index = () => {
             <PrestigeNudgeBanner
               onDismiss={() => setShowPrestigeNudge(false)}
               onGoToPrestige={() => { setActiveTab('prestige'); setShowPrestigeNudge(false); }}
+              totalEarned={state.totalEarned}
+              prestigeCost={prestigeCostRequired}
             />
           )}
         </AnimatePresence>
