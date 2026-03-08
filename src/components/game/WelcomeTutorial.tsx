@@ -153,38 +153,38 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -40 }}
           transition={{ duration: 0.3 }}
-          className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
+          className="w-full max-w-sm bg-card border-2 border-primary/50 p-6 text-center space-y-5"
         >
-          <div className="text-4xl">{current.emoji}</div>
-          <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
+          <div className="text-5xl">{current.emoji}</div>
+          <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em]">
             {current.title}
           </h2>
-          <p className="font-body text-xs text-foreground/80 leading-relaxed">
+          <p className="font-body text-sm text-foreground/80 leading-relaxed tracking-wide">
             {current.text}
           </p>
 
           {/* Step dots */}
-          <div className="flex items-center justify-center gap-1.5 pt-1">
+          <div className="flex items-center justify-center gap-2 pt-1">
             {STEPS.map((_, i) => (
               <div
                 key={i}
-                className={`w-2 h-2 transition-all ${
+                className={`w-2.5 h-2.5 transition-all ${
                   i === step ? 'bg-primary scale-110' : i < step ? 'bg-primary/40' : 'bg-muted-foreground/30'
                 }`}
               />
             ))}
           </div>
 
-          <div className="flex items-center gap-2 pt-1">
+          <div className="flex items-center gap-3 pt-1">
             <button
               onClick={handleSkip}
-              className="flex-1 py-2 text-[10px] font-display text-muted-foreground hover:text-foreground transition-colors"
+              className="flex-1 py-2.5 text-xs font-display text-muted-foreground hover:text-foreground transition-colors tracking-wider"
             >
               SKIP
             </button>
             <button
               onClick={handleNext}
-              className="flex-1 py-2 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+              className="flex-1 py-2.5 text-xs font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-wider"
             >
               {isLast ? 'LET\'S COOK! 🔥' : 'NEXT →'}
             </button>
