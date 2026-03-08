@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
 import potatoIcon from '@/assets/icons/potato.png';
+import wadapavChiliIcon from '@/assets/icons/wadapav-chili.png';
 import heartIcon from '@/assets/icons/heart.png';
 import crownIcon from '@/assets/icons/crown.png';
 import tawaFireIcon from '@/assets/icons/tawa-fire.png';
@@ -22,7 +23,7 @@ const STEPS = [
   {
     title: 'The Wada Pav',
     text: 'A crispy fried potato dumpling, stuffed inside a soft pav bun, slathered with spicy chutneys and a fried green chilli on the side. Simple. Deadly. Addictive.',
-    icon: potatoIcon,
+    icon: wadapavChiliIcon,
     type: 'story' as const,
   },
   {
@@ -160,7 +161,7 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           className="w-full max-w-sm bg-card border-2 border-primary/50 p-6 text-center space-y-5"
         >
           {current.icon && (
-            <img src={current.icon} alt={current.title} className="w-16 h-16 mx-auto object-contain [image-rendering:pixelated]" draggable={false} />
+            <img src={current.icon} alt={current.title} className={`mx-auto object-contain [image-rendering:pixelated] ${current.icon === wadapavChiliIcon ? 'w-28 h-28' : 'w-16 h-16'}`} draggable={false} />
           )}
           <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em]">
             {current.title}
