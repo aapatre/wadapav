@@ -59,7 +59,9 @@ const Index = () => {
   const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
   const prestigeUnlockShownRef = useRef(hasSeenPrestigeUnlock());
-  const prestigeNudgeShownRef = useRef(false); // resets each session, triggers per-location
+  const prestigeNudgeShownRef = useRef(false);
+  const [showBehindThePav, setShowBehindThePav] = useState(false);
+  const behindThePavShownRef = useRef(hasSeenBehindThePav());
   const prestigeTabUnlocked = state.currentLocation > 0 || state.totalEarned >= 100_000;
 
   // Show upgrade hint when player can afford first upgrade (₹100)
