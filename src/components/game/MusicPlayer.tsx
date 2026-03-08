@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import * as Tone from 'tone';
 import { Midi } from '@tonejs/midi';
 import { Volume2, VolumeX, Zap, ZapOff } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -9,8 +8,28 @@ import { getSfxMuted, setSfxMuted } from '@/hooks/useSfx';
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 
+// Convert MIDI note name to frequency
+function noteToFreq(name: string): number {
+  const notes: Record<string, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+  const match = name.match(/^([A-G])(#|b)?(\d+)$/);
+  if (!match) return 440;
+  let semitone = notes[match[1]];
+  if (match[2] === '#') semitone++;
+  if (match[2] === 'b') semitone--;
+  const octave = parseInt(match[3]);
+  const midi = semitone + 12 * (octave + 1);
+  return 440 * Math.pow(2, (midi - 69) / 12);
+}
+
+interface ScheduledNote {
+  time: number;
+  freq: number;
+  duration: number;
+  velocity: number;
+}
+
 const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
-  const [sfxOff, setSfxOff] = useState(() => getSfxMuted());
+  const [sfxOff, setSfxOffState] = useState(() => getSfxMuted());
   const [confirmReset, setConfirmReset] = useState(false);
   const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(() => {
@@ -22,10 +41,19 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
     return saved ? parseFloat(saved) : 0.5;
   });
   const [started, setStarted] = useState(false);
-  const synthRef = useRef<Tone.PolySynth | null>(null);
-  const partsRef = useRef<Tone.Part[]>([]);
-  const midiRef = useRef<Midi | null>(null);
+
+  const audioCtxRef = useRef<AudioContext | null>(null);
+  const gainRef = useRef<GainNode | null>(null);
+  const notesRef = useRef<ScheduledNote[]>([]);
+  const durationRef = useRef(0);
+  const loopTimerRef = useRef<number | null>(null);
+  const activeOscsRef = useRef<OscillatorNode[]>([]);
   const panelRef = useRef<HTMLDivElement>(null);
+  const mutedRef = useRef(muted);
+  const volumeRef = useRef(volume);
+
+  mutedRef.current = muted;
+  volumeRef.current = volume;
 
   // Close on outside click
   useEffect(() => {
@@ -43,57 +71,91 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
   useEffect(() => {
     fetch(MIDI_URL)
       .then(r => r.arrayBuffer())
-      .then(buf => { midiRef.current = new Midi(buf); })
+      .then(buf => {
+        const midi = new Midi(buf);
+        const allNotes: ScheduledNote[] = [];
+        midi.tracks.forEach(track => {
+          track.notes.forEach(n => {
+            allNotes.push({
+              time: n.time,
+              freq: noteToFreq(n.name),
+              duration: n.duration,
+              velocity: n.velocity,
+            });
+          });
+        });
+        allNotes.sort((a, b) => a.time - b.time);
+        notesRef.current = allNotes;
+        durationRef.current = midi.duration;
+      })
       .catch(console.error);
+
     return () => {
-      partsRef.current.forEach(p => p.dispose());
-      synthRef.current?.dispose();
+      if (loopTimerRef.current) clearTimeout(loopTimerRef.current);
+      activeOscsRef.current.forEach(o => { try { o.stop(); } catch {} });
     };
   }, []);
 
   // Sync volume
   useEffect(() => {
-    if (synthRef.current) {
-      synthRef.current.volume.value = muted ? -Infinity : Tone.gainToDb(volume);
+    if (gainRef.current) {
+      gainRef.current.gain.value = muted ? 0 : volume * 0.15;
     }
     localStorage.setItem('wadapav-music-muted', String(muted));
     localStorage.setItem('wadapav-music-volume', String(volume));
   }, [volume, muted]);
 
-  const startMusic = useCallback(async () => {
-    if (started || !midiRef.current) return;
-    await Tone.start();
+  const scheduleLoop = useCallback(() => {
+    const ctx = audioCtxRef.current;
+    const gain = gainRef.current;
+    if (!ctx || !gain || notesRef.current.length === 0) return;
 
-    const synth = new Tone.PolySynth(Tone.Synth, {
-      oscillator: { type: 'triangle' },
-      envelope: { attack: 0.02, decay: 0.1, sustain: 0.3, release: 0.4 },
-    }).toDestination();
-    synth.volume.value = muted ? -Infinity : Tone.gainToDb(volume);
-    synthRef.current = synth;
+    const now = ctx.currentTime + 0.1;
+    const dur = durationRef.current;
 
-    const midi = midiRef.current;
-    const duration = midi.duration;
+    notesRef.current.forEach(note => {
+      const osc = ctx.createOscillator();
+      osc.type = 'triangle';
+      osc.frequency.value = note.freq;
 
-    midi.tracks.forEach(track => {
-      const notes = track.notes.map(n => ({
-        time: n.time,
-        note: n.name,
-        duration: n.duration,
-        velocity: n.velocity,
-      }));
+      const noteGain = ctx.createGain();
+      noteGain.gain.value = note.velocity * 0.6;
+      // Envelope
+      const start = now + note.time;
+      noteGain.gain.setValueAtTime(0, start);
+      noteGain.gain.linearRampToValueAtTime(note.velocity * 0.6, start + 0.02);
+      noteGain.gain.setValueAtTime(note.velocity * 0.6, start + note.duration * 0.7);
+      noteGain.gain.linearRampToValueAtTime(0, start + note.duration);
 
-      const part = new Tone.Part((time, val) => {
-        synth.triggerAttackRelease(val.note, val.duration, time, val.velocity * 0.6);
-      }, notes);
-      part.loop = true;
-      part.loopEnd = duration;
-      part.start(0);
-      partsRef.current.push(part);
+      osc.connect(noteGain).connect(gain);
+      osc.start(start);
+      osc.stop(start + note.duration + 0.01);
+      activeOscsRef.current.push(osc);
+      osc.onended = () => {
+        activeOscsRef.current = activeOscsRef.current.filter(o => o !== osc);
+      };
     });
 
-    Tone.getTransport().start();
+    // Schedule next loop
+    loopTimerRef.current = window.setTimeout(() => {
+      scheduleLoop();
+    }, dur * 1000);
+  }, []);
+
+  const startMusic = useCallback(async () => {
+    if (started || notesRef.current.length === 0) return;
+
+    const ctx = new AudioContext();
+    audioCtxRef.current = ctx;
+
+    const gain = ctx.createGain();
+    gain.gain.value = mutedRef.current ? 0 : volumeRef.current * 0.15;
+    gain.connect(ctx.destination);
+    gainRef.current = gain;
+
+    scheduleLoop();
     setStarted(true);
-  }, [started, muted, volume]);
+  }, [started, scheduleLoop]);
 
   // Start on first user interaction
   useEffect(() => {
@@ -105,7 +167,6 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
 
   return (
     <div className="relative" ref={panelRef}>
-      {/* Gear button — no background, white icon with dark outline */}
       <button
         onClick={() => setOpen(o => !o)}
         className="p-1 hover:opacity-80 transition-opacity"
@@ -114,7 +175,6 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
         <PixelIcon id="gear" size={28} />
       </button>
 
-      {/* Dropdown panel */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -156,7 +216,7 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
                 onClick={() => {
                   const next = !getSfxMuted();
                   setSfxMuted(next);
-                  setSfxOff(next);
+                  setSfxOffState(next);
                 }}
                 className="text-muted-foreground hover:text-foreground transition-colors"
                 aria-label="Toggle SFX"
