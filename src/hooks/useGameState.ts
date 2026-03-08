@@ -302,6 +302,7 @@ export function useGameState() {
       'wadapav-music-muted',
       'wadapav-music-volume',
       'wadapav-sfx-muted',
+      'wadapav-behind-the-pav',
     ];
     keysToRemove.forEach(k => localStorage.removeItem(k));
 
