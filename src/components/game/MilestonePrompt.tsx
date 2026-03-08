@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import PixelIcon from './PixelIcon';
 
 const MILESTONE_KEY = 'wadapav-50k-milestone-seen';
 
