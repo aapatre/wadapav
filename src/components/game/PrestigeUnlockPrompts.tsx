@@ -81,8 +81,9 @@ export function PrestigeUnlockPrompt({ onClose, onSwitchTab }: { onClose: () => 
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 1, repeat: 2 }}
-          className="text-4xl"
-        >⭐</motion.div>
+        >
+          <PixelIcon id="star" size={40} />
+        </motion.div>
         <h2 className="font-display font-bold text-sm text-coin">PRESTIGE UNLOCKED!</h2>
         <p className="text-xs font-body text-foreground/90 leading-relaxed">
           You've proven yourself at CST Station! A new power is now available.
