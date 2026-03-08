@@ -29,7 +29,7 @@ type Tab = 'upgrades' | 'workers' | 'prestige';
 const Index = () => {
   const {
     state, tap, buyWorker, buyUpgrade, prestige,
-    canPrestige, prestigePointsAvailable,
+    canPrestige, prestigePointsAvailable, prestigeCostRequired,
     getWorkerCost, getUpgradeCost, locations, formatCurrency,
   } = useGameState();
   const [activeTab, setActiveTab] = useState<Tab>('upgrades');
@@ -151,6 +151,7 @@ const Index = () => {
                 <PrestigePanel
                   canPrestige={canPrestige}
                   pointsAvailable={prestigePointsAvailable}
+                  prestigeCostRequired={prestigeCostRequired}
                   currentPoints={state.prestigePoints}
                   totalEarned={state.totalEarned}
                   totalPrestiges={state.totalPrestiges}

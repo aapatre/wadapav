@@ -41,12 +41,12 @@ export interface GameState {
 }
 
 const LOCATIONS = [
-  { name: 'Dadar Station', multiplier: 1, icon: '[#]', bg: 'dadar-station' },
-  { name: 'CST/VT Station', multiplier: 1.5, icon: '[=]', bg: 'cst-station' },
-  { name: 'Juhu Beach', multiplier: 2, icon: '[~]', bg: 'juhu-beach' },
-  { name: 'BKC Business', multiplier: 3, icon: '[^]', bg: 'bkc-business' },
-  { name: 'Girgaon', multiplier: 5, icon: '[*]', bg: 'girgaon' },
-  { name: 'Mumbai Airport', multiplier: 10, icon: '[>]', bg: 'mumbai-airport' },
+  { name: 'Dadar Station', multiplier: 1, icon: '[#]', bg: 'dadar-station', prestigeCost: 0 },
+  { name: 'CST/VT Station', multiplier: 1.5, icon: '[=]', bg: 'cst-station', prestigeCost: 1_000_000 },
+  { name: 'Juhu Beach', multiplier: 2, icon: '[~]', bg: 'juhu-beach', prestigeCost: 5_000_000 },
+  { name: 'BKC Business', multiplier: 3, icon: '[^]', bg: 'bkc-business', prestigeCost: 25_000_000 },
+  { name: 'Girgaon', multiplier: 5, icon: '[*]', bg: 'girgaon', prestigeCost: 100_000_000 },
+  { name: 'Mumbai Airport', multiplier: 10, icon: '[>]', bg: 'mumbai-airport', prestigeCost: 500_000_000 },
 ];
 
 const INITIAL_WORKERS: Worker[] = [
@@ -241,15 +241,13 @@ export function useGameState() {
 
   const prestige = useCallback(() => {
     setState(prev => {
-      const pointsEarned = Math.floor(prev.totalEarned / 1_000_000);
-      if (pointsEarned <= 0) return prev;
+      const nextLocation = Math.min(LOCATIONS.length - 1, prev.currentLocation + 1);
+      const requiredEarnings = LOCATIONS[nextLocation].prestigeCost;
+      if (prev.totalEarned < requiredEarnings || requiredEarnings === 0) return prev;
 
+      const pointsEarned = Math.floor(prev.totalEarned / 1_000_000);
       const newPrestigePoints = prev.prestigePoints + pointsEarned;
       const newPrestigeMultiplier = 1 + newPrestigePoints * 0.1;
-      const newLocation = Math.min(
-        LOCATIONS.length - 1,
-        prev.totalPrestiges + 1
-      );
 
       return {
         currency: 0,
@@ -261,7 +259,7 @@ export function useGameState() {
         prestigePoints: newPrestigePoints,
         prestigeMultiplier: newPrestigeMultiplier,
         totalPrestiges: prev.totalPrestiges + 1,
-        currentLocation: newLocation,
+        currentLocation: nextLocation,
         workers: INITIAL_WORKERS.map(w => ({ ...w })),
         upgrades: INITIAL_UPGRADES.map(u => ({ ...u })),
         lastSaved: Date.now(),
@@ -271,7 +269,9 @@ export function useGameState() {
     });
   }, []);
 
-  const canPrestige = state.totalEarned >= 1_000_000;
+  const nextLocation = Math.min(LOCATIONS.length - 1, state.currentLocation + 1);
+  const prestigeCostRequired = LOCATIONS[nextLocation].prestigeCost;
+  const canPrestige = state.currentLocation < LOCATIONS.length - 1 && state.totalEarned >= prestigeCostRequired;
   const prestigePointsAvailable = Math.floor(state.totalEarned / 1_000_000);
 
   return {
@@ -282,6 +282,7 @@ export function useGameState() {
     prestige,
     canPrestige,
     prestigePointsAvailable,
+    prestigeCostRequired,
     getWorkerCost,
     getUpgradeCost,
     locations: LOCATIONS,

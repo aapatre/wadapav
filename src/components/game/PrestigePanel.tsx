@@ -5,17 +5,18 @@ import PixelIcon from './PixelIcon';
 interface Props {
   canPrestige: boolean;
   pointsAvailable: number;
+  prestigeCostRequired: number;
   currentPoints: number;
   totalEarned: number;
   totalPrestiges: number;
   prestigeMultiplier: number;
   onPrestige: () => void;
-  locations: { name: string; icon: string; multiplier: number }[];
+  locations: { name: string; icon: string; multiplier: number; prestigeCost: number }[];
   currentLocation: number;
 }
 
 export default function PrestigePanel({
-  canPrestige, pointsAvailable, currentPoints, totalEarned,
+  canPrestige, pointsAvailable, prestigeCostRequired, currentPoints, totalEarned,
   totalPrestiges, prestigeMultiplier, onPrestige, locations, currentLocation
 }: Props) {
   return (
@@ -55,7 +56,9 @@ export default function PrestigePanel({
 
         {!canPrestige && (
           <div className="text-center text-sm font-body text-muted-foreground py-2">
-            Earn 1M to unlock prestige...
+            {currentLocation >= locations.length - 1
+              ? 'Max location reached!'
+              : `Earn ${formatCurrency(prestigeCostRequired)} to prestige...`}
           </div>
         )}
       </div>
