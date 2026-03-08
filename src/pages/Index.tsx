@@ -300,19 +300,21 @@ const Index = () => {
               className="relative z-10 mx-3 mt-1"
             >
               <div className="bg-card/80 backdrop-blur-sm border border-secondary/50 px-3 py-1.5 flex items-center justify-center gap-2">
-                <motion.span
+                <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
-                  className="text-[10px] font-display text-secondary"
-                >🎁</motion.span>
+                >
+                  <PixelIcon id="gift" size={14} />
+                </motion.div>
                 <span className="text-[10px] font-body text-foreground/80">
                   Keep tapping! <span className="font-bold text-coin">{formatCurrency(firstWorkerCost)}</span> unlocks your first crew member!
                 </span>
-                <motion.span
+                <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                  className="text-[10px] font-display text-secondary"
-                >👥</motion.span>
+                >
+                  <PixelIcon id="crew" size={14} />
+                </motion.div>
               </div>
             </motion.div>
           )}
