@@ -238,21 +238,29 @@ const Index = () => {
           )}
         </AnimatePresence>
 
-          {/* Nudge: earn ₹500 for a surprise */}
+          {/* Nudge: earn ₹500 for a surprise — only after first upgrade bought */}
         <AnimatePresence>
-          {!showTutorial && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
+          {!showTutorial && hasFirstUpgrade && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               className="relative z-10 mx-3 mt-1"
             >
-              <div className="bg-card/80 backdrop-blur-sm border border-accent/50 px-3 py-1.5 flex items-center justify-center gap-2 animate-pulse">
-                <span className="text-[10px] font-display text-accent">🎁</span>
+              <div className="bg-card/80 backdrop-blur-sm border border-secondary/50 px-3 py-1.5 flex items-center justify-center gap-2">
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="text-[10px] font-display text-secondary"
+                >🎁</motion.span>
                 <span className="text-[10px] font-body text-foreground/80">
-                  Earn <span className="font-bold text-coin">₹500</span> to unlock a surprise!
+                  Keep tapping! <span className="font-bold text-coin">{formatCurrency(firstWorkerCost)}</span> unlocks your first crew member!
                 </span>
-                <span className="text-[10px] font-display text-accent">🎁</span>
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                  className="text-[10px] font-display text-secondary"
+                >👥</motion.span>
               </div>
             </motion.div>
           )}
