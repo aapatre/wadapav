@@ -85,7 +85,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
       </AnimatePresence>
 
       {/* Cart scene - positioned left and scaled up */}
-      <div className="relative -ml-4 mb-2">
+      <div className="relative -ml-8 mb-2">
         <motion.img
           src={cartScene}
           alt="Wada Pav Cart - Tap to cook!"
