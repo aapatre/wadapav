@@ -151,11 +151,11 @@ export default function CustomerCrowd() {
             delete next[id];
             return next;
           });
-        }, 1500);
+        }, 3750);
         timeoutsRef.current.push(t3);
       }, customer.stayDuration);
       timeoutsRef.current.push(t2);
-    }, 1500);
+    }, 3750);
     timeoutsRef.current.push(t1);
   }, []);
 
