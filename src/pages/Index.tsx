@@ -31,7 +31,7 @@ type Tab = 'upgrades' | 'workers' | 'prestige';
 
 const Index = () => {
   const {
-    state, tap, buyWorker, buyUpgrade, prestige,
+    state, tap, buyWorker, buyUpgrade, prestige, stealCurrency,
     canPrestige, prestigePointsAvailable, prestigeCostRequired,
     getWorkerCost, getUpgradeCost, locations, formatCurrency,
   } = useGameState();
