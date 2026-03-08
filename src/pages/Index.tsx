@@ -369,9 +369,11 @@ const Index = () => {
             >
               {isPrestigeLocked ? <span className="text-[10px]">🔮</span> : <PixelIcon id={tab.iconId} size={16} />}
               {tab.label}
-              {/* Affordability notification dot */}
+              {/* Affordability notification dot — pixel art style */}
               {!isLocked && activeTab !== tab.key && tabHasAffordable[tab.key] && (
-                <span className="absolute top-1 right-2 w-2 h-2 bg-chutney rounded-full animate-pulse" />
+                <span className={`absolute top-1 right-2 w-2 h-2 animate-pulse ${
+                  tab.key === 'prestige' ? 'bg-primary shadow-[0_0_4px_hsl(var(--primary))]' : 'bg-chutney shadow-[0_0_4px_hsl(var(--chutney))]'
+                }`} />
               )}
               {activeTab === tab.key && (
                 <motion.div
