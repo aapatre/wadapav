@@ -7,6 +7,7 @@ import UpgradePanel from '@/components/game/UpgradePanel';
 import WorkerPanel from '@/components/game/WorkerPanel';
 import PrestigePanel from '@/components/game/PrestigePanel';
 import PixelIcon from '@/components/game/PixelIcon';
+import WelcomeTutorial, { hasSeenTutorial } from '@/components/game/WelcomeTutorial';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -33,6 +34,7 @@ const Index = () => {
     getWorkerCost, getUpgradeCost, locations, formatCurrency,
   } = useGameState();
   const [activeTab, setActiveTab] = useState<Tab>('upgrades');
+  const [showTutorial, setShowTutorial] = useState(() => !hasSeenTutorial());
 
   const currentLocation = locations[state.currentLocation];
 
@@ -44,6 +46,16 @@ const Index = () => {
 
   return (
     <div className="h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden">
+      {/* Welcome tutorial for first-time players */}
+      <AnimatePresence>
+        {showTutorial && (
+          <WelcomeTutorial
+            onComplete={() => setShowTutorial(false)}
+            onSwitchToCrewTab={() => setActiveTab('workers')}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02]"
         style={{
