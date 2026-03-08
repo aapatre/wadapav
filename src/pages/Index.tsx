@@ -64,6 +64,8 @@ const Index = () => {
   const prestigeNudgeShownRef = useRef(false);
   const [showBehindThePav, setShowBehindThePav] = useState(false);
   const behindThePavShownRef = useRef(hasSeenBehindThePav());
+  const [showFinalMap, setShowFinalMap] = useState(false);
+  const finalMapShownRef = useRef(hasSeenFinalMap());
   // 10-minute timer for Behind the Pav
   useEffect(() => {
     if (behindThePavShownRef.current) return;
