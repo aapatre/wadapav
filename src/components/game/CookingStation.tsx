@@ -121,9 +121,8 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             <motion.div
               animate={{ y: [0, 10, 0], scale: [1, 1.15, 1] }}
               transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
-              className="text-4xl"
             >
-              👆
+              <PixelIcon id="tap-finger" size={48} />
             </motion.div>
             <motion.span
               animate={{ opacity: [0.5, 1, 0.5] }}

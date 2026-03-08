@@ -137,7 +137,7 @@ export function PrestigeNudgeBanner({ onDismiss, onGoToPrestige, totalEarned, pr
         onClick={onGoToPrestige}
       >
         <div className="flex items-center gap-2">
-          <span className="text-sm">⭐</span>
+          <PixelIcon id="star" size={14} />
           <span className="text-[10px] font-body text-foreground/90">
             You've earned <span className="font-bold text-coin">{formatCurrency(totalEarned)}</span>! Ready to <span className="font-bold text-primary">prestige</span>?
           </span>
