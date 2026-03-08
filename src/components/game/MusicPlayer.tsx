@@ -8,7 +8,7 @@ import { getSfxMuted, setSfxMuted } from '@/hooks/useSfx';
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 const IDB_STORE = 'wadapav-audio';
-const IDB_KEY = 'music-v1';
+const IDB_KEY = 'music-v2';
 
 function noteToFreq(name: string): number {
   const notes: Record<string, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
@@ -67,7 +67,7 @@ async function renderMidiToPCM(): Promise<{ pcm: Float32Array; sampleRate: numbe
   });
   notes.sort((a, b) => a.time - b.time);
 
-  const sampleRate = 22050;
+  const sampleRate = 8000;
   const totalDuration = midi.duration + 0.5;
   const offline = new OfflineAudioContext(1, Math.ceil(totalDuration * sampleRate), sampleRate);
   const masterGain = offline.createGain();
@@ -97,7 +97,7 @@ async function renderMidiToPCM(): Promise<{ pcm: Float32Array; sampleRate: numbe
 // ——— Load PCM: from cache or render fresh ———
 async function loadPCM(): Promise<{ pcm: Float32Array; sampleRate: number }> {
   const cached = await getCachedPCM();
-  if (cached) return { pcm: cached, sampleRate: 22050 };
+  if (cached) return { pcm: cached, sampleRate: 8000 };
   const result = await renderMidiToPCM();
   cachePCM(result.pcm); // fire-and-forget
   return result;
