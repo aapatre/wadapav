@@ -296,6 +296,7 @@ export function useGameState() {
     localStorage.removeItem('wadapav-prestige-unlock');
     localStorage.removeItem('wadapav-prestige-nudge');
     localStorage.removeItem('wadapav-milestone');
+    localStorage.removeItem('wadapav_upgrade_hint_done');
     setState({
       currency: 0,
       totalEarned: 0,
