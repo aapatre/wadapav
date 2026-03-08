@@ -306,8 +306,7 @@ export function useGameState() {
     ];
     keysToRemove.forEach(k => localStorage.removeItem(k));
 
-    // Clear IndexedDB audio cache
-    try { indexedDB.deleteDatabase('wadapav-audio'); } catch {}
+
 
     // Hard reload for a truly fresh start
     window.location.reload();
