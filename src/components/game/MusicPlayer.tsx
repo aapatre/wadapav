@@ -1,9 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import * as Tone from 'tone';
 import { Midi } from '@tonejs/midi';
-import { Volume2, VolumeX } from 'lucide-react';
+import { Volume2, VolumeX, Zap, ZapOff } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import PixelIcon from './PixelIcon';
+import { getSfxMuted, setSfxMuted } from '@/hooks/useSfx';
 
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
