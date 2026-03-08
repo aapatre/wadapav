@@ -213,7 +213,8 @@ const Index = () => {
                 />
               )}
             </button>
-          ))}
+            );
+          })}
         </div>
 
         {/* Tab Content */}
