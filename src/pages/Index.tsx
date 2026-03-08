@@ -169,7 +169,7 @@ const Index = () => {
       />
 
       {/* ===== TOP HALF: Game Scene ===== */}
-      <div className="relative flex-shrink-0" style={{ minHeight: '46vh' }}>
+      <div className="relative flex-shrink-0 sticky top-0 z-20 md:static md:flex-1 md:order-2 md:h-[100dvh] md:overflow-hidden" style={{ minHeight: '46vh' }}>
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center"
