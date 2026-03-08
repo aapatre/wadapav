@@ -245,6 +245,7 @@ const Index = () => {
             onTap={tap}
             hasCrewMember={state.workers.some(w => w.quantity > 0)}
             currency={state.currency}
+            productionPerSecond={state.productionPerSecond}
             onSteal={stealCurrency}
           />
         </div>

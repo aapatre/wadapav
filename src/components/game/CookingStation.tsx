@@ -23,12 +23,13 @@ interface Props {
   onTap: () => void;
   hasCrewMember: boolean;
   currency: number;
+  productionPerSecond: number;
   onSteal: (amount: number) => void;
 }
 
 let floatId = 0;
 
-export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, currency, onSteal }: Props) {
+export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, currency, productionPerSecond, onSteal }: Props) {
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
@@ -105,7 +106,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
 
       {/* Customers behind cart — only when crew is hired */}
       {hasCrewMember && <CustomerCrowd />}
-      <ThiefCharacter currency={currency} onSteal={onSteal} />
+      <ThiefCharacter currency={currency} productionPerSecond={productionPerSecond} onSteal={onSteal} />
 
       {/* Cart scene - centered */}
       <div className="relative mb-2 flex justify-center z-10">

@@ -19,6 +19,7 @@ interface Thief {
 
 interface Props {
   currency: number;
+  productionPerSecond: number;
   onSteal: (amount: number) => void;
 }
 
@@ -27,11 +28,14 @@ const THIEF_THRESHOLD = 15000;
 const MIN_SPAWN_INTERVAL = 15000; // 15s
 const MAX_SPAWN_INTERVAL = 45000; // 45s
 
-function getStealAmount(currency: number): number {
-  if (currency < 10000) return Math.floor(currency * 0.05);
-  if (currency < 100000) return 1000 + Math.floor(Math.random() * 4000); // 1k-5k
-  if (currency < 1000000) return 5000 + Math.floor(Math.random() * 20000); // 5k-25k
-  return 10000 + Math.floor(Math.random() * 50000); // 10k-60k
+function getStealAmount(currency: number, productionPerSecond: number): number {
+  // Steal at least 5-15 seconds worth of auto-production, so thieves always matter
+  const minSteal = Math.floor(productionPerSecond * (5 + Math.random() * 10));
+  const baseSteal = Math.max(
+    minSteal,
+    Math.floor(currency * (0.03 + Math.random() * 0.07)) // 3-10% of current currency
+  );
+  return Math.max(baseSteal, 50); // absolute minimum ₹50
 }
 
 function getThiefSize(): ThiefSize {
@@ -219,7 +223,7 @@ export function ThiefTutorialPrompt({ onComplete }: { onComplete: () => void }) 
   );
 }
 
-export default function ThiefCharacter({ currency, onSteal }: Props) {
+export default function ThiefCharacter({ currency, productionPerSecond, onSteal }: Props) {
   const [thief, setThief] = useState<Thief | null>(null);
   const [phase, setPhase] = useState<'entering' | 'lurking' | 'stealing' | 'caught' | 'escaped'>('entering');
   const [stolenText, setStolenText] = useState<{ amount: number; caught: boolean } | null>(null);
@@ -229,6 +233,8 @@ export default function ThiefCharacter({ currency, onSteal }: Props) {
   const spawnTimerRef = useRef<number | null>(null);
   const currencyRef = useRef(currency);
   currencyRef.current = currency;
+  const ppsRef = useRef(productionPerSecond);
+  ppsRef.current = productionPerSecond;
 
   const clearTimers = useCallback(() => {
     if (stealTimerRef.current) clearTimeout(stealTimerRef.current);
@@ -261,7 +267,7 @@ export default function ThiefCharacter({ currency, onSteal }: Props) {
       size,
       tapsRequired: config.taps,
       tapsReceived: 0,
-      stealAmount: getStealAmount(currencyRef.current),
+      stealAmount: getStealAmount(currencyRef.current, ppsRef.current),
       fromLeft,
       offsetX: (Math.random() - 0.5) * 80,
       height: config.height,
