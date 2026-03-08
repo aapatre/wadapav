@@ -70,17 +70,27 @@ const Index = () => {
   const hasAnyWorker = state.workers.some(w => w.quantity > 0);
   const milestoneShownRef = useRef(hasSeenMilestone());
 
-  // Release upgrade tab lock after first upgrade bought
+  // Release upgrade tab lock + show post-upgrade toast
   useEffect(() => {
     if (forceUpgradeTab && hasFirstUpgrade) {
       setForceUpgradeTab(false);
+      if (!postUpgradeToastRef.current) {
+        postUpgradeToastRef.current = true;
+        setTimeout(() => setPostUpgradeToast(true), 600);
+        setTimeout(() => setPostUpgradeToast(false), 6000);
+      }
     }
   }, [hasFirstUpgrade, forceUpgradeTab]);
 
-  // Once player buys first worker, release the lock
+  // Release crew tab lock + show post-crew toast
   useEffect(() => {
     if (forceCrewTab && hasAnyWorker) {
       setForceCrewTab(false);
+      if (!postCrewToastRef.current) {
+        postCrewToastRef.current = true;
+        setTimeout(() => setPostCrewToast(true), 600);
+        setTimeout(() => setPostCrewToast(false), 7000);
+      }
     }
   }, [hasAnyWorker, forceCrewTab]);
 
