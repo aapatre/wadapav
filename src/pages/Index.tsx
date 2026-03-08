@@ -126,7 +126,12 @@ const Index = () => {
       prestigeNudgeShownRef.current = true;
       setShowPrestigeNudge(true);
     }
-  }, [state.currency, state.totalEarned, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige]);
+    // Behind the Pav — after first prestige
+    if (!behindThePavShownRef.current && state.totalPrestiges >= 1) {
+      behindThePavShownRef.current = true;
+      setTimeout(() => setShowBehindThePav(true), 1500); // slight delay after prestige animation
+    }
+  }, [state.currency, state.totalEarned, state.totalPrestiges, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige]);
 
   const currentLocation = locations[state.currentLocation];
 
