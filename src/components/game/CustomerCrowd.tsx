@@ -22,12 +22,12 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
       style={{
         width: height * 0.45,
         height,
-        filter: 'url(#pixelate)',
+        imageRendering: 'pixelated',
       }}
     >
       {/* Head */}
       <div
-        className="absolute rounded-full"
+        className="absolute"
         style={{
           width: height * 0.22,
           height: height * 0.22,
@@ -35,6 +35,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           left: '50%',
           transform: 'translateX(-50%)',
           backgroundColor: shade,
+          borderRadius: '2px',
         }}
       />
       {/* Body */}
@@ -47,7 +48,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           left: '50%',
           transform: 'translateX(-50%)',
           backgroundColor: shade,
-          borderRadius: '3px 3px 0 0',
+          borderRadius: '2px 2px 0 0',
         }}
       />
       {/* Left leg */}
@@ -61,6 +62,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           backgroundColor: shade,
           borderRadius: '0 0 2px 2px',
           transformOrigin: 'top center',
+          willChange: walking ? 'transform' : 'auto',
         }}
         animate={walking ? { rotate: [15, -15, 15] } : { rotate: 0 }}
         transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
@@ -76,6 +78,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           backgroundColor: shade,
           borderRadius: '0 0 2px 2px',
           transformOrigin: 'top center',
+          willChange: walking ? 'transform' : 'auto',
         }}
         animate={walking ? { rotate: [-15, 15, -15] } : { rotate: 0 }}
         transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
@@ -91,6 +94,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           backgroundColor: shade,
           borderRadius: '2px',
           transformOrigin: 'top center',
+          willChange: walking ? 'transform' : 'auto',
         }}
         animate={walking ? { rotate: [-20, 20, -20] } : { rotate: 0 }}
         transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
@@ -106,6 +110,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           backgroundColor: shade,
           borderRadius: '2px',
           transformOrigin: 'top center',
+          willChange: walking ? 'transform' : 'auto',
         }}
         animate={walking ? { rotate: [20, -20, 20] } : { rotate: 0 }}
         transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
