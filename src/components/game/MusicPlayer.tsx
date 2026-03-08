@@ -264,6 +264,19 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
               )}
             </div>
 
+            {/* Hire me — prominent */}
+            <div className="mt-2 pt-1.5 border-t border-border/30">
+              <a
+                href="https://antariksh.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center bg-primary/20 border border-primary/50 hover:bg-primary/30 transition-colors px-2 py-1.5"
+              >
+                <span className="text-[9px] font-display text-primary tracking-wider">🚀 HIRE THE DEV</span>
+                <span className="block text-[8px] font-body text-muted-foreground mt-0.5">antariksh.me</span>
+              </a>
+            </div>
+
             {/* Credit */}
             <div className="mt-2 pt-1.5 border-t border-border/30">
               <a
