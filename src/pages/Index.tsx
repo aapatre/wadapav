@@ -47,8 +47,12 @@ const Index = () => {
   const [showMilestone, setShowMilestone] = useState(false);
   const [forceCrewTab, setForceCrewTab] = useState(false);
   const [forceUpgradeTab, setForceUpgradeTab] = useState(false);
+  const [postUpgradeToast, setPostUpgradeToast] = useState(false);
+  const [postCrewToast, setPostCrewToast] = useState(false);
   const crewHintShownRef = useRef(hasSeenCrewHint());
   const upgradeHintShownRef = useRef(hasSeenUpgradeHint());
+  const postUpgradeToastRef = useRef(false);
+  const postCrewToastRef = useRef(false);
   const [showPrestigeMystery, setShowPrestigeMystery] = useState(false);
   const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
