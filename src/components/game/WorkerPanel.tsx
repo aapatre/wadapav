@@ -12,7 +12,7 @@ interface Props {
 export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props) {
   return (
     <div className="space-y-2">
-      <h3 className="font-display font-bold text-[10px] text-foreground px-1">👥 CREW</h3>
+      <h3 className="font-display font-bold text-[10px] text-foreground px-1">&gt;&gt; CREW</h3>
       {workers.map(worker => {
         const cost = getCost(worker);
         const canAfford = currency >= cost;
@@ -29,7 +29,7 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props
                 : 'bg-card border-border opacity-60 pixel-border'
             }`}
           >
-            <span className="text-2xl">{worker.emoji}</span>
+            <span className="font-display text-[10px] text-primary">{worker.icon}</span>
             <div className="flex-1 text-left">
               <div className="font-display font-semibold text-[8px] text-foreground">
                 {worker.name}
@@ -40,7 +40,7 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props
                 )}
               </div>
               <div className="text-sm font-body text-muted-foreground">
-                {worker.description} • {formatCurrency(worker.baseProduction)}/sec
+                {worker.description} | {formatCurrency(worker.baseProduction)}/s
               </div>
             </div>
             <div className={`text-sm font-body font-bold ${canAfford ? 'text-chutney' : 'text-muted-foreground'}`}>

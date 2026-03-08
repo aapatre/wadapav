@@ -60,7 +60,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
 
   return (
     <div className="relative flex flex-col items-center justify-center py-4">
-      {/* Steam effects */}
+      {/* Steam effects - pixel squares */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 flex gap-4 pointer-events-none">
         {[0, 1, 2].map(i => (
           <div
@@ -80,7 +80,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             exit={{ scale: 0, opacity: 0 }}
             className="absolute top-2 right-4 bg-accent text-accent-foreground font-display font-bold text-[8px] px-2 py-1 z-10 pixel-border-primary animate-blink"
           >
-            COMBO x{comboCount}! 🔥
+            COMBO x{comboCount}!
           </motion.div>
         )}
       </AnimatePresence>
@@ -121,7 +121,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className={`absolute pointer-events-none font-display font-bold ${
-              f.isCombo ? 'text-accent text-[10px]' : 'text-coin text-xs'
+              f.isCombo ? 'text-accent text-[10px]' : 'text-coin text-[9px]'
             }`}
             style={{ left: f.x, top: f.y }}
           >

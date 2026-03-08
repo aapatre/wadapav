@@ -13,7 +13,7 @@ export interface Worker {
 export interface Upgrade {
   id: string;
   name: string;
-  emoji: string;
+  icon: string;
   baseCost: number;
   level: number;
   maxLevel: number;
