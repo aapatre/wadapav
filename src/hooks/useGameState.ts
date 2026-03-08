@@ -166,7 +166,7 @@ export function useGameState() {
       const timeSinceLastTap = now - prev.lastTapTime;
       const isCombo = timeSinceLastTap < 500;
       const newCombo = isCombo ? prev.comboCount + 1 : 1;
-      const comboMultiplier = newCombo >= 3 ? 1.5 : 1;
+      const comboMultiplier = newCombo >= 100 ? 3 : newCombo >= 50 ? 2.5 : newCombo >= 20 ? 1.5 : 1;
 
       const earned = prev.tapPower * prev.tapMultiplier * prev.prestigeMultiplier * comboMultiplier *
         LOCATIONS[prev.currentLocation].multiplier;
