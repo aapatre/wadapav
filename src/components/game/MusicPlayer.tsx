@@ -67,7 +67,7 @@ async function renderMidiToPCM(): Promise<{ pcm: Float32Array; sampleRate: numbe
   });
   notes.sort((a, b) => a.time - b.time);
 
-  const sampleRate = 22050;
+  const sampleRate = 8000;
   const totalDuration = midi.duration + 0.5;
   const offline = new OfflineAudioContext(1, Math.ceil(totalDuration * sampleRate), sampleRate);
   const masterGain = offline.createGain();
