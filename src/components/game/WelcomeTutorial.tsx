@@ -158,7 +158,9 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           transition={{ duration: 0.3 }}
           className="w-full max-w-sm bg-card border-2 border-primary/50 p-6 text-center space-y-5"
         >
-          <div className="text-5xl">{current.emoji}</div>
+          {current.icon && (
+            <img src={current.icon} alt={current.title} className="w-16 h-16 mx-auto object-contain [image-rendering:pixelated]" draggable={false} />
+          )}
           <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em]">
             {current.title}
           </h2>
