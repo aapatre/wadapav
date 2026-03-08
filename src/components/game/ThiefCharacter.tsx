@@ -19,6 +19,7 @@ interface Thief {
 
 interface Props {
   currency: number;
+  productionPerSecond: number;
   onSteal: (amount: number) => void;
 }
 
