@@ -49,9 +49,9 @@ export default function MilestonePrompt({ onComplete }: Props) {
           href="https://antariksh.me"
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full bg-primary text-primary-foreground font-display text-[9px] px-4 py-2.5 hover:bg-primary/80 transition-colors tracking-wider animate-pulse"
+          className="block w-full bg-primary text-primary-foreground font-display text-[9px] px-4 py-2.5 hover:bg-primary/80 transition-colors tracking-wider animate-pulse flex items-center justify-center gap-1"
         >
-          🚀 HIRE ME — I ALSO MAKE REAL APPS 🚀
+          <PixelIcon id="rocket" size={12} /> HIRE ME — I ALSO MAKE REAL APPS <PixelIcon id="rocket" size={12} />
         </a>
         <p className="font-body text-[8px] text-muted-foreground italic">
           (I promise I build more than clicker games... usually)
