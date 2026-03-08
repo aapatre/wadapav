@@ -82,10 +82,10 @@ function calculateProductionPerSecond(workers: Worker[], prestigeMultiplier: num
 }
 
 export function formatCurrency(amount: number): string {
-  if (amount >= 1e12) return `₹${(amount / 1e12).toFixed(1)}T`;
-  if (amount >= 1e9) return `₹${(amount / 1e9).toFixed(1)}B`;
-  if (amount >= 1e6) return `₹${(amount / 1e6).toFixed(1)}M`;
-  if (amount >= 1e3) return `₹${(amount / 1e3).toFixed(1)}K`;
+  if (amount >= 1e12) return `₹${(amount / 1e12).toFixed(2)}T`;
+  if (amount >= 1e9) return `₹${(amount / 1e9).toFixed(2)}B`;
+  if (amount >= 1e6) return `₹${(amount / 1e6).toFixed(2)}M`;
+  if (amount >= 1e3) return `₹${(amount / 1e3).toFixed(2)}K`;
   return `₹${Math.floor(amount)}`;
 }
 
