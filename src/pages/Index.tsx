@@ -15,6 +15,7 @@ import {
   PrestigeMysteryPrompt, PrestigeUnlockPrompt, PrestigeNudgeBanner,
   hasSeenPrestigeUnlock, markPrestigeUnlockSeen,
 } from '@/components/game/PrestigeUnlockPrompts';
+import PolicemanCharacter from '@/components/game/PolicemanCharacter';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -429,7 +430,18 @@ const Index = () => {
             )}
           </AnimatePresence>
         </div>
+
+        {/* Footer credit */}
+        <div className="shrink-0 border-t border-border/30 px-3 py-1.5 flex items-center justify-center gap-2">
+          <span className="text-[8px] font-body text-muted-foreground/60">Built by</span>
+          <a href="https://antariksh.me" target="_blank" rel="noopener noreferrer" className="text-[8px] font-body text-primary/70 hover:text-primary transition-colors">antariksh.me</a>
+          <span className="text-[8px] text-muted-foreground/40">•</span>
+          <a href="https://linkedin.com/in/aapatre" target="_blank" rel="noopener noreferrer" className="text-[8px] font-body text-[#0A66C2]/70 hover:text-[#0A66C2] transition-colors">LinkedIn</a>
+        </div>
       </div>
+
+      {/* Policeman random appearance */}
+      <PolicemanCharacter currency={state.currency} />
     </div>
   );
 };
