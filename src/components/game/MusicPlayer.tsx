@@ -67,6 +67,8 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
     return () => window.removeEventListener('pointerdown', handler);
   }, [open]);
 
+  const midiLoadedRef = useRef(false);
+
   // Load MIDI on mount
   useEffect(() => {
     fetch(MIDI_URL)
@@ -87,6 +89,7 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
         allNotes.sort((a, b) => a.time - b.time);
         notesRef.current = allNotes;
         durationRef.current = midi.duration;
+        midiLoadedRef.current = true;
       })
       .catch(console.error);
 
