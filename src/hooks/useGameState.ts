@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 export interface Worker {
   id: string;
   name: string;
-  emoji: string;
+  icon: string;
   baseCost: number;
   baseProduction: number;
   quantity: number;
