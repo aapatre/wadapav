@@ -50,12 +50,12 @@ const LOCATIONS = [
 ];
 
 const INITIAL_WORKERS: Worker[] = [
-  { id: 'masher', name: 'Potato Masher', emoji: '🥔', baseCost: 500, baseProduction: 1, quantity: 0, description: 'Prepares ingredients' },
-  { id: 'fryer', name: 'Fryer Expert', emoji: '🍳', baseCost: 3000, baseProduction: 10, quantity: 0, description: 'Fries vadas automatically' },
-  { id: 'slicer', name: 'Pav Slicer', emoji: '🍞', baseCost: 15000, baseProduction: 50, quantity: 0, description: 'Assembles sandwiches' },
-  { id: 'chutney', name: 'Chutney Master', emoji: '🌿', baseCost: 80000, baseProduction: 250, quantity: 0, description: 'Adds toppings' },
-  { id: 'delivery', name: 'Delivery Boy', emoji: '🛵', baseCost: 500000, baseProduction: 1000, quantity: 0, description: 'Serves customers faster' },
-  { id: 'manager', name: 'Cart Manager', emoji: '👨‍💼', baseCost: 3000000, baseProduction: 5000, quantity: 0, description: 'Manages operations' },
+  { id: 'masher', name: 'Potato Masher', icon: '<O>', baseCost: 500, baseProduction: 1, quantity: 0, description: 'Prepares ingredients' },
+  { id: 'fryer', name: 'Fryer Expert', icon: '{~}', baseCost: 3000, baseProduction: 10, quantity: 0, description: 'Fries vadas' },
+  { id: 'slicer', name: 'Pav Slicer', icon: '[/]', baseCost: 15000, baseProduction: 50, quantity: 0, description: 'Assembles pav' },
+  { id: 'chutney', name: 'Chutney Master', icon: '{+}', baseCost: 80000, baseProduction: 250, quantity: 0, description: 'Adds toppings' },
+  { id: 'delivery', name: 'Delivery Boy', icon: '>>>', baseCost: 500000, baseProduction: 1000, quantity: 0, description: 'Serves faster' },
+  { id: 'manager', name: 'Cart Manager', icon: '[!]', baseCost: 3000000, baseProduction: 5000, quantity: 0, description: 'Manages ops' },
 ];
 
 const INITIAL_UPGRADES: Upgrade[] = [
