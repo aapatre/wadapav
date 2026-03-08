@@ -432,14 +432,24 @@ const Index = () => {
         </div>
 
         {/* Footer credit */}
-        <div className="shrink-0 border-t border-border/30 px-3 py-1.5 flex items-center justify-center gap-2">
+        <motion.div
+          animate={{
+            boxShadow: [
+              '0 0 0px 0px hsl(var(--primary) / 0)',
+              '0 0 12px 2px hsl(var(--primary) / 0.4)',
+              '0 0 0px 0px hsl(var(--primary) / 0)',
+            ],
+          }}
+          transition={{ duration: 3, repeat: Infinity, repeatDelay: 12 }}
+          className="shrink-0 border-t border-border/30 px-3 py-1.5 flex items-center justify-center gap-2"
+        >
           <span className="text-[7px] font-display text-muted-foreground/70 tracking-wider">Built by</span>
           <a href="https://antariksh.me" target="_blank" rel="noopener noreferrer" className="text-[7px] font-display text-primary hover:text-primary/80 transition-colors tracking-wider">antariksh.me</a>
           <span className="text-[7px] text-muted-foreground/40">•</span>
           <a href="https://linkedin.com/in/aapatre" target="_blank" rel="noopener noreferrer" className="text-[7px] font-display tracking-wider hover:text-[#0A66C2] transition-colors">
             <span className="text-muted-foreground/70">HIRE ME: </span><span className="text-[#0A66C2]">LinkedIn</span>
           </a>
-        </div>
+        </motion.div>
       </div>
 
       {/* Policeman random appearance */}
