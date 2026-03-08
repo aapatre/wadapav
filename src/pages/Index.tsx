@@ -199,6 +199,8 @@ const Index = () => {
             <PrestigeNudgeBanner
               onDismiss={() => setShowPrestigeNudge(false)}
               onGoToPrestige={() => { setActiveTab('prestige'); setShowPrestigeNudge(false); }}
+              totalEarned={state.totalEarned}
+              prestigeCost={prestigeCostRequired}
             />
           )}
         </AnimatePresence>
