@@ -275,6 +275,17 @@ const MusicPlayer = ({ onReset, onShowAbout }: { onReset?: () => void; onShowAbo
               </a>
             </div>
 
+            {/* About / Behind the Pav */}
+            <div className="mt-2 pt-1.5 border-t border-border/30">
+              <button
+                onClick={() => { onShowAbout?.(); setOpen(false); }}
+                className="w-full text-center bg-muted/50 border border-border/50 hover:bg-muted/80 transition-colors px-2 py-1.5"
+              >
+                <span className="text-[9px] font-display text-foreground/80 tracking-wider">🍔 BEHIND THE PAV</span>
+                <span className="block text-[8px] font-body text-muted-foreground mt-0.5">Why this game exists</span>
+              </button>
+            </div>
+
             {/* Credit */}
             <div className="mt-2 pt-1.5 border-t border-border/30">
               <a href={CREDIT_URL} target="_blank" rel="noopener noreferrer"
