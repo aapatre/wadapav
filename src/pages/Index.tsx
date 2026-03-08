@@ -216,6 +216,13 @@ const Index = () => {
         )}
       </AnimatePresence>
 
+      {/* Behind the Pav — skills reveal */}
+      <AnimatePresence>
+        {showBehindThePav && (
+          <BehindThePav onClose={() => setShowBehindThePav(false)} />
+        )}
+      </AnimatePresence>
+
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
         style={{
