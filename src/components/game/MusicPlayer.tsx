@@ -8,7 +8,7 @@ import { getSfxMuted, setSfxMuted } from '@/hooks/useSfx';
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 const IDB_STORE = 'wadapav-audio';
-const IDB_KEY = 'music-v1';
+const IDB_KEY = 'music-v2';
 
 function noteToFreq(name: string): number {
   const notes: Record<string, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
