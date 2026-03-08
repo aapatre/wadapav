@@ -262,7 +262,7 @@ const Index = () => {
               className="relative z-10 mx-3 mt-1"
             >
               <div className="bg-card/80 backdrop-blur-sm border border-primary/40 px-3 py-2 flex items-center justify-center gap-2">
-                <span className="text-[10px]">😎</span>
+                <PixelIcon id="cool-face" size={14} />
                 <span className="text-[10px] font-body text-foreground/80">
                   Nice one boss! Keep checking <span className="font-bold text-primary">Upgrades</span> — more goodies drop as you earn more ₹₹₹
                 </span>
@@ -281,9 +281,9 @@ const Index = () => {
               className="relative z-10 mx-3 mt-1"
             >
               <div className="bg-card/80 backdrop-blur-sm border border-secondary/40 px-3 py-2 flex items-center justify-center gap-2">
-                <span className="text-[10px]">🤙</span>
+                <PixelIcon id="fire" size={14} />
                 <span className="text-[10px] font-body text-foreground/80">
-                  Your crew is cooking now! Peep the <span className="font-bold text-primary">Upgrades</span> & <span className="font-bold text-secondary">Crew</span> tabs often — new unlocks = big money moves 💰
+                  Your crew is cooking now! Peep the <span className="font-bold text-primary">Upgrades</span> & <span className="font-bold text-secondary">Crew</span> tabs often — new unlocks = big money moves <PixelIcon id="money-bag" size={12} className="inline-block" />
                 </span>
               </div>
             </motion.div>
@@ -300,19 +300,21 @@ const Index = () => {
               className="relative z-10 mx-3 mt-1"
             >
               <div className="bg-card/80 backdrop-blur-sm border border-secondary/50 px-3 py-1.5 flex items-center justify-center gap-2">
-                <motion.span
+                <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
-                  className="text-[10px] font-display text-secondary"
-                >🎁</motion.span>
+                >
+                  <PixelIcon id="gift" size={14} />
+                </motion.div>
                 <span className="text-[10px] font-body text-foreground/80">
                   Keep tapping! <span className="font-bold text-coin">{formatCurrency(firstWorkerCost)}</span> unlocks your first crew member!
                 </span>
-                <motion.span
+                <motion.div
                   animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                  className="text-[10px] font-display text-secondary"
-                >👥</motion.span>
+                >
+                  <PixelIcon id="crew" size={14} />
+                </motion.div>
               </div>
             </motion.div>
           )}
@@ -367,7 +369,7 @@ const Index = () => {
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
               }`}
             >
-              {isPrestigeLocked ? <span className="text-[10px]">🔮</span> : <PixelIcon id={tab.iconId} size={16} />}
+              {isPrestigeLocked ? <PixelIcon id="crystal-ball" size={16} /> : <PixelIcon id={tab.iconId} size={16} />}
               {tab.label}
               {/* Affordability notification dot */}
               {!isLocked && activeTab !== tab.key && tabHasAffordable[tab.key] && (

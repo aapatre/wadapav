@@ -39,8 +39,9 @@ export function PrestigeMysteryPrompt({ onClose }: { onClose: () => void }) {
         <motion.div
           animate={{ rotate: [0, -5, 5, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="text-4xl"
-        >🔮</motion.div>
+        >
+          <PixelIcon id="crystal-ball" size={40} />
+        </motion.div>
         <h2 className="font-display font-bold text-sm text-primary">MYSTERY LOCKED</h2>
         <p className="text-xs font-body text-muted-foreground leading-relaxed">
           Something powerful awaits here... but you're not ready yet, boss!
@@ -53,9 +54,9 @@ export function PrestigeMysteryPrompt({ onClose }: { onClose: () => void }) {
         </div>
         <button
           onClick={onClose}
-          className="w-full py-2 bg-primary/20 text-primary font-display text-[9px] pixel-border hover:bg-primary/30 transition-colors"
+          className="w-full py-2 bg-primary/20 text-primary font-display text-[9px] pixel-border hover:bg-primary/30 transition-colors flex items-center justify-center gap-1"
         >
-          BACK TO GRINDING 💪
+          BACK TO GRINDING <PixelIcon id="muscle" size={12} />
         </button>
       </motion.div>
     </motion.div>
@@ -80,8 +81,9 @@ export function PrestigeUnlockPrompt({ onClose, onSwitchTab }: { onClose: () => 
         <motion.div
           animate={{ scale: [1, 1.2, 1] }}
           transition={{ duration: 1, repeat: 2 }}
-          className="text-4xl"
-        >⭐</motion.div>
+        >
+          <PixelIcon id="star" size={40} />
+        </motion.div>
         <h2 className="font-display font-bold text-sm text-coin">PRESTIGE UNLOCKED!</h2>
         <p className="text-xs font-body text-foreground/90 leading-relaxed">
           You've proven yourself at CST Station! A new power is now available.
@@ -112,9 +114,9 @@ export function PrestigeUnlockPrompt({ onClose, onSwitchTab }: { onClose: () => 
         </p>
         <button
           onClick={() => { onSwitchTab(); onClose(); }}
-          className="w-full py-2.5 bg-coin text-background font-display font-bold text-[9px] pixel-border hover:brightness-110 transition-all"
+          className="w-full py-2.5 bg-coin text-background font-display font-bold text-[9px] pixel-border hover:brightness-110 transition-all flex items-center justify-center gap-1"
         >
-          CHECK IT OUT ⭐
+          CHECK IT OUT <PixelIcon id="star" size={12} />
         </button>
       </motion.div>
     </motion.div>
@@ -135,7 +137,7 @@ export function PrestigeNudgeBanner({ onDismiss, onGoToPrestige, totalEarned, pr
         onClick={onGoToPrestige}
       >
         <div className="flex items-center gap-2">
-          <span className="text-sm">⭐</span>
+          <PixelIcon id="star" size={14} />
           <span className="text-[10px] font-body text-foreground/90">
             You've earned <span className="font-bold text-coin">{formatCurrency(totalEarned)}</span>! Ready to <span className="font-bold text-primary">prestige</span>?
           </span>
