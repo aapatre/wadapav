@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import wadapavImg from '@/assets/wadapav.png';
 import cartScene from '@/assets/cart-scene.png';
 import { formatCurrency } from '@/hooks/useGameState';
 
