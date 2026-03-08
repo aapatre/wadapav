@@ -11,7 +11,7 @@ interface Props {
 
 export default function CurrencyDisplay({ currency, perSecond, location, prestigePoints }: Props) {
   return (
-    <div className="text-center py-2 px-4">
+    <div className="text-center py-2 md:py-6 px-4">
       {/* Location badge */}
       <div className="inline-flex items-center gap-2 mb-2 bg-card/80 backdrop-blur-sm px-3 py-1 pixel-border">
         <span className="text-sm font-body text-foreground">{location.name}</span>
