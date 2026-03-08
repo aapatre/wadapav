@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
+import handPointerIcon from '@/assets/icons/hand-pointer.png';
 import CustomerCrowd from './CustomerCrowd';
 import ThiefCharacter from './ThiefCharacter';
 import { formatCurrency } from '@/hooks/useGameState';
@@ -120,9 +121,8 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             <motion.div
               animate={{ y: [0, 10, 0], scale: [1, 1.15, 1] }}
               transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
-              className="text-4xl"
             >
-              👆
+              <img src={handPointerIcon} alt="Tap" className="w-10 h-10 object-contain [image-rendering:pixelated]" draggable={false} />
             </motion.div>
             <motion.span
               animate={{ opacity: [0.5, 1, 0.5] }}

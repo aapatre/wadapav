@@ -6,6 +6,7 @@ import heartIcon from '@/assets/icons/heart.png';
 import crownIcon from '@/assets/icons/crown.png';
 import tawaFireIcon from '@/assets/icons/tawa-fire.png';
 import growthIcon from '@/assets/icons/growth.png';
+import handshakeIcon from '@/assets/icons/handshake.png';
 
 interface Props {
   onComplete: () => void;
@@ -220,7 +221,7 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
         transition={{ duration: 0.3 }}
         className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
       >
-        <div className="text-4xl">🤝</div>
+        <img src={handshakeIcon} alt="Handshake" className="w-14 h-14 mx-auto object-contain [image-rendering:pixelated]" draggable={false} />
         <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
           Time to Hire! 👥
         </h2>
@@ -259,7 +260,7 @@ export function UpgradeHintPrompt({ onComplete, onSwitchToUpgradeTab }: { onComp
         transition={{ duration: 0.3 }}
         className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
       >
-        <div className="text-4xl">🥔</div>
+        <img src={potatoIcon} alt="Potato" className="w-14 h-14 mx-auto object-contain [image-rendering:pixelated]" draggable={false} />
         <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
           Upgrade Time! ⬆️
         </h2>
