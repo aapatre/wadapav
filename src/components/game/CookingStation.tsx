@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
+import CustomerCrowd from './CustomerCrowd';
 import { formatCurrency } from '@/hooks/useGameState';
 
 interface FloatingText {
