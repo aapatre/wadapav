@@ -256,10 +256,14 @@ const Index = () => {
         <div className="flex shrink-0 border-b border-border/50">
           {tabs.map(tab => {
             const isLocked = forceCrewTab && tab.key !== 'workers';
+            const isPrestigeLocked = tab.key === 'prestige' && !prestigeTabUnlocked;
             return (
             <button
               key={tab.key}
-              onClick={() => { if (!isLocked) setActiveTab(tab.key); }}
+              onClick={() => {
+                if (isPrestigeLocked) { setShowPrestigeMystery(true); return; }
+                if (!isLocked) setActiveTab(tab.key);
+              }}
               className={`flex-1 py-2 text-[7px] font-display transition-all flex items-center justify-center gap-1.5 relative ${
                 isLocked
                   ? 'text-muted-foreground/30 cursor-not-allowed'
