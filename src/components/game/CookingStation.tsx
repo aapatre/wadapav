@@ -120,9 +120,8 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             <motion.div
               animate={{ y: [0, 10, 0], scale: [1, 1.15, 1] }}
               transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
-              className="text-4xl"
             >
-              👆
+              <img src={handPointerIcon} alt="Tap" className="w-10 h-10 object-contain [image-rendering:pixelated]" draggable={false} />
             </motion.div>
             <motion.span
               animate={{ opacity: [0.5, 1, 0.5] }}
