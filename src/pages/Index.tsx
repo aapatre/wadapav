@@ -7,8 +7,8 @@ import UpgradePanel from '@/components/game/UpgradePanel';
 import WorkerPanel from '@/components/game/WorkerPanel';
 import PrestigePanel from '@/components/game/PrestigePanel';
 import PixelIcon from '@/components/game/PixelIcon';
-import WelcomeTutorial, { hasSeenTutorial, hasSeenCrewHint } from '@/components/game/WelcomeTutorial';
-import { CrewHintPrompt } from '@/components/game/WelcomeTutorial';
+import WelcomeTutorial, { hasSeenTutorial, hasSeenCrewHint, hasSeenUpgradeHint } from '@/components/game/WelcomeTutorial';
+import { CrewHintPrompt, UpgradeHintPrompt } from '@/components/game/WelcomeTutorial';
 import MusicPlayer from '@/components/game/MusicPlayer';
 import MilestonePrompt, { hasSeenMilestone, markMilestoneSeen } from '@/components/game/MilestonePrompt';
 import {

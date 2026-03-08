@@ -228,6 +228,48 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
           GO TO CREW TAB →
         </button>
       </motion.div>
+      </motion.div>
     </motion.div>
+  );
+}
+
+export function UpgradeHintPrompt({ onComplete, onSwitchToUpgradeTab }: { onComplete: () => void; onSwitchToUpgradeTab: () => void }) {
+  const handleGo = () => {
+    markUpgradeHintDone();
+    onSwitchToUpgradeTab();
+    onComplete();
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm px-6"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
+      >
+        <div className="text-4xl">🥔</div>
+        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
+          Upgrade Time! ⬆️
+        </h2>
+        <p className="font-body text-xs text-foreground/80 leading-relaxed">
+          Your potatoes need an upgrade! Buy <span className="font-bold text-coin">Better Potatoes</span> to earn more per tap and grow faster.
+        </p>
+
+        <button
+          onClick={handleGo}
+          className="w-full py-2.5 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors animate-pulse"
+        >
+          GO TO UPGRADES →
+        </button>
+      </motion.div>
+    </motion.div>
+  );
+}
   );
 }
