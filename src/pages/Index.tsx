@@ -88,6 +88,13 @@ const Index = () => {
         )}
       </AnimatePresence>
 
+      {/* 50K milestone — install + hire me */}
+      <AnimatePresence>
+        {showMilestone && (
+          <MilestonePrompt onComplete={() => setShowMilestone(false)} />
+        )}
+      </AnimatePresence>
+
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
         style={{
