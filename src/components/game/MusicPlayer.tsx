@@ -170,13 +170,24 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
     setStarted(true);
   }, [started, scheduleLoop]);
 
-  // Start on first user interaction
+  // Start on first user interaction (re-register if not yet started)
   useEffect(() => {
     if (started) return;
     const handler = () => { startMusic(); };
-    window.addEventListener('pointerdown', handler, { once: true });
-    return () => window.removeEventListener('pointerdown', handler);
+    window.addEventListener('pointerdown', handler);
+    window.addEventListener('touchstart', handler);
+    return () => {
+      window.removeEventListener('pointerdown', handler);
+      window.removeEventListener('touchstart', handler);
+    };
   }, [started, startMusic]);
+
+  // Retry start once MIDI finishes loading (user may have tapped before load)
+  useEffect(() => {
+    if (!started && midiLoadedRef.current && audioCtxRef.current) {
+      startMusic();
+    }
+  });
 
   return (
     <div className="relative" ref={panelRef}>
