@@ -217,7 +217,7 @@ export default function CustomerCrowd() {
                   : { x: leaveX, opacity: 0 }
               }
               exit={{ opacity: 0 }}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
+              transition={{ duration: 3.75, ease: 'easeInOut' }}
             >
               <CustomerSprite
                 shade={c.shade}
