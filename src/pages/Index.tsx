@@ -83,10 +83,9 @@ const Index = () => {
       markPrestigeUnlockSeen();
       setShowPrestigeUnlock(true);
     }
-    // 1M prestige nudge
-    if (!prestigeNudgeShownRef.current && !showTutorial && state.totalEarned >= 1_000_000) {
+    // Prestige nudge — when player can prestige at current location
+    if (!prestigeNudgeShownRef.current && !showTutorial && canPrestige) {
       prestigeNudgeShownRef.current = true;
-      markPrestigeNudgeSeen();
       setShowPrestigeNudge(true);
     }
   }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker]);
