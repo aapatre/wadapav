@@ -194,7 +194,17 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Nudge: earn ₹500 for a surprise */}
+          {/* Prestige nudge at 1M */}
+        <AnimatePresence>
+          {showPrestigeNudge && (
+            <PrestigeNudgeBanner
+              onDismiss={() => setShowPrestigeNudge(false)}
+              onGoToPrestige={() => { setActiveTab('prestige'); setShowPrestigeNudge(false); }}
+            />
+          )}
+        </AnimatePresence>
+
+          {/* Nudge: earn ₹500 for a surprise */}
         <AnimatePresence>
           {!showTutorial && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
             <motion.div
