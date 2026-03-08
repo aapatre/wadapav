@@ -61,7 +61,15 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
   }, [onTap, tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center py-2">
+    <motion.button
+      onMouseDown={handleTap}
+      onTouchStart={handleTap}
+      className="relative w-full h-full flex flex-col items-start justify-end cursor-pointer select-none"
+      whileTap={{ scale: 0.98 }}
+      style={{
+        filter: isPressed ? 'brightness(1.15)' : 'brightness(1)',
+      }}
+    >
       {/* Combo indicator */}
       <AnimatePresence>
         {comboCount >= 3 && (
@@ -69,60 +77,53 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="absolute top-0 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground font-display font-bold text-[8px] px-3 py-1 z-20 pixel-border-primary animate-blink"
+            className="absolute top-2 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground font-display font-bold text-[8px] px-3 py-1 z-20 pixel-border-primary animate-blink"
           >
             🔥 COMBO x{comboCount}! 🔥
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Cart scene - tap target */}
-      <div className="relative">
-        <motion.button
-          onMouseDown={handleTap}
-          onTouchStart={handleTap}
-          whileTap={{ scale: 0.95 }}
-          className="cursor-pointer select-none z-10 relative"
+      {/* Cart scene - positioned left and scaled up */}
+      <div className="relative ml-2 mb-2">
+        <motion.img
+          src={cartScene}
+          alt="Wada Pav Cart - Tap to cook!"
+          className="w-[270px] h-auto object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)] pointer-events-none"
           style={{
-            filter: isPressed ? 'brightness(1.4) drop-shadow(0 0 12px hsl(var(--coin-gold)))' : 'brightness(1)',
+            imageRendering: 'pixelated',
+            filter: isPressed ? 'drop-shadow(0 0 12px hsl(var(--coin-gold)))' : 'none',
           }}
-        >
-          <motion.img
-            src={cartScene}
-            alt="Wada Pav Cart - Tap to cook!"
-            className="w-56 h-auto object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)] pointer-events-none"
-            style={{ imageRendering: 'pixelated' }}
-            draggable={false}
-            animate={isPressed ? { rotate: [0, -2, 2, -1, 0] } : {}}
-            transition={{ duration: 0.3 }}
-          />
-          {/* Sizzle particles */}
-          <AnimatePresence>
-            {isPressed && (
-              <>
-                {[...Array(4)].map((_, i) => (
-                  <motion.div
-                    key={`sizzle-${tapCount}-${i}`}
-                    initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                    animate={{
-                      opacity: 0,
-                      scale: 0,
-                      x: (Math.random() - 0.5) * 60,
-                      y: -20 - Math.random() * 30,
-                    }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="absolute top-1/2 left-1/2 w-1.5 h-1.5 bg-coin rounded-none"
-                  />
-                ))}
-              </>
-            )}
-          </AnimatePresence>
-        </motion.button>
+          draggable={false}
+          animate={isPressed ? { rotate: [0, -2, 2, -1, 0] } : {}}
+          transition={{ duration: 0.3 }}
+        />
+        {/* Sizzle particles */}
+        <AnimatePresence>
+          {isPressed && (
+            <>
+              {[...Array(4)].map((_, i) => (
+                <motion.div
+                  key={`sizzle-${tapCount}-${i}`}
+                  initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                  animate={{
+                    opacity: 0,
+                    scale: 0,
+                    x: (Math.random() - 0.5) * 60,
+                    y: -20 - Math.random() * 30,
+                  }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute top-1/2 left-1/2 w-1.5 h-1.5 bg-coin rounded-none"
+                />
+              ))}
+            </>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Per tap display */}
-      <div className="mt-1 flex items-center gap-2">
+      <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-2">
         <span className="text-sm font-body text-muted-foreground">
           TAP TO COOK
         </span>
@@ -149,6 +150,6 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
           </motion.div>
         ))}
       </AnimatePresence>
-    </div>
+    </motion.button>
   );
 }
