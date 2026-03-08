@@ -114,9 +114,9 @@ export function PrestigeUnlockPrompt({ onClose, onSwitchTab }: { onClose: () => 
         </p>
         <button
           onClick={() => { onSwitchTab(); onClose(); }}
-          className="w-full py-2.5 bg-coin text-background font-display font-bold text-[9px] pixel-border hover:brightness-110 transition-all"
+          className="w-full py-2.5 bg-coin text-background font-display font-bold text-[9px] pixel-border hover:brightness-110 transition-all flex items-center justify-center gap-1"
         >
-          CHECK IT OUT ⭐
+          CHECK IT OUT <PixelIcon id="star" size={12} />
         </button>
       </motion.div>
     </motion.div>
