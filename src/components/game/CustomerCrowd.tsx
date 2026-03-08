@@ -22,7 +22,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
       style={{
         width: height * 0.45,
         height,
-        imageRendering: 'pixelated',
+        filter: 'url(#pixelate)',
       }}
     >
       {/* Head */}
