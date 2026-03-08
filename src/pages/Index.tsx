@@ -18,6 +18,7 @@ import {
 import PolicemanCharacter from '@/components/game/PolicemanCharacter';
 import BehindThePav, { hasSeenBehindThePav } from '@/components/game/BehindThePav';
 import ReminderNotification from '@/components/game/ReminderNotification';
+import FinalMapDialog, { hasSeenFinalMap, markFinalMapSeen } from '@/components/game/FinalMapDialog';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
