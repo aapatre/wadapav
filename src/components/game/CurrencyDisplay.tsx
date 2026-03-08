@@ -24,7 +24,7 @@ export default function CurrencyDisplay({ currency, perSecond, location, prestig
 
       {/* Main currency */}
       <motion.div
-        key={Math.floor(currency)}
+        key={formatCurrency(currency)}
         initial={{ scale: 1.08 }}
         animate={{ scale: 1 }}
         className="text-3xl md:text-4xl font-display font-extrabold text-primary drop-shadow-[0_0_15px_hsl(var(--coin-gold)/0.6)]"
