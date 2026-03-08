@@ -23,6 +23,7 @@ interface Props {
   onTap: () => void;
   hasCrewMember: boolean;
   currency: number;
+  productionPerSecond: number;
   onSteal: (amount: number) => void;
 }
 
