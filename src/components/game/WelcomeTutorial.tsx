@@ -202,11 +202,6 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
     onComplete();
   };
 
-  const handleDismiss = () => {
-    markCrewHintDone();
-    onComplete();
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -222,26 +217,18 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
       >
         <div className="text-4xl">🤝</div>
         <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
-          Hire Your Crew 👥
+          Time to Hire! 👥
         </h2>
         <p className="font-body text-xs text-foreground/80 leading-relaxed">
-          You've earned enough to hire your first worker! Head to the Crew tab to hire a Potato Masher who earns ₹ automatically — even while you're away!
+          You need a <span className="font-bold text-coin">Potato Masher</span> to keep up with demand! Head to the Crew tab and hire one to continue your wada pav empire.
         </p>
 
-        <div className="flex items-center gap-2 pt-1">
-          <button
-            onClick={handleDismiss}
-            className="flex-1 py-2 text-[10px] font-display text-muted-foreground hover:text-foreground transition-colors"
-          >
-            LATER
-          </button>
-          <button
-            onClick={handleHire}
-            className="flex-1 py-2 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-          >
-            HIRE CREW →
-          </button>
-        </div>
+        <button
+          onClick={handleHire}
+          className="w-full py-2.5 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors animate-pulse"
+        >
+          GO TO CREW TAB →
+        </button>
       </motion.div>
     </motion.div>
   );
