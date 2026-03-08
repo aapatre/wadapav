@@ -137,7 +137,7 @@ export default function CustomerCrowd() {
       offsetX: (Math.random() - 0.5) * 60, // spread around center
     };
 
-    setCustomers(prev => [...prev.slice(-3), customer]);
+    setCustomers(prev => [...prev.slice(-6), customer]);
     setPhases(prev => ({ ...prev, [id]: 'entering' }));
 
     // After walk-in, stand
