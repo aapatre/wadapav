@@ -241,15 +241,13 @@ export function useGameState() {
 
   const prestige = useCallback(() => {
     setState(prev => {
-      const pointsEarned = Math.floor(prev.totalEarned / 1_000_000);
-      if (pointsEarned <= 0) return prev;
+      const nextLocation = Math.min(LOCATIONS.length - 1, prev.currentLocation + 1);
+      const requiredEarnings = LOCATIONS[nextLocation].prestigeCost;
+      if (prev.totalEarned < requiredEarnings || requiredEarnings === 0) return prev;
 
+      const pointsEarned = Math.floor(prev.totalEarned / 1_000_000);
       const newPrestigePoints = prev.prestigePoints + pointsEarned;
       const newPrestigeMultiplier = 1 + newPrestigePoints * 0.1;
-      const newLocation = Math.min(
-        LOCATIONS.length - 1,
-        prev.totalPrestiges + 1
-      );
 
       return {
         currency: 0,
