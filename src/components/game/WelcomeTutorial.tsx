@@ -47,33 +47,30 @@ const STEPS = [
 
 const TUTORIAL_KEY = 'wadapav_tutorial_done';
 const CREW_HINT_KEY = 'wadapav_crew_hint_done';
+const UPGRADE_HINT_KEY = 'wadapav_upgrade_hint_done';
 
 export function hasSeenTutorial(): boolean {
-  try {
-    return localStorage.getItem(TUTORIAL_KEY) === 'true';
-  } catch {
-    return false;
-  }
+  try { return localStorage.getItem(TUTORIAL_KEY) === 'true'; } catch { return false; }
 }
 
 export function hasSeenCrewHint(): boolean {
-  try {
-    return localStorage.getItem(CREW_HINT_KEY) === 'true';
-  } catch {
-    return false;
-  }
+  try { return localStorage.getItem(CREW_HINT_KEY) === 'true'; } catch { return false; }
+}
+
+export function hasSeenUpgradeHint(): boolean {
+  try { return localStorage.getItem(UPGRADE_HINT_KEY) === 'true'; } catch { return false; }
 }
 
 export function markTutorialDone() {
-  try {
-    localStorage.setItem(TUTORIAL_KEY, 'true');
-  } catch {}
+  try { localStorage.setItem(TUTORIAL_KEY, 'true'); } catch {}
 }
 
 export function markCrewHintDone() {
-  try {
-    localStorage.setItem(CREW_HINT_KEY, 'true');
-  } catch {}
+  try { localStorage.setItem(CREW_HINT_KEY, 'true'); } catch {}
+}
+
+export function markUpgradeHintDone() {
+  try { localStorage.setItem(UPGRADE_HINT_KEY, 'true'); } catch {}
 }
 
 export default function WelcomeTutorial({ onComplete }: Props) {
