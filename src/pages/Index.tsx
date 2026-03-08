@@ -47,8 +47,12 @@ const Index = () => {
   const [showMilestone, setShowMilestone] = useState(false);
   const [forceCrewTab, setForceCrewTab] = useState(false);
   const [forceUpgradeTab, setForceUpgradeTab] = useState(false);
+  const [postUpgradeToast, setPostUpgradeToast] = useState(false);
+  const [postCrewToast, setPostCrewToast] = useState(false);
   const crewHintShownRef = useRef(hasSeenCrewHint());
   const upgradeHintShownRef = useRef(hasSeenUpgradeHint());
+  const postUpgradeToastRef = useRef(false);
+  const postCrewToastRef = useRef(false);
   const [showPrestigeMystery, setShowPrestigeMystery] = useState(false);
   const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
@@ -66,17 +70,27 @@ const Index = () => {
   const hasAnyWorker = state.workers.some(w => w.quantity > 0);
   const milestoneShownRef = useRef(hasSeenMilestone());
 
-  // Release upgrade tab lock after first upgrade bought
+  // Release upgrade tab lock + show post-upgrade toast
   useEffect(() => {
     if (forceUpgradeTab && hasFirstUpgrade) {
       setForceUpgradeTab(false);
+      if (!postUpgradeToastRef.current) {
+        postUpgradeToastRef.current = true;
+        setTimeout(() => setPostUpgradeToast(true), 600);
+        setTimeout(() => setPostUpgradeToast(false), 6000);
+      }
     }
   }, [hasFirstUpgrade, forceUpgradeTab]);
 
-  // Once player buys first worker, release the lock
+  // Release crew tab lock + show post-crew toast
   useEffect(() => {
     if (forceCrewTab && hasAnyWorker) {
       setForceCrewTab(false);
+      if (!postCrewToastRef.current) {
+        postCrewToastRef.current = true;
+        setTimeout(() => setPostCrewToast(true), 600);
+        setTimeout(() => setPostCrewToast(false), 7000);
+      }
     }
   }, [hasAnyWorker, forceCrewTab]);
 
@@ -235,6 +249,44 @@ const Index = () => {
               totalEarned={state.totalEarned}
               prestigeCost={prestigeCostRequired}
             />
+          )}
+        </AnimatePresence>
+
+        {/* Post-upgrade toast */}
+        <AnimatePresence>
+          {postUpgradeToast && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="relative z-10 mx-3 mt-1"
+            >
+              <div className="bg-card/80 backdrop-blur-sm border border-primary/40 px-3 py-2 flex items-center justify-center gap-2">
+                <span className="text-[10px]">😎</span>
+                <span className="text-[10px] font-body text-foreground/80">
+                  Nice one boss! Keep checking <span className="font-bold text-primary">Upgrades</span> — more goodies drop as you earn more ₹₹₹
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Post-crew toast */}
+        <AnimatePresence>
+          {postCrewToast && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="relative z-10 mx-3 mt-1"
+            >
+              <div className="bg-card/80 backdrop-blur-sm border border-secondary/40 px-3 py-2 flex items-center justify-center gap-2">
+                <span className="text-[10px]">🤙</span>
+                <span className="text-[10px] font-body text-foreground/80">
+                  Your crew is cooking now! Peep the <span className="font-bold text-primary">Upgrades</span> & <span className="font-bold text-secondary">Crew</span> tabs often — new unlocks = big money moves 💰
+                </span>
+              </div>
+            </motion.div>
           )}
         </AnimatePresence>
 
