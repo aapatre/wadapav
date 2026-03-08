@@ -5,12 +5,13 @@ import PixelIcon from './PixelIcon';
 interface Props {
   canPrestige: boolean;
   pointsAvailable: number;
+  prestigeCostRequired: number;
   currentPoints: number;
   totalEarned: number;
   totalPrestiges: number;
   prestigeMultiplier: number;
   onPrestige: () => void;
-  locations: { name: string; icon: string; multiplier: number }[];
+  locations: { name: string; icon: string; multiplier: number; prestigeCost: number }[];
   currentLocation: number;
 }
 
