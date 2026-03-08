@@ -70,6 +70,20 @@ const Index = () => {
 
   const currentLocation = locations[state.currentLocation];
 
+  // Check if player can afford something in each tab (for notification dots)
+  const canAffordUpgrade = state.upgrades.some(u => u.level < u.maxLevel && state.currency >= getUpgradeCost(u));
+  const nextWorkerIdx = state.workers.findIndex(w => w.quantity === 0);
+  const canAffordWorker = state.workers.some((w, i) => {
+    if (w.quantity > 0) return state.currency >= getWorkerCost(w); // can buy more
+    if (i === nextWorkerIdx) return state.currency >= getWorkerCost(w); // next unlock
+    return false;
+  });
+  const tabHasAffordable: Record<Tab, boolean> = {
+    upgrades: canAffordUpgrade,
+    workers: canAffordWorker,
+    prestige: canPrestige,
+  };
+
   const tabs: { key: Tab; label: string; iconId: string }[] = [
     { key: 'upgrades', label: 'UPGRADES', iconId: 'tap3' },
     { key: 'workers', label: 'CREW', iconId: 'masher' },
@@ -206,6 +220,10 @@ const Index = () => {
             >
               <PixelIcon id={tab.iconId} size={16} />
               {tab.label}
+              {/* Affordability notification dot */}
+              {!isLocked && activeTab !== tab.key && tabHasAffordable[tab.key] && (
+                <span className="absolute top-1 right-2 w-2 h-2 bg-chutney rounded-full animate-pulse" />
+              )}
               {activeTab === tab.key && (
                 <motion.div
                   layoutId="activeTab"
