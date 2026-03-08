@@ -108,6 +108,26 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Nudge: earn ₹500 for a surprise */}
+        <AnimatePresence>
+          {!showTutorial && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="relative z-10 mx-3 mt-1"
+            >
+              <div className="bg-card/80 backdrop-blur-sm border border-accent/50 px-3 py-1.5 flex items-center justify-center gap-2 animate-pulse">
+                <span className="text-[10px] font-display text-accent">🎁</span>
+                <span className="text-[10px] font-body text-foreground/80">
+                  Earn <span className="font-bold text-coin">₹500</span> to unlock a surprise!
+                </span>
+                <span className="text-[10px] font-display text-accent">🎁</span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Currency HUD */}
         <div className="relative z-10">
           <CurrencyDisplay
