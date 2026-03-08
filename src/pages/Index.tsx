@@ -262,7 +262,7 @@ const Index = () => {
               className="relative z-10 mx-3 mt-1"
             >
               <div className="bg-card/80 backdrop-blur-sm border border-primary/40 px-3 py-2 flex items-center justify-center gap-2">
-                <span className="text-[10px]">😎</span>
+                <PixelIcon id="cool-face" size={14} />
                 <span className="text-[10px] font-body text-foreground/80">
                   Nice one boss! Keep checking <span className="font-bold text-primary">Upgrades</span> — more goodies drop as you earn more ₹₹₹
                 </span>
