@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
+import CustomerCrowd from './CustomerCrowd';
 import { formatCurrency } from '@/hooks/useGameState';
 
 interface FloatingText {
@@ -84,8 +85,11 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
         )}
       </AnimatePresence>
 
-      {/* Cart scene - positioned left and scaled up */}
-      <div className="relative -ml-14 mb-2">
+      {/* Customers behind cart */}
+      <CustomerCrowd />
+
+      {/* Cart scene - centered */}
+      <div className="relative mb-2 flex justify-center z-10">
         <motion.img
           src={cartScene}
           alt="Wada Pav Cart - Tap to cook!"
