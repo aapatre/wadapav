@@ -34,7 +34,7 @@ export default function CurrencyDisplay({ currency, perSecond, location, prestig
 
       {/* Sub stats */}
       <div className="flex items-center justify-center gap-4 mt-1">
-        <span className="text-sm font-body text-muted-foreground bg-card/70 backdrop-blur-sm px-2 py-0.5 border border-border/50">
+        <span className="text-sm font-body text-muted-foreground bg-card/40 backdrop-blur-sm px-2 py-0.5 border border-border/30">
           {formatCurrency(perSecond)}/sec
         </span>
         {prestigePoints > 0 && (
