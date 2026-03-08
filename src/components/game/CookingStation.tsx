@@ -108,6 +108,33 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
       {hasCrewMember && <CustomerCrowd />}
       <ThiefCharacter currency={currency} productionPerSecond={productionPerSecond} onSteal={onSteal} />
 
+      {/* Tap hint — visible until first tap */}
+      <AnimatePresence>
+        {tapCount === 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20, transition: { duration: 0.3 } }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center gap-2 pointer-events-none"
+          >
+            <motion.div
+              animate={{ y: [0, 10, 0], scale: [1, 1.15, 1] }}
+              transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+              className="text-4xl"
+            >
+              👆
+            </motion.div>
+            <motion.span
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="font-display text-[9px] text-coin tracking-[0.2em] bg-background/70 px-3 py-1"
+            >
+              TAP THE CART!
+            </motion.span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Cart scene - centered */}
       <div className="relative mb-2 flex justify-center z-10">
         <motion.img
@@ -119,8 +146,14 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             filter: isPressed ? 'drop-shadow(0 0 12px hsl(var(--coin-gold)))' : 'none',
           }}
           draggable={false}
-          animate={isPressed ? { rotate: [0, -2, 2, -1, 0] } : {}}
-          transition={{ duration: 0.3 }}
+          animate={
+            tapCount === 0
+              ? { scale: [1, 1.03, 1] }
+              : isPressed
+              ? { rotate: [0, -2, 2, -1, 0] }
+              : {}
+          }
+          transition={tapCount === 0 ? { duration: 2, repeat: Infinity, ease: 'easeInOut' } : { duration: 0.3 }}
         />
         {/* Sizzle particles */}
         <AnimatePresence>
