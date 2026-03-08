@@ -80,7 +80,7 @@ const Index = () => {
       </AnimatePresence>
 
       {/* Scanline overlay */}
-      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02]"
+      <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
         style={{
           backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(0 0% 0%) 2px, hsl(0 0% 0%) 4px)',
         }}
