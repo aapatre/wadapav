@@ -100,7 +100,7 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
         {/* HUD - Title bar */}
-        <div className="relative z-10 flex items-center justify-between px-3 pt-3 pb-1">
+        <div className="relative z-[60] flex items-center justify-between px-3 pt-3 pb-1">
           <h1 className="text-[7px] font-display font-extrabold text-primary tracking-wider drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
             WADA PAV TYCOON
           </h1>
