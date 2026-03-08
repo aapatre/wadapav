@@ -41,12 +41,12 @@ export interface GameState {
 }
 
 const LOCATIONS = [
-  { name: 'Dadar Station', multiplier: 1, emoji: '🚉' },
-  { name: 'CST/VT Station', multiplier: 1.5, emoji: '🏛️' },
-  { name: 'Juhu Beach', multiplier: 2, emoji: '🏖️' },
-  { name: 'BKC Business District', multiplier: 3, emoji: '🏢' },
-  { name: 'Girgaon Chowpatty', multiplier: 5, emoji: '🎪' },
-  { name: 'Mumbai Airport', multiplier: 10, emoji: '✈️' },
+  { name: 'Dadar Station', multiplier: 1, icon: '[#]' },
+  { name: 'CST/VT Station', multiplier: 1.5, icon: '[=]' },
+  { name: 'Juhu Beach', multiplier: 2, icon: '[~]' },
+  { name: 'BKC Business', multiplier: 3, icon: '[^]' },
+  { name: 'Girgaon', multiplier: 5, icon: '[*]' },
+  { name: 'Mumbai Airport', multiplier: 10, icon: '[>]' },
 ];
 
 const INITIAL_WORKERS: Worker[] = [
