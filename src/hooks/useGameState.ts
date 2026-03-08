@@ -69,12 +69,15 @@ const INITIAL_UPGRADES: Upgrade[] = [
 
 const SAVE_KEY = 'wadapav_tycoon_save';
 
-function getWorkerCost(worker: Worker): number {
-  return Math.floor(worker.baseCost * Math.pow(2, worker.quantity));
+// Location-based cost scaling: each map makes things progressively more expensive
+const LOCATION_COST_SCALE = [1, 2, 4, 8, 16, 32];
+
+function getWorkerCost(worker: Worker, locationIndex: number = 0): number {
+  return Math.floor(worker.baseCost * LOCATION_COST_SCALE[locationIndex] * Math.pow(2, worker.quantity));
 }
 
-function getUpgradeCost(upgrade: Upgrade): number {
-  return Math.floor(upgrade.baseCost * Math.pow(1.15, upgrade.level));
+function getUpgradeCost(upgrade: Upgrade, locationIndex: number = 0): number {
+  return Math.floor(upgrade.baseCost * LOCATION_COST_SCALE[locationIndex] * Math.pow(1.15, upgrade.level));
 }
 
 function calculateProductionPerSecond(workers: Worker[], prestigeMultiplier: number, tapMultiplier: number): number {
@@ -196,7 +199,7 @@ export function useGameState() {
       const workerIdx = prev.workers.findIndex(w => w.id === workerId);
       if (workerIdx === -1) return prev;
       const worker = prev.workers[workerIdx];
-      const cost = getWorkerCost(worker);
+      const cost = getWorkerCost(worker, prev.currentLocation);
       if (prev.currency < cost) return prev;
 
       const newWorkers = prev.workers.map((w, i) =>
@@ -220,7 +223,7 @@ export function useGameState() {
       if (upgradeIdx === -1) return prev;
       const upgrade = prev.upgrades[upgradeIdx];
       if (upgrade.level >= upgrade.maxLevel) return prev;
-      const cost = getUpgradeCost(upgrade);
+      const cost = getUpgradeCost(upgrade, prev.currentLocation);
       if (prev.currency < cost) return prev;
 
       const newUpgrades = prev.upgrades.map((u, i) =>
@@ -317,6 +320,9 @@ export function useGameState() {
   const canPrestige = state.currentLocation < LOCATIONS.length - 1 && state.totalEarned >= prestigeCostRequired;
   const prestigePointsAvailable = Math.floor(state.totalEarned / 1_000_000);
 
+  const getWorkerCostAtLocation = useCallback((worker: Worker) => getWorkerCost(worker, state.currentLocation), [state.currentLocation]);
+  const getUpgradeCostAtLocation = useCallback((upgrade: Upgrade) => getUpgradeCost(upgrade, state.currentLocation), [state.currentLocation]);
+
   return {
     state,
     tap,
@@ -328,8 +334,8 @@ export function useGameState() {
     canPrestige,
     prestigePointsAvailable,
     prestigeCostRequired,
-    getWorkerCost,
-    getUpgradeCost,
+    getWorkerCost: getWorkerCostAtLocation,
+    getUpgradeCost: getUpgradeCostAtLocation,
     locations: LOCATIONS,
     formatCurrency,
   };
