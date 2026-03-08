@@ -190,14 +190,18 @@ const Index = () => {
       <div className="flex-1 flex flex-col min-h-0 bg-card/95 backdrop-blur-sm border-t-2 border-primary/30">
         {/* Tab Bar */}
         <div className="flex shrink-0 border-b border-border/50">
-          {tabs.map(tab => (
+          {tabs.map(tab => {
+            const isLocked = forceCrewTab && tab.key !== 'workers';
+            return (
             <button
               key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
+              onClick={() => { if (!isLocked) setActiveTab(tab.key); }}
               className={`flex-1 py-2 text-[7px] font-display transition-all flex items-center justify-center gap-1.5 relative ${
-                activeTab === tab.key
-                  ? 'text-primary bg-background/50'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+                isLocked
+                  ? 'text-muted-foreground/30 cursor-not-allowed'
+                  : activeTab === tab.key
+                    ? 'text-primary bg-background/50'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
               }`}
             >
               <PixelIcon id={tab.iconId} size={16} />
