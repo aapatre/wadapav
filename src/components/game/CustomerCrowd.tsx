@@ -63,7 +63,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           transformOrigin: 'top center',
         }}
         animate={walking ? { rotate: [15, -15, 15] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
+        transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
       />
       {/* Right leg */}
       <motion.div
@@ -78,7 +78,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           transformOrigin: 'top center',
         }}
         animate={walking ? { rotate: [-15, 15, -15] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
+        transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
       />
       {/* Left arm */}
       <motion.div
@@ -93,7 +93,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           transformOrigin: 'top center',
         }}
         animate={walking ? { rotate: [-20, 20, -20] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
+        transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
       />
       {/* Right arm */}
       <motion.div
@@ -108,7 +108,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           transformOrigin: 'top center',
         }}
         animate={walking ? { rotate: [20, -20, 20] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
+        transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
       />
     </div>
   );
@@ -151,11 +151,11 @@ export default function CustomerCrowd() {
             delete next[id];
             return next;
           });
-        }, 1500);
+        }, 3750);
         timeoutsRef.current.push(t3);
       }, customer.stayDuration);
       timeoutsRef.current.push(t2);
-    }, 1500);
+    }, 3750);
     timeoutsRef.current.push(t1);
   }, []);
 
@@ -217,7 +217,7 @@ export default function CustomerCrowd() {
                   : { x: leaveX, opacity: 0 }
               }
               exit={{ opacity: 0 }}
-              transition={{ duration: 1.5, ease: 'easeInOut' }}
+              transition={{ duration: 3.75, ease: 'easeInOut' }}
             >
               <CustomerSprite
                 shade={c.shade}
