@@ -24,7 +24,7 @@ interface Props {
 
 let floatId = 0;
 
-export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap }: Props) {
+export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember }: Props) {
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
