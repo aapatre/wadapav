@@ -369,7 +369,7 @@ const Index = () => {
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
               }`}
             >
-              {isPrestigeLocked ? <span className="text-[10px]">🔮</span> : <PixelIcon id={tab.iconId} size={16} />}
+              {isPrestigeLocked ? <PixelIcon id="crystal-ball" size={16} /> : <PixelIcon id={tab.iconId} size={16} />}
               {tab.label}
               {/* Affordability notification dot */}
               {!isLocked && activeTab !== tab.key && tabHasAffordable[tab.key] && (
