@@ -39,7 +39,9 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState<Tab>('upgrades');
   const [showTutorial, setShowTutorial] = useState(() => !hasSeenTutorial());
   const [showCrewHint, setShowCrewHint] = useState(false);
+  const [showMilestone, setShowMilestone] = useState(false);
   const crewHintShownRef = useRef(hasSeenCrewHint());
+  const milestoneShownRef = useRef(hasSeenMilestone());
 
   // Show crew hint when player can afford first worker (₹500)
   const firstWorkerCost = getWorkerCost(state.workers[0]);
@@ -48,6 +50,12 @@ const Index = () => {
     if (!crewHintShownRef.current && !showTutorial && !hasAnyWorker && state.currency >= firstWorkerCost) {
       crewHintShownRef.current = true;
       setShowCrewHint(true);
+    }
+    // 50k milestone
+    if (!milestoneShownRef.current && !showTutorial && state.currency >= 50000) {
+      milestoneShownRef.current = true;
+      markMilestoneSeen();
+      setShowMilestone(true);
     }
   }, [state.currency, firstWorkerCost, showTutorial, hasAnyWorker]);
 
