@@ -9,8 +9,9 @@ import { getSfxMuted, setSfxMuted } from '@/hooks/useSfx';
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 
-const MusicPlayer = () => {
+const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
   const [sfxOff, setSfxOff] = useState(() => getSfxMuted());
+  const [confirmReset, setConfirmReset] = useState(false);
   const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(() => {
     const saved = localStorage.getItem('wadapav-music-muted');
@@ -165,6 +166,42 @@ const MusicPlayer = () => {
               <span className="text-[9px] font-body text-muted-foreground">
                 SFX {sfxOff ? 'OFF' : 'ON'}
               </span>
+            </div>
+
+            {/* Reset progress */}
+            <div className="mt-2 pt-1.5 border-t border-border/30">
+              {!confirmReset ? (
+                <button
+                  onClick={() => setConfirmReset(true)}
+                  className="w-full text-[9px] font-body text-destructive/70 hover:text-destructive transition-colors text-left"
+                >
+                  🗑️ Reset All Progress
+                </button>
+              ) : (
+                <div className="space-y-1.5">
+                  <p className="text-[9px] font-body text-destructive font-bold">
+                    ⚠️ This will erase ALL progress permanently!
+                  </p>
+                  <div className="flex gap-1.5">
+                    <button
+                      onClick={() => {
+                        onReset?.();
+                        setConfirmReset(false);
+                        setOpen(false);
+                      }}
+                      className="flex-1 text-[8px] font-display bg-destructive text-destructive-foreground py-1 px-2 hover:bg-destructive/80 transition-colors"
+                    >
+                      YES, DELETE
+                    </button>
+                    <button
+                      onClick={() => setConfirmReset(false)}
+                      className="flex-1 text-[8px] font-display bg-muted text-muted-foreground py-1 px-2 hover:bg-muted/80 transition-colors"
+                    >
+                      CANCEL
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Credit */}
