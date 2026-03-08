@@ -160,6 +160,9 @@ export function useGameState() {
     return () => clearInterval(interval);
   }, []);
 
+  // Reset combo after inactivity
+  const comboTimeoutRef = useRef<number | null>(null);
+
   const tap = useCallback(() => {
     setState(prev => {
       const now = Date.now();
@@ -180,6 +183,12 @@ export function useGameState() {
         lastTapTime: now,
       };
     });
+
+    // Reset combo after 800ms of no tapping
+    if (comboTimeoutRef.current) clearTimeout(comboTimeoutRef.current);
+    comboTimeoutRef.current = window.setTimeout(() => {
+      setState(prev => ({ ...prev, comboCount: 0 }));
+    }, 800);
   }, []);
 
   const buyWorker = useCallback((workerId: string) => {
