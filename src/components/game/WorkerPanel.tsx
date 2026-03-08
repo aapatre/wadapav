@@ -1,6 +1,7 @@
 import { Worker } from '@/hooks/useGameState';
 import { formatCurrency } from '@/hooks/useGameState';
 import { motion } from 'framer-motion';
+import PixelIcon from './PixelIcon';
 
 interface Props {
   workers: Worker[];
@@ -29,7 +30,7 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost }: Props
                 : 'bg-card border-border opacity-60 pixel-border'
             }`}
           >
-            <span className="font-display text-[10px] text-primary">{worker.icon}</span>
+            <PixelIcon id={worker.id} size={32} />
             <div className="flex-1 text-left">
               <div className="font-display font-semibold text-[8px] text-foreground">
                 {worker.name}
