@@ -19,6 +19,7 @@ interface Props {
   locationMultiplier: number;
   comboCount: number;
   onTap: () => void;
+  hasCrewMember: boolean;
 }
 
 let floatId = 0;
