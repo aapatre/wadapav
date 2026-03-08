@@ -84,8 +84,8 @@ const Index = () => {
           />
         </div>
 
-        {/* Cart + Cooking area */}
-        <div className="relative z-10 flex-1 flex items-end justify-center pb-4">
+        {/* Cart + Cooking area - fills remaining top space */}
+        <div className="relative z-10 flex-1">
           <CookingStation
             tapPower={state.tapPower}
             tapMultiplier={state.tapMultiplier}
