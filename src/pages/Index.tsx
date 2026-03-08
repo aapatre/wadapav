@@ -62,6 +62,17 @@ const Index = () => {
   const prestigeNudgeShownRef = useRef(false);
   const [showBehindThePav, setShowBehindThePav] = useState(false);
   const behindThePavShownRef = useRef(hasSeenBehindThePav());
+  // 10-minute timer for Behind the Pav
+  useEffect(() => {
+    if (behindThePavShownRef.current) return;
+    const timer = window.setTimeout(() => {
+      if (!behindThePavShownRef.current) {
+        behindThePavShownRef.current = true;
+        setShowBehindThePav(true);
+      }
+    }, 10 * 60 * 1000);
+    return () => clearTimeout(timer);
+  }, []);
   const prestigeTabUnlocked = state.currentLocation > 0 || state.totalEarned >= 100_000;
 
   // Show upgrade hint when player can afford first upgrade (₹100)
