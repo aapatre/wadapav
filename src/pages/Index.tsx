@@ -105,7 +105,7 @@ const Index = () => {
             WADA PAV TYCOON
           </h1>
           <div className="flex items-center gap-1">
-            <MusicPlayer />
+            <MusicPlayer onReset={resetGame} />
             <div className="bg-card/70 backdrop-blur-sm px-2 py-0.5 text-[10px] font-body text-muted-foreground">
               {state.totalProduced.toLocaleString()} served
             </div>
