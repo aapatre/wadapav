@@ -86,7 +86,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
     setIsPressed(true);
     setTapCount(prev => prev + 1);
     setTimeout(() => setIsPressed(false), 150);
-  }, [onTap, tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount]);
+  }, [onTap, tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, blocked]);
 
   return (
     <motion.button
