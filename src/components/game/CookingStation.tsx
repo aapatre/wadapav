@@ -21,6 +21,8 @@ interface Props {
   comboCount: number;
   onTap: () => void;
   hasCrewMember: boolean;
+  currency: number;
+  onSteal: (amount: number) => void;
 }
 
 let floatId = 0;
