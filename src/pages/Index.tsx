@@ -220,6 +220,10 @@ const Index = () => {
             >
               <PixelIcon id={tab.iconId} size={16} />
               {tab.label}
+              {/* Affordability notification dot */}
+              {!isLocked && activeTab !== tab.key && tabHasAffordable[tab.key] && (
+                <span className="absolute top-1 right-2 w-2 h-2 bg-chutney rounded-full animate-pulse" />
+              )}
               {activeTab === tab.key && (
                 <motion.div
                   layoutId="activeTab"
