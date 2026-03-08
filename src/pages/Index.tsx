@@ -406,6 +406,7 @@ const Index = () => {
                   currency={state.currency}
                   onBuy={buyWorker}
                   getCost={getWorkerCost}
+                  highlightFirst={forceCrewTab}
                 />
               </motion.div>
             )}
