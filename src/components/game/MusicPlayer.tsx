@@ -168,6 +168,42 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
               </span>
             </div>
 
+            {/* Reset progress */}
+            <div className="mt-2 pt-1.5 border-t border-border/30">
+              {!confirmReset ? (
+                <button
+                  onClick={() => setConfirmReset(true)}
+                  className="w-full text-[9px] font-body text-destructive/70 hover:text-destructive transition-colors text-left"
+                >
+                  🗑️ Reset All Progress
+                </button>
+              ) : (
+                <div className="space-y-1.5">
+                  <p className="text-[9px] font-body text-destructive font-bold">
+                    ⚠️ This will erase ALL progress permanently!
+                  </p>
+                  <div className="flex gap-1.5">
+                    <button
+                      onClick={() => {
+                        onReset?.();
+                        setConfirmReset(false);
+                        setOpen(false);
+                      }}
+                      className="flex-1 text-[8px] font-display bg-destructive text-destructive-foreground py-1 px-2 hover:bg-destructive/80 transition-colors"
+                    >
+                      YES, DELETE
+                    </button>
+                    <button
+                      onClick={() => setConfirmReset(false)}
+                      className="flex-1 text-[8px] font-display bg-muted text-muted-foreground py-1 px-2 hover:bg-muted/80 transition-colors"
+                    >
+                      CANCEL
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Credit */}
             <div className="mt-2 pt-1.5 border-t border-border/30">
               <a
