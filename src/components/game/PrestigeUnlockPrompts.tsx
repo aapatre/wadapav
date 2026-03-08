@@ -39,8 +39,9 @@ export function PrestigeMysteryPrompt({ onClose }: { onClose: () => void }) {
         <motion.div
           animate={{ rotate: [0, -5, 5, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="text-4xl"
-        >🔮</motion.div>
+        >
+          <PixelIcon id="crystal-ball" size={40} />
+        </motion.div>
         <h2 className="font-display font-bold text-sm text-primary">MYSTERY LOCKED</h2>
         <p className="text-xs font-body text-muted-foreground leading-relaxed">
           Something powerful awaits here... but you're not ready yet, boss!
