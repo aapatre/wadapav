@@ -506,6 +506,9 @@ const Index = () => {
 
       {/* Policeman random appearance */}
       <PolicemanCharacter currency={state.currency} />
+
+      {/* Final map congratulations dialog */}
+      <FinalMapDialog open={showFinalMap} onClose={() => setShowFinalMap(false)} />
     </div>
   );
 };
