@@ -53,7 +53,7 @@ const Index = () => {
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
   const prestigeUnlockShownRef = useRef(hasSeenPrestigeUnlock());
   const prestigeNudgeShownRef = useRef(hasSeenPrestigeNudge());
-  const prestigeTabUnlocked = state.totalEarned >= 100_000;
+  const prestigeTabUnlocked = state.currentLocation > 0 || state.totalEarned >= 100_000;
 
   // Show crew hint when player can afford first worker (₹500)
   const firstWorkerCost = getWorkerCost(state.workers[0]);
