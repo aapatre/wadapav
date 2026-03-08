@@ -105,11 +105,10 @@ const MusicPlayer = () => {
       {/* Gear button — no background, white icon with dark outline */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="p-1 hover:opacity-80 transition-opacity drop-shadow-[0_1px_0_rgba(0,0,0,0.9)]"
+        className="p-1 hover:opacity-80 transition-opacity"
         aria-label="Settings"
-        style={{ filter: 'drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black) drop-shadow(0 1px 0 black) drop-shadow(0 -1px 0 black)' }}
       >
-        <PixelIcon id="gear" size={28} className="brightness-0 invert" />
+        <PixelIcon id="gear" size={28} />
       </button>
 
       {/* Dropdown panel */}
