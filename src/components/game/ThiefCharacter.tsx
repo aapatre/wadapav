@@ -277,6 +277,7 @@ export default function ThiefCharacter({ currency, onSteal }: Props) {
       stealTimerRef.current = window.setTimeout(() => {
         setPhase('stealing');
         onSteal(newThief.stealAmount);
+        sfxThiefStole();
         setStolenText({ amount: newThief.stealAmount, caught: false });
         setTimeout(() => {
           setPhase('escaped');
