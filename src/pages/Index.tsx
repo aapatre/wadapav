@@ -48,6 +48,12 @@ const Index = () => {
   const [forceCrewTab, setForceCrewTab] = useState(false);
   const crewHintShownRef = useRef(hasSeenCrewHint());
   const milestoneShownRef = useRef(hasSeenMilestone());
+  const [showPrestigeMystery, setShowPrestigeMystery] = useState(false);
+  const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
+  const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
+  const prestigeUnlockShownRef = useRef(hasSeenPrestigeUnlock());
+  const prestigeNudgeShownRef = useRef(hasSeenPrestigeNudge());
+  const prestigeTabUnlocked = state.totalEarned >= 100_000;
 
   // Show crew hint when player can afford first worker (₹500)
   const firstWorkerCost = getWorkerCost(state.workers[0]);
