@@ -78,7 +78,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           transformOrigin: 'top center',
         }}
         animate={walking ? { rotate: [-15, 15, -15] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
+        transition={walking ? { duration: 1.0, repeat: Infinity, ease: 'easeInOut' } : {}}
       />
       {/* Left arm */}
       <motion.div
