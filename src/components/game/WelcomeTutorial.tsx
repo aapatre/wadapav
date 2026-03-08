@@ -228,7 +228,6 @@ export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: 
           GO TO CREW TAB →
         </button>
       </motion.div>
-      </motion.div>
     </motion.div>
   );
 }
@@ -269,7 +268,5 @@ export function UpgradeHintPrompt({ onComplete, onSwitchToUpgradeTab }: { onComp
         </button>
       </motion.div>
     </motion.div>
-  );
-}
   );
 }
