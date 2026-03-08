@@ -18,6 +18,7 @@ import carnival from '@/assets/icons/carnival.png';
 import airport from '@/assets/icons/airport.png';
 import star from '@/assets/icons/star.png';
 import gear from '@/assets/icons/gear.png';
+import policeman from '@/assets/icons/policeman.png';
 
 export const ICON_MAP: Record<string, string> = {
   // Workers
