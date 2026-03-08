@@ -77,7 +77,19 @@ const Index = () => {
       markMilestoneSeen();
       setShowMilestone(true);
     }
-  }, [state.currency, firstWorkerCost, showTutorial, hasAnyWorker]);
+    // 100k prestige unlock
+    if (!prestigeUnlockShownRef.current && !showTutorial && state.totalEarned >= 100_000) {
+      prestigeUnlockShownRef.current = true;
+      markPrestigeUnlockSeen();
+      setShowPrestigeUnlock(true);
+    }
+    // 1M prestige nudge
+    if (!prestigeNudgeShownRef.current && !showTutorial && state.totalEarned >= 1_000_000) {
+      prestigeNudgeShownRef.current = true;
+      markPrestigeNudgeSeen();
+      setShowPrestigeNudge(true);
+    }
+  }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker]);
 
   const currentLocation = locations[state.currentLocation];
 
