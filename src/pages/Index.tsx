@@ -14,7 +14,6 @@ import MilestonePrompt, { hasSeenMilestone, markMilestoneSeen } from '@/componen
 import {
   PrestigeMysteryPrompt, PrestigeUnlockPrompt, PrestigeNudgeBanner,
   hasSeenPrestigeUnlock, markPrestigeUnlockSeen,
-  hasSeenPrestigeNudge, markPrestigeNudgeSeen,
 } from '@/components/game/PrestigeUnlockPrompts';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
