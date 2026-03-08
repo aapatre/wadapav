@@ -195,8 +195,8 @@ export default function CustomerCrowd() {
       <AnimatePresence>
         {customers.map(c => {
           const phase = phases[c.id] || 'entering';
-          const enterX = c.fromLeft ? -80 : 80;
-          const leaveX = c.fromLeft ? -80 : 80;
+          const enterX = c.fromLeft ? -200 : 200;
+          const leaveX = c.fromLeft ? -200 : 200;
           const standX = c.offsetX;
 
           return (
