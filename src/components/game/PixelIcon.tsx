@@ -17,6 +17,7 @@ import office from '@/assets/icons/office.png';
 import carnival from '@/assets/icons/carnival.png';
 import airport from '@/assets/icons/airport.png';
 import star from '@/assets/icons/star.png';
+import gear from '@/assets/icons/gear.png';
 
 export const ICON_MAP: Record<string, string> = {
   // Workers
@@ -42,6 +43,7 @@ export const ICON_MAP: Record<string, string> = {
   loc5: airport,
   // UI
   star: star,
+  gear: gear,
 };
 
 interface PixelIconProps {

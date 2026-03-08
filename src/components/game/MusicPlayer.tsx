@@ -2,10 +2,14 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import * as Tone from 'tone';
 import { Midi } from '@tonejs/midi';
 import { Volume2, VolumeX } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import PixelIcon from './PixelIcon';
 
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
+const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 
 const MusicPlayer = () => {
+  const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(() => {
     const saved = localStorage.getItem('wadapav-music-muted');
     return saved === 'true';
@@ -18,14 +22,25 @@ const MusicPlayer = () => {
   const synthRef = useRef<Tone.PolySynth | null>(null);
   const partsRef = useRef<Tone.Part[]>([]);
   const midiRef = useRef<Midi | null>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+
+  // Close on outside click
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: PointerEvent) => {
+      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener('pointerdown', handler);
+    return () => window.removeEventListener('pointerdown', handler);
+  }, [open]);
 
   // Load MIDI on mount
   useEffect(() => {
     fetch(MIDI_URL)
       .then(r => r.arrayBuffer())
-      .then(buf => {
-        midiRef.current = new Midi(buf);
-      })
+      .then(buf => { midiRef.current = new Midi(buf); })
       .catch(console.error);
     return () => {
       partsRef.current.forEach(p => p.dispose());
@@ -86,28 +101,65 @@ const MusicPlayer = () => {
   }, [started, startMusic]);
 
   return (
-    <div className="flex items-center gap-1.5 bg-card/70 backdrop-blur-sm px-2 py-0.5">
+    <div className="relative" ref={panelRef}>
+      {/* Gear button */}
       <button
-        onClick={() => setMuted(m => !m)}
-        className="text-muted-foreground hover:text-foreground transition-colors"
-        aria-label={muted ? 'Unmute' : 'Mute'}
+        onClick={() => setOpen(o => !o)}
+        className="bg-card/70 backdrop-blur-sm p-1 hover:bg-card/90 transition-colors"
+        aria-label="Settings"
       >
-        {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+        <PixelIcon id="gear" size={16} />
       </button>
-      <input
-        type="range"
-        min={0}
-        max={1}
-        step={0.05}
-        value={muted ? 0 : volume}
-        onChange={e => {
-          const v = parseFloat(e.target.value);
-          setVolume(v);
-          if (v > 0 && muted) setMuted(false);
-          if (v === 0) setMuted(true);
-        }}
-        className="w-14 h-1 accent-primary cursor-pointer"
-      />
+
+      {/* Dropdown panel */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -4, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -4, scale: 0.95 }}
+            transition={{ duration: 0.12 }}
+            className="absolute right-0 top-full mt-1 bg-card/95 backdrop-blur-sm border border-border/50 p-2.5 z-50 min-w-[160px]"
+          >
+            {/* Volume control */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setMuted(m => !m)}
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label={muted ? 'Unmute' : 'Mute'}
+              >
+                {muted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+              </button>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.05}
+                value={muted ? 0 : volume}
+                onChange={e => {
+                  const v = parseFloat(e.target.value);
+                  setVolume(v);
+                  if (v > 0 && muted) setMuted(false);
+                  if (v === 0) setMuted(true);
+                }}
+                className="flex-1 h-1 accent-primary cursor-pointer"
+              />
+            </div>
+
+            {/* Credit */}
+            <div className="mt-2 pt-1.5 border-t border-border/30">
+              <a
+                href={CREDIT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[8px] font-body text-muted-foreground hover:text-primary transition-colors"
+              >
+                🎵 Music: sheetmusicsinger.com
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
