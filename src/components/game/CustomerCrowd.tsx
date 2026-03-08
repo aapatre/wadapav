@@ -16,92 +16,112 @@ const SHADES = ['#555', '#666', '#777', '#888', '#999', '#aaa', '#4a4a4a', '#6b6
 let customerId = 0;
 
 function CustomerSprite({ shade, height, walking }: { shade: string; height: number; walking: boolean }) {
+  // Darker shade for details
+  const darkerShade = shade.replace(/[0-9a-f]/gi, c => {
+    const v = Math.max(0, parseInt(c, 16) - 2);
+    return v.toString(16);
+  });
+  const lighterShade = shade.replace(/[0-9a-f]/gi, c => {
+    const v = Math.min(15, parseInt(c, 16) + 2);
+    return v.toString(16);
+  });
+
+  const px = Math.max(2, Math.floor(height / 16)); // pixel unit size
+
   return (
-    <div className="relative" style={{ width: height * 0.45, height }}>
-      {/* Head */}
+    <div
+      className="relative"
+      style={{
+        width: px * 8,
+        height: px * 16,
+        imageRendering: 'pixelated',
+      }}
+    >
+      {/* Head - 4x4 block */}
       <div
-        className="absolute rounded-full"
+        className="absolute"
         style={{
-          width: height * 0.22,
-          height: height * 0.22,
+          width: px * 4,
+          height: px * 4,
           top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: px * 2,
           backgroundColor: shade,
         }}
       />
-      {/* Body */}
+      {/* Eyes - 2 pixels */}
+      <div className="absolute" style={{ width: px, height: px, top: px, left: px * 3, backgroundColor: darkerShade }} />
+      <div className="absolute" style={{ width: px, height: px, top: px, left: px * 5, backgroundColor: darkerShade }} />
+
+      {/* Body - 6x5 block */}
       <div
         className="absolute"
         style={{
-          width: height * 0.28,
-          height: height * 0.32,
-          top: height * 0.2,
-          left: '50%',
-          transform: 'translateX(-50%)',
+          width: px * 6,
+          height: px * 5,
+          top: px * 4,
+          left: px * 1,
           backgroundColor: shade,
-          borderRadius: '3px 3px 0 0',
         }}
       />
-      {/* Left leg */}
-      <motion.div
-        className="absolute"
-        style={{
-          width: height * 0.11,
-          height: height * 0.3,
-          top: height * 0.5,
-          left: '25%',
-          backgroundColor: shade,
-          borderRadius: '0 0 2px 2px',
-          transformOrigin: 'top center',
-        }}
-        animate={walking ? { rotate: [15, -15, 15] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
-      />
-      {/* Right leg */}
-      <motion.div
-        className="absolute"
-        style={{
-          width: height * 0.11,
-          height: height * 0.3,
-          top: height * 0.5,
-          left: '55%',
-          backgroundColor: shade,
-          borderRadius: '0 0 2px 2px',
-          transformOrigin: 'top center',
-        }}
-        animate={walking ? { rotate: [-15, 15, -15] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
-      />
+      {/* Shirt detail */}
+      <div className="absolute" style={{ width: px * 4, height: px, top: px * 5, left: px * 2, backgroundColor: lighterShade }} />
+
       {/* Left arm */}
       <motion.div
         className="absolute"
         style={{
-          width: height * 0.08,
-          height: height * 0.25,
-          top: height * 0.22,
-          left: '8%',
+          width: px * 2,
+          height: px * 4,
+          top: px * 4,
+          left: -px,
           backgroundColor: shade,
-          borderRadius: '2px',
           transformOrigin: 'top center',
         }}
-        animate={walking ? { rotate: [-20, 20, -20] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
+        animate={walking ? { rotate: [-25, 25, -25] } : { rotate: 0 }}
+        transition={walking ? { duration: 0.35, repeat: Infinity, ease: 'linear' } : {}}
       />
       {/* Right arm */}
       <motion.div
         className="absolute"
         style={{
-          width: height * 0.08,
-          height: height * 0.25,
-          top: height * 0.22,
-          right: '8%',
+          width: px * 2,
+          height: px * 4,
+          top: px * 4,
+          right: -px,
           backgroundColor: shade,
-          borderRadius: '2px',
+          transformOrigin: 'top center',
+        }}
+        animate={walking ? { rotate: [25, -25, 25] } : { rotate: 0 }}
+        transition={walking ? { duration: 0.35, repeat: Infinity, ease: 'linear' } : {}}
+      />
+
+      {/* Left leg */}
+      <motion.div
+        className="absolute"
+        style={{
+          width: px * 2,
+          height: px * 5,
+          top: px * 9,
+          left: px * 1,
+          backgroundColor: darkerShade,
           transformOrigin: 'top center',
         }}
         animate={walking ? { rotate: [20, -20, 20] } : { rotate: 0 }}
-        transition={walking ? { duration: 0.4, repeat: Infinity, ease: 'easeInOut' } : {}}
+        transition={walking ? { duration: 0.35, repeat: Infinity, ease: 'linear' } : {}}
+      />
+      {/* Right leg */}
+      <motion.div
+        className="absolute"
+        style={{
+          width: px * 2,
+          height: px * 5,
+          top: px * 9,
+          right: px * 1,
+          backgroundColor: darkerShade,
+          transformOrigin: 'top center',
+        }}
+        animate={walking ? { rotate: [-20, 20, -20] } : { rotate: 0 }}
+        transition={walking ? { duration: 0.35, repeat: Infinity, ease: 'linear' } : {}}
       />
     </div>
   );
