@@ -41,8 +41,8 @@ export interface GameState {
 }
 
 const LOCATIONS = [
-  { name: 'Dadar Station', multiplier: 1, icon: '[#]', bg: 'dadar-station', prestigeCost: 0 },
-  { name: 'CST/VT Station', multiplier: 1.5, icon: '[=]', bg: 'cst-station', prestigeCost: 1_000_000 },
+  { name: 'CST Station', multiplier: 1, icon: '[=]', bg: 'cst-station', prestigeCost: 0 },
+  { name: 'Gateway of India', multiplier: 1.5, icon: '[^]', bg: 'gateway-of-india', prestigeCost: 1_000_000 },
   { name: 'Juhu Beach', multiplier: 2, icon: '[~]', bg: 'juhu-beach', prestigeCost: 5_000_000 },
   { name: 'BKC Business', multiplier: 3, icon: '[^]', bg: 'bkc-business', prestigeCost: 25_000_000 },
   { name: 'Girgaon', multiplier: 5, icon: '[*]', bg: 'girgaon', prestigeCost: 100_000_000 },
