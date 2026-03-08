@@ -121,8 +121,8 @@ export function PrestigeUnlockPrompt({ onClose, onSwitchTab }: { onClose: () => 
   );
 }
 
-/** Nudge banner shown at 1M — reminds player to check prestige */
-export function PrestigeNudgeBanner({ onDismiss, onGoToPrestige }: { onDismiss: () => void; onGoToPrestige: () => void }) {
+/** Nudge banner shown when player can prestige */
+export function PrestigeNudgeBanner({ onDismiss, onGoToPrestige, totalEarned, prestigeCost }: { onDismiss: () => void; onGoToPrestige: () => void; totalEarned: number; prestigeCost: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
@@ -137,7 +137,7 @@ export function PrestigeNudgeBanner({ onDismiss, onGoToPrestige }: { onDismiss: 
         <div className="flex items-center gap-2">
           <span className="text-sm">⭐</span>
           <span className="text-[10px] font-body text-foreground/90">
-            You've earned <span className="font-bold text-coin">₹1M</span>! Ready to <span className="font-bold text-primary">prestige</span>?
+            You've earned <span className="font-bold text-coin">{formatCurrency(totalEarned)}</span>! Ready to <span className="font-bold text-primary">prestige</span>?
           </span>
         </div>
         <button
