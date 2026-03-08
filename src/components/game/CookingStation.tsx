@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
 import CustomerCrowd from './CustomerCrowd';
 import ThiefCharacter from './ThiefCharacter';
+import PixelIcon from './PixelIcon';
 import { formatCurrency } from '@/hooks/useGameState';
 import { sfxTap, sfxComboStart, sfxComboUp } from '@/hooks/useSfx';
 
