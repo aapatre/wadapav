@@ -64,6 +64,15 @@ const Index = () => {
         {showTutorial && (
           <WelcomeTutorial
             onComplete={() => setShowTutorial(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Crew hire hint — shown when player can afford first worker */}
+      <AnimatePresence>
+        {showCrewHint && (
+          <CrewHintPrompt
+            onComplete={() => setShowCrewHint(false)}
             onSwitchToCrewTab={() => setActiveTab('workers')}
           />
         )}
