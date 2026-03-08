@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import wadapavImg from '@/assets/wadapav.png';
+import cartScene from '@/assets/cart-scene.png';
 import { formatCurrency } from '@/hooks/useGameState';
 
 interface FloatingText {
@@ -25,6 +26,7 @@ let floatId = 0;
 export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap }: Props) {
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
+  const [tapCount, setTapCount] = useState(0);
 
   const handleTap = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     onTap();
@@ -55,22 +57,12 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
     }, 800);
 
     setIsPressed(true);
+    setTapCount(prev => prev + 1);
     setTimeout(() => setIsPressed(false), 150);
   }, [onTap, tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount]);
 
   return (
-    <div className="relative flex flex-col items-center justify-center py-4">
-      {/* Steam effects - pixel squares */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 flex gap-4 pointer-events-none">
-        {[0, 1, 2].map(i => (
-          <div
-            key={i}
-            className="w-2 h-2 bg-muted-foreground/30 animate-steam"
-            style={{ animationDelay: `${i * 0.5}s` }}
-          />
-        ))}
-      </div>
-
+    <div className="relative flex flex-col items-center justify-center py-2">
       {/* Combo indicator */}
       <AnimatePresence>
         {comboCount >= 3 && (
@@ -78,38 +70,79 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="absolute top-2 right-4 bg-accent text-accent-foreground font-display font-bold text-[8px] px-2 py-1 z-10 pixel-border-primary animate-blink"
+            className="absolute top-0 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground font-display font-bold text-[8px] px-3 py-1 z-20 pixel-border-primary animate-blink"
           >
-            COMBO x{comboCount}!
+            🔥 COMBO x{comboCount}! 🔥
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Main tap area */}
-      <motion.button
-        onMouseDown={handleTap}
-        onTouchStart={handleTap}
-        whileTap={{ scale: 0.92 }}
-        className={`relative cursor-pointer select-none transition-all duration-150 p-2 ${
-          isPressed ? 'animate-sizzle' : ''
-        }`}
-        style={{
-          filter: isPressed ? 'brightness(1.3)' : 'brightness(1)',
-        }}
-      >
-        <img
-          src={wadapavImg}
-          alt="Wada Pav"
-          className="w-40 h-40 object-contain drop-shadow-[0_0_15px_hsl(var(--coin-gold)/0.4)] pointer-events-none"
-          draggable={false}
-        />
-        {/* Glow ring */}
-        <div className="absolute inset-2 animate-pulse-glow pointer-events-none" />
-      </motion.button>
+      {/* Cart scene - the stall owner */}
+      <div className="relative">
+        <motion.div
+          animate={isPressed ? { y: -2 } : { y: 0 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 20 }}
+        >
+          <img
+            src={cartScene}
+            alt="Wada Pav Cart"
+            className="w-56 h-auto object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)] pointer-events-none"
+            draggable={false}
+          />
+        </motion.div>
 
-      <p className="text-sm font-body text-muted-foreground mt-2">
-        TAP TO COOK! ({formatCurrency(tapPower * tapMultiplier * prestigeMultiplier * locationMultiplier)}/tap)
-      </p>
+        {/* Tap target - wada pav on the cart */}
+        <motion.button
+          onMouseDown={handleTap}
+          onTouchStart={handleTap}
+          whileTap={{ scale: 0.88 }}
+          className="absolute -top-4 left-1/2 -translate-x-1/2 cursor-pointer select-none z-10"
+          style={{
+            filter: isPressed ? 'brightness(1.4) drop-shadow(0 0 12px hsl(var(--coin-gold)))' : 'brightness(1)',
+          }}
+        >
+          <motion.img
+            src={wadapavImg}
+            alt="Tap to cook!"
+            className="w-24 h-24 object-contain pointer-events-none"
+            draggable={false}
+            animate={isPressed ? { rotate: [0, -8, 8, -4, 0] } : {}}
+            transition={{ duration: 0.3 }}
+          />
+          {/* Sizzle particles */}
+          <AnimatePresence>
+            {isPressed && (
+              <>
+                {[...Array(4)].map((_, i) => (
+                  <motion.div
+                    key={`sizzle-${tapCount}-${i}`}
+                    initial={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                    animate={{
+                      opacity: 0,
+                      scale: 0,
+                      x: (Math.random() - 0.5) * 60,
+                      y: -20 - Math.random() * 30,
+                    }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute top-1/2 left-1/2 w-1.5 h-1.5 bg-coin rounded-none"
+                  />
+                ))}
+              </>
+            )}
+          </AnimatePresence>
+        </motion.button>
+      </div>
+
+      {/* Per tap display */}
+      <div className="mt-1 flex items-center gap-2">
+        <span className="text-sm font-body text-muted-foreground">
+          TAP TO COOK
+        </span>
+        <span className="text-sm font-body font-bold text-coin">
+          {formatCurrency(tapPower * tapMultiplier * prestigeMultiplier * locationMultiplier)}/tap
+        </span>
+      </div>
 
       {/* Floating currency texts */}
       <AnimatePresence>
@@ -117,11 +150,11 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
           <motion.div
             key={f.id}
             initial={{ opacity: 1, y: 0, scale: 1 }}
-            animate={{ opacity: 0, y: -60, scale: 0.6 }}
+            animate={{ opacity: 0, y: -70, scale: f.isCombo ? 1.3 : 0.8 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className={`absolute pointer-events-none font-display font-bold ${
-              f.isCombo ? 'text-accent text-[10px]' : 'text-coin text-[9px]'
+            className={`absolute pointer-events-none font-display font-bold z-30 ${
+              f.isCombo ? 'text-accent text-[11px]' : 'text-coin text-[9px]'
             }`}
             style={{ left: f.x, top: f.y }}
           >
