@@ -8,7 +8,6 @@ import { getSfxMuted, setSfxMuted } from '@/hooks/useSfx';
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 
-// Convert MIDI note name to frequency
 function noteToFreq(name: string): number {
   const notes: Record<string, number> = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
   const match = name.match(/^([A-G])(#|b)?(\d+)$/);
@@ -21,11 +20,43 @@ function noteToFreq(name: string): number {
   return 440 * Math.pow(2, (midi - 69) / 12);
 }
 
-interface ScheduledNote {
+interface ParsedNote {
   time: number;
   freq: number;
   duration: number;
   velocity: number;
+}
+
+/**
+ * Pre-render all MIDI notes into a single AudioBuffer using OfflineAudioContext.
+ * This runs once and produces a lightweight buffer that can loop with zero ongoing cost.
+ */
+async function renderMidiToBuffer(notes: ParsedNote[], duration: number, sampleRate: number): Promise<AudioBuffer> {
+  const totalDuration = duration + 0.5; // small tail for reverb
+  const offline = new OfflineAudioContext(1, Math.ceil(totalDuration * sampleRate), sampleRate);
+  const masterGain = offline.createGain();
+  masterGain.gain.value = 0.6;
+  masterGain.connect(offline.destination);
+
+  notes.forEach(note => {
+    const osc = offline.createOscillator();
+    osc.type = 'triangle';
+    osc.frequency.value = note.freq;
+
+    const noteGain = offline.createGain();
+    const start = note.time;
+    const end = start + note.duration;
+    noteGain.gain.setValueAtTime(0, start);
+    noteGain.gain.linearRampToValueAtTime(note.velocity * 0.6, start + 0.02);
+    noteGain.gain.setValueAtTime(note.velocity * 0.6, start + note.duration * 0.7);
+    noteGain.gain.linearRampToValueAtTime(0, end);
+
+    osc.connect(noteGain).connect(masterGain);
+    osc.start(start);
+    osc.stop(end + 0.01);
+  });
+
+  return offline.startRendering();
 }
 
 const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
@@ -44,13 +75,12 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
 
   const audioCtxRef = useRef<AudioContext | null>(null);
   const gainRef = useRef<GainNode | null>(null);
-  const notesRef = useRef<ScheduledNote[]>([]);
-  const durationRef = useRef(0);
-  const loopTimerRef = useRef<number | null>(null);
-  const activeOscsRef = useRef<OscillatorNode[]>([]);
+  const bufferRef = useRef<AudioBuffer | null>(null);
+  const sourceRef = useRef<AudioBufferSourceNode | null>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const mutedRef = useRef(muted);
   const volumeRef = useRef(volume);
+  const bufferReadyRef = useRef(false);
 
   mutedRef.current = muted;
   volumeRef.current = volume;
@@ -67,15 +97,13 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
     return () => window.removeEventListener('pointerdown', handler);
   }, [open]);
 
-  const midiLoadedRef = useRef(false);
-
-  // Load MIDI on mount
+  // Load MIDI and pre-render to AudioBuffer on mount
   useEffect(() => {
     fetch(MIDI_URL)
       .then(r => r.arrayBuffer())
-      .then(buf => {
+      .then(async buf => {
         const midi = new Midi(buf);
-        const allNotes: ScheduledNote[] = [];
+        const allNotes: ParsedNote[] = [];
         midi.tracks.forEach(track => {
           track.notes.forEach(n => {
             allNotes.push({
@@ -87,15 +115,14 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
           });
         });
         allNotes.sort((a, b) => a.time - b.time);
-        notesRef.current = allNotes;
-        durationRef.current = midi.duration;
-        midiLoadedRef.current = true;
+        const rendered = await renderMidiToBuffer(allNotes, midi.duration, 22050);
+        bufferRef.current = rendered;
+        bufferReadyRef.current = true;
       })
       .catch(console.error);
 
     return () => {
-      if (loopTimerRef.current) clearTimeout(loopTimerRef.current);
-      activeOscsRef.current.forEach(o => { try { o.stop(); } catch {} });
+      try { sourceRef.current?.stop(); } catch {}
     };
   }, []);
 
@@ -108,47 +135,26 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
     localStorage.setItem('wadapav-music-volume', String(volume));
   }, [volume, muted]);
 
-  const scheduleLoop = useCallback(() => {
+  const playBuffer = useCallback(() => {
     const ctx = audioCtxRef.current;
     const gain = gainRef.current;
-    if (!ctx || !gain || notesRef.current.length === 0) return;
+    const buffer = bufferRef.current;
+    if (!ctx || !gain || !buffer) return;
 
-    const now = ctx.currentTime + 0.1;
-    const dur = durationRef.current;
+    // Stop previous source if any
+    try { sourceRef.current?.stop(); } catch {}
 
-    notesRef.current.forEach(note => {
-      const osc = ctx.createOscillator();
-      osc.type = 'triangle';
-      osc.frequency.value = note.freq;
-
-      const noteGain = ctx.createGain();
-      noteGain.gain.value = note.velocity * 0.6;
-      // Envelope
-      const start = now + note.time;
-      noteGain.gain.setValueAtTime(0, start);
-      noteGain.gain.linearRampToValueAtTime(note.velocity * 0.6, start + 0.02);
-      noteGain.gain.setValueAtTime(note.velocity * 0.6, start + note.duration * 0.7);
-      noteGain.gain.linearRampToValueAtTime(0, start + note.duration);
-
-      osc.connect(noteGain).connect(gain);
-      osc.start(start);
-      osc.stop(start + note.duration + 0.01);
-      activeOscsRef.current.push(osc);
-      osc.onended = () => {
-        activeOscsRef.current = activeOscsRef.current.filter(o => o !== osc);
-      };
-    });
-
-    // Schedule next loop
-    loopTimerRef.current = window.setTimeout(() => {
-      scheduleLoop();
-    }, dur * 1000);
+    const source = ctx.createBufferSource();
+    source.buffer = buffer;
+    source.loop = true;
+    source.connect(gain);
+    source.start(0);
+    sourceRef.current = source;
   }, []);
 
   const startMusic = useCallback(async () => {
     if (started) return;
 
-    // On mobile, AudioContext must be created & resumed inside a user gesture
     if (!audioCtxRef.current) {
       const ctx = new AudioContext();
       audioCtxRef.current = ctx;
@@ -158,19 +164,17 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
       gainRef.current = gain;
     }
 
-    // Resume suspended context (required on iOS Safari & mobile Chrome)
     if (audioCtxRef.current.state === 'suspended') {
       await audioCtxRef.current.resume();
     }
 
-    // If MIDI not loaded yet, wait and retry
-    if (notesRef.current.length === 0) return;
+    if (!bufferReadyRef.current) return; // MIDI not rendered yet
 
-    scheduleLoop();
+    playBuffer();
     setStarted(true);
-  }, [started, scheduleLoop]);
+  }, [started, playBuffer]);
 
-  // Start on first user interaction (re-register if not yet started)
+  // Start on first user interaction
   useEffect(() => {
     if (started) return;
     const handler = () => { startMusic(); };
@@ -182,9 +186,9 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
     };
   }, [started, startMusic]);
 
-  // Retry start once MIDI finishes loading (user may have tapped before load)
+  // Retry once buffer is ready (user may have tapped before render finished)
   useEffect(() => {
-    if (!started && midiLoadedRef.current && audioCtxRef.current) {
+    if (!started && bufferReadyRef.current && audioCtxRef.current) {
       startMusic();
     }
   });
