@@ -9,8 +9,9 @@ import { getSfxMuted, setSfxMuted } from '@/hooks/useSfx';
 const MIDI_URL = '/music/Oh-My-Darling-Clementine.mid';
 const CREDIT_URL = 'https://www.sheetmusicsinger.com/oh-my-darling-clementine/';
 
-const MusicPlayer = () => {
+const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
   const [sfxOff, setSfxOff] = useState(() => getSfxMuted());
+  const [confirmReset, setConfirmReset] = useState(false);
   const [open, setOpen] = useState(false);
   const [muted, setMuted] = useState(() => {
     const saved = localStorage.getItem('wadapav-music-muted');
