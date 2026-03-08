@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import cartScene from '@/assets/cart-scene.png';
 
 interface Props {
   onComplete: () => void;
