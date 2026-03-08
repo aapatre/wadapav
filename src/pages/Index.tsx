@@ -114,7 +114,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="h-[100dvh] bg-background flex flex-col max-w-md mx-auto relative overflow-hidden" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+    <div className="h-[100dvh] bg-background flex flex-col md:flex-row max-w-md md:max-w-none mx-auto relative overflow-y-auto md:overflow-hidden" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {/* Welcome tutorial for first-time players */}
       <AnimatePresence>
         {showTutorial && (
@@ -169,7 +169,7 @@ const Index = () => {
       />
 
       {/* ===== TOP HALF: Game Scene ===== */}
-      <div className="relative flex-shrink-0" style={{ minHeight: '46vh' }}>
+      <div className="relative flex-shrink-0 sticky top-0 z-20 md:static md:flex-1 md:order-2 md:h-[100dvh] md:overflow-hidden" style={{ minHeight: '46vh' }}>
         {/* Background image */}
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -251,7 +251,7 @@ const Index = () => {
       </div>
 
       {/* ===== BOTTOM HALF: Shop Panel ===== */}
-      <div className="flex-1 flex flex-col min-h-0 bg-card/95 backdrop-blur-sm border-t-2 border-primary/30">
+      <div className="relative z-30 flex flex-col min-h-[100dvh] md:min-h-0 md:w-[380px] md:flex-none md:order-1 md:h-[100dvh] bg-card/95 backdrop-blur-sm border-t-2 md:border-t-0 md:border-r-2 border-primary/30">
         {/* Tab Bar */}
         <div className="flex shrink-0 border-b border-border/50">
           {tabs.map(tab => {
