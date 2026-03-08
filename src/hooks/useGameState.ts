@@ -59,12 +59,12 @@ const INITIAL_WORKERS: Worker[] = [
 ];
 
 const INITIAL_UPGRADES: Upgrade[] = [
-  { id: 'tap1', name: 'Better Potatoes', emoji: '🥔', baseCost: 100, level: 0, maxLevel: 50, effect: 5, type: 'tap', description: '+₹5 per tap' },
-  { id: 'tap2', name: 'Sharper Knife', emoji: '🔪', baseCost: 1000, level: 0, maxLevel: 50, effect: 25, type: 'tap', description: '+₹25 per tap' },
-  { id: 'tap3', name: 'Golden Tawa', emoji: '✨', baseCost: 10000, level: 0, maxLevel: 50, effect: 100, type: 'tap', description: '+₹100 per tap' },
-  { id: 'mult1', name: 'Premium Oil', emoji: '🫒', baseCost: 5000, level: 0, maxLevel: 10, effect: 0.25, type: 'multiplier', description: '+25% all earnings' },
-  { id: 'mult2', name: 'Special Spices', emoji: '🌶️', baseCost: 50000, level: 0, maxLevel: 10, effect: 0.5, type: 'multiplier', description: '+50% all earnings' },
-  { id: 'mult3', name: 'Secret Recipe', emoji: '📜', baseCost: 500000, level: 0, maxLevel: 5, effect: 1.0, type: 'multiplier', description: '+100% all earnings' },
+  { id: 'tap1', name: 'Better Potatoes', icon: '<O>', baseCost: 100, level: 0, maxLevel: 50, effect: 5, type: 'tap', description: '+5/tap' },
+  { id: 'tap2', name: 'Sharper Knife', icon: '/!\\', baseCost: 1000, level: 0, maxLevel: 50, effect: 25, type: 'tap', description: '+25/tap' },
+  { id: 'tap3', name: 'Golden Tawa', icon: '(*)', baseCost: 10000, level: 0, maxLevel: 50, effect: 100, type: 'tap', description: '+100/tap' },
+  { id: 'mult1', name: 'Premium Oil', icon: '{o}', baseCost: 5000, level: 0, maxLevel: 10, effect: 0.25, type: 'multiplier', description: '+25% earn' },
+  { id: 'mult2', name: 'Special Spices', icon: '<!>', baseCost: 50000, level: 0, maxLevel: 10, effect: 0.5, type: 'multiplier', description: '+50% earn' },
+  { id: 'mult3', name: 'Secret Recipe', icon: '[?]', baseCost: 500000, level: 0, maxLevel: 5, effect: 1.0, type: 'multiplier', description: '+100% earn' },
 ];
 
 const SAVE_KEY = 'wadapav_tycoon_save';
