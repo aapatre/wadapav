@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface Props {
   onComplete: () => void;
-  onSwitchToCrewTab: () => void;
 }
 
 const STEPS = [
@@ -22,18 +21,22 @@ const STEPS = [
     text: 'Spend your earnings on upgrades to boost your tap power and multiply your income.',
     emoji: '⚡',
   },
-  {
-    title: 'Hire Your Crew 👥',
-    text: 'Head to the Crew tab to hire workers who earn ₹ automatically — even while you\'re away!',
-    emoji: '🤝',
-  },
 ];
 
 const TUTORIAL_KEY = 'wadapav_tutorial_done';
+const CREW_HINT_KEY = 'wadapav_crew_hint_done';
 
 export function hasSeenTutorial(): boolean {
   try {
     return localStorage.getItem(TUTORIAL_KEY) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+export function hasSeenCrewHint(): boolean {
+  try {
+    return localStorage.getItem(CREW_HINT_KEY) === 'true';
   } catch {
     return false;
   }
@@ -45,7 +48,13 @@ export function markTutorialDone() {
   } catch {}
 }
 
-export default function WelcomeTutorial({ onComplete, onSwitchToCrewTab }: Props) {
+export function markCrewHintDone() {
+  try {
+    localStorage.setItem(CREW_HINT_KEY, 'true');
+  } catch {}
+}
+
+export default function WelcomeTutorial({ onComplete }: Props) {
   const [step, setStep] = useState(0);
 
   const handleNext = () => {
@@ -53,7 +62,6 @@ export default function WelcomeTutorial({ onComplete, onSwitchToCrewTab }: Props
       setStep(step + 1);
     } else {
       markTutorialDone();
-      onSwitchToCrewTab();
       onComplete();
     }
   };
@@ -112,7 +120,59 @@ export default function WelcomeTutorial({ onComplete, onSwitchToCrewTab }: Props
             onClick={handleNext}
             className="flex-1 py-2 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
           >
-            {isLast ? 'HIRE CREW →' : 'NEXT →'}
+            {isLast ? 'START COOKING →' : 'NEXT →'}
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+export function CrewHintPrompt({ onComplete, onSwitchToCrewTab }: { onComplete: () => void; onSwitchToCrewTab: () => void }) {
+  const handleHire = () => {
+    markCrewHintDone();
+    onSwitchToCrewTab();
+    onComplete();
+  };
+
+  const handleDismiss = () => {
+    markCrewHintDone();
+    onComplete();
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm px-6"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
+      >
+        <div className="text-4xl">🤝</div>
+        <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
+          Hire Your Crew 👥
+        </h2>
+        <p className="font-body text-xs text-foreground/80 leading-relaxed">
+          You've earned enough to hire your first worker! Head to the Crew tab to hire a Potato Masher who earns ₹ automatically — even while you're away!
+        </p>
+
+        <div className="flex items-center gap-2 pt-1">
+          <button
+            onClick={handleDismiss}
+            className="flex-1 py-2 text-[10px] font-display text-muted-foreground hover:text-foreground transition-colors"
+          >
+            LATER
+          </button>
+          <button
+            onClick={handleHire}
+            className="flex-1 py-2 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            HIRE CREW →
           </button>
         </div>
       </motion.div>
