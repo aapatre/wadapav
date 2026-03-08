@@ -223,7 +223,7 @@ export function useGameState() {
       if (upgradeIdx === -1) return prev;
       const upgrade = prev.upgrades[upgradeIdx];
       if (upgrade.level >= upgrade.maxLevel) return prev;
-      const cost = getUpgradeCost(upgrade);
+      const cost = getUpgradeCost(upgrade, prev.currentLocation);
       if (prev.currency < cost) return prev;
 
       const newUpgrades = prev.upgrades.map((u, i) =>
