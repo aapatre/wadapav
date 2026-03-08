@@ -13,7 +13,7 @@ export default function CurrencyDisplay({ currency, perSecond, location, prestig
   return (
     <div className="text-center py-2 md:py-6 px-4">
       {/* Location badge */}
-      <div className="inline-flex items-center gap-2 mb-2 bg-card/80 backdrop-blur-sm px-3 py-1 pixel-border">
+      <div className="inline-flex items-center gap-2 mb-2 md:mb-4 bg-card/80 backdrop-blur-sm px-3 py-1 pixel-border">
         <span className="text-sm font-body text-foreground">{location.name}</span>
         {location.multiplier > 1 && (
           <span className="text-[8px] font-display bg-primary/20 text-primary px-1.5 py-0.5">
