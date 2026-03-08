@@ -233,6 +233,8 @@ export default function ThiefCharacter({ currency, productionPerSecond, onSteal 
   const spawnTimerRef = useRef<number | null>(null);
   const currencyRef = useRef(currency);
   currencyRef.current = currency;
+  const ppsRef = useRef(productionPerSecond);
+  ppsRef.current = productionPerSecond;
 
   const clearTimers = useCallback(() => {
     if (stealTimerRef.current) clearTimeout(stealTimerRef.current);

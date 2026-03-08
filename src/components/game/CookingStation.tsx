@@ -106,7 +106,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
 
       {/* Customers behind cart — only when crew is hired */}
       {hasCrewMember && <CustomerCrowd />}
-      <ThiefCharacter currency={currency} onSteal={onSteal} />
+      <ThiefCharacter currency={currency} productionPerSecond={productionPerSecond} onSteal={onSteal} />
 
       {/* Cart scene - centered */}
       <div className="relative mb-2 flex justify-center z-10">
