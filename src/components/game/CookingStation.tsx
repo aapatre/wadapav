@@ -19,11 +19,12 @@ interface Props {
   locationMultiplier: number;
   comboCount: number;
   onTap: () => void;
+  hasCrewMember: boolean;
 }
 
 let floatId = 0;
 
-export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap }: Props) {
+export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember }: Props) {
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
@@ -85,8 +86,8 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
         )}
       </AnimatePresence>
 
-      {/* Customers behind cart */}
-      <CustomerCrowd />
+      {/* Customers behind cart — only when crew is hired */}
+      {hasCrewMember && <CustomerCrowd />}
 
       {/* Cart scene - centered */}
       <div className="relative mb-2 flex justify-center z-10">
