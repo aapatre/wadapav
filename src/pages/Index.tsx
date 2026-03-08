@@ -10,6 +10,7 @@ import PixelIcon from '@/components/game/PixelIcon';
 import WelcomeTutorial, { hasSeenTutorial, hasSeenCrewHint } from '@/components/game/WelcomeTutorial';
 import { CrewHintPrompt } from '@/components/game/WelcomeTutorial';
 import MusicPlayer from '@/components/game/MusicPlayer';
+import MilestonePrompt, { hasSeenMilestone, markMilestoneSeen } from '@/components/game/MilestonePrompt';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
