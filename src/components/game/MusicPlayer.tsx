@@ -67,6 +67,8 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
     return () => window.removeEventListener('pointerdown', handler);
   }, [open]);
 
+  const midiLoadedRef = useRef(false);
+
   // Load MIDI on mount
   useEffect(() => {
     fetch(MIDI_URL)
@@ -87,6 +89,7 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
         allNotes.sort((a, b) => a.time - b.time);
         notesRef.current = allNotes;
         durationRef.current = midi.duration;
+        midiLoadedRef.current = true;
       })
       .catch(console.error);
 
@@ -143,27 +146,48 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
   }, []);
 
   const startMusic = useCallback(async () => {
-    if (started || notesRef.current.length === 0) return;
+    if (started) return;
 
-    const ctx = new AudioContext();
-    audioCtxRef.current = ctx;
+    // On mobile, AudioContext must be created & resumed inside a user gesture
+    if (!audioCtxRef.current) {
+      const ctx = new AudioContext();
+      audioCtxRef.current = ctx;
+      const gain = ctx.createGain();
+      gain.gain.value = mutedRef.current ? 0 : volumeRef.current * 0.15;
+      gain.connect(ctx.destination);
+      gainRef.current = gain;
+    }
 
-    const gain = ctx.createGain();
-    gain.gain.value = mutedRef.current ? 0 : volumeRef.current * 0.15;
-    gain.connect(ctx.destination);
-    gainRef.current = gain;
+    // Resume suspended context (required on iOS Safari & mobile Chrome)
+    if (audioCtxRef.current.state === 'suspended') {
+      await audioCtxRef.current.resume();
+    }
+
+    // If MIDI not loaded yet, wait and retry
+    if (notesRef.current.length === 0) return;
 
     scheduleLoop();
     setStarted(true);
   }, [started, scheduleLoop]);
 
-  // Start on first user interaction
+  // Start on first user interaction (re-register if not yet started)
   useEffect(() => {
     if (started) return;
     const handler = () => { startMusic(); };
-    window.addEventListener('pointerdown', handler, { once: true });
-    return () => window.removeEventListener('pointerdown', handler);
+    window.addEventListener('pointerdown', handler);
+    window.addEventListener('touchstart', handler);
+    return () => {
+      window.removeEventListener('pointerdown', handler);
+      window.removeEventListener('touchstart', handler);
+    };
   }, [started, startMusic]);
+
+  // Retry start once MIDI finishes loading (user may have tapped before load)
+  useEffect(() => {
+    if (!started && midiLoadedRef.current && audioCtxRef.current) {
+      startMusic();
+    }
+  });
 
   return (
     <div className="relative" ref={panelRef}>
