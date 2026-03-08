@@ -159,9 +159,10 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           transition={{ duration: 0.3 }}
           className="w-full max-w-sm bg-card border-2 border-primary/50 p-6 text-center space-y-5"
         >
-          <div className="text-5xl">{current.emoji}</div>
-          <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em]">
+          <PixelIcon id={current.iconId} size={48} />
+          <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em] flex items-center justify-center gap-2">
             {current.title}
+            {'titleIcon' in current && current.titleIcon && <PixelIcon id={current.titleIcon as string} size={20} />}
           </h2>
           <p className="font-body text-sm text-foreground/80 leading-relaxed tracking-wide">
             {current.text}
