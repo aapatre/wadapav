@@ -104,8 +104,11 @@ const Index = () => {
           <h1 className="text-[7px] font-display font-extrabold text-primary tracking-wider drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
             WADA PAV TYCOON
           </h1>
-          <div className="flex items-center gap-1 bg-card/70 backdrop-blur-sm px-2 py-0.5 text-[10px] font-body text-muted-foreground">
-            {state.totalProduced.toLocaleString()} served
+          <div className="flex items-center gap-1">
+            <MusicPlayer />
+            <div className="bg-card/70 backdrop-blur-sm px-2 py-0.5 text-[10px] font-body text-muted-foreground">
+              {state.totalProduced.toLocaleString()} served
+            </div>
           </div>
         </div>
 
