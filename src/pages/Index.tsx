@@ -31,7 +31,7 @@ type Tab = 'upgrades' | 'workers' | 'prestige';
 
 const Index = () => {
   const {
-    state, tap, buyWorker, buyUpgrade, prestige,
+    state, tap, buyWorker, buyUpgrade, prestige, stealCurrency,
     canPrestige, prestigePointsAvailable, prestigeCostRequired,
     getWorkerCost, getUpgradeCost, locations, formatCurrency,
   } = useGameState();
@@ -152,6 +152,8 @@ const Index = () => {
             comboCount={state.comboCount}
             onTap={tap}
             hasCrewMember={state.workers.some(w => w.quantity > 0)}
+            currency={state.currency}
+            onSteal={stealCurrency}
           />
         </div>
       </div>

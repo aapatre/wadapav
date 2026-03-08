@@ -278,6 +278,13 @@ export function useGameState() {
     });
   }, []);
 
+  const stealCurrency = useCallback((amount: number) => {
+    setState(prev => ({
+      ...prev,
+      currency: Math.max(0, prev.currency - amount),
+    }));
+  }, []);
+
   const nextLocation = Math.min(LOCATIONS.length - 1, state.currentLocation + 1);
   const prestigeCostRequired = LOCATIONS[nextLocation].prestigeCost;
   const canPrestige = state.currentLocation < LOCATIONS.length - 1 && state.totalEarned >= prestigeCostRequired;
@@ -289,6 +296,7 @@ export function useGameState() {
     buyWorker,
     buyUpgrade,
     prestige,
+    stealCurrency,
     canPrestige,
     prestigePointsAvailable,
     prestigeCostRequired,

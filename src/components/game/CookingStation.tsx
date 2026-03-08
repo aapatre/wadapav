@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
 import CustomerCrowd from './CustomerCrowd';
+import ThiefCharacter from './ThiefCharacter';
 import { formatCurrency } from '@/hooks/useGameState';
 
 interface FloatingText {
@@ -20,11 +21,13 @@ interface Props {
   comboCount: number;
   onTap: () => void;
   hasCrewMember: boolean;
+  currency: number;
+  onSteal: (amount: number) => void;
 }
 
 let floatId = 0;
 
-export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember }: Props) {
+export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, currency, onSteal }: Props) {
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
@@ -89,6 +92,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
 
       {/* Customers behind cart — only when crew is hired */}
       {hasCrewMember && <CustomerCrowd />}
+      <ThiefCharacter currency={currency} onSteal={onSteal} />
 
       {/* Cart scene - centered */}
       <div className="relative mb-2 flex justify-center z-10">
