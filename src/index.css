@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
 @layer base {
   :root {
@@ -47,7 +47,7 @@
     --mumbai-sky: 210 35% 70%;
 
     --font-display: 'Press Start 2P', monospace;
-    --font-body: 'VT323', monospace;
+    --font-body: 'Pixelify Sans', monospace;
 
     --sidebar-background: 220 20% 10%;
     --sidebar-foreground: 60 30% 90%;
