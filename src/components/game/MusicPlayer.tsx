@@ -104,7 +104,7 @@ async function loadPCM(): Promise<{ pcm: Float32Array; sampleRate: number }> {
 }
 
 // ——— Component ———
-const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
+const MusicPlayer = ({ onReset, onShowAbout }: { onReset?: () => void; onShowAbout?: () => void }) => {
   const [sfxOff, setSfxOffState] = useState(() => getSfxMuted());
   const [confirmReset, setConfirmReset] = useState(false);
   const [open, setOpen] = useState(false);
