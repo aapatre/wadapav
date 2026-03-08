@@ -43,6 +43,7 @@ export const ICON_MAP: Record<string, string> = {
   loc5: airport,
   // UI
   star: star,
+  gear: gear,
 };
 
 interface PixelIconProps {
