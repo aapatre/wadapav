@@ -54,9 +54,9 @@ export function PrestigeMysteryPrompt({ onClose }: { onClose: () => void }) {
         </div>
         <button
           onClick={onClose}
-          className="w-full py-2 bg-primary/20 text-primary font-display text-[9px] pixel-border hover:bg-primary/30 transition-colors"
+          className="w-full py-2 bg-primary/20 text-primary font-display text-[9px] pixel-border hover:bg-primary/30 transition-colors flex items-center justify-center gap-1"
         >
-          BACK TO GRINDING 💪
+          BACK TO GRINDING <PixelIcon id="muscle" size={12} />
         </button>
       </motion.div>
     </motion.div>
