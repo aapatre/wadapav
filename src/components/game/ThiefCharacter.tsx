@@ -223,7 +223,7 @@ export function ThiefTutorialPrompt({ onComplete }: { onComplete: () => void }) 
   );
 }
 
-export default function ThiefCharacter({ currency, onSteal }: Props) {
+export default function ThiefCharacter({ currency, productionPerSecond, onSteal }: Props) {
   const [thief, setThief] = useState<Thief | null>(null);
   const [phase, setPhase] = useState<'entering' | 'lurking' | 'stealing' | 'caught' | 'escaped'>('entering');
   const [stolenText, setStolenText] = useState<{ amount: number; caught: boolean } | null>(null);
