@@ -35,7 +35,7 @@ function CustomerSprite({ shade, height, walking }: { shade: string; height: num
           left: '50%',
           transform: 'translateX(-50%)',
           backgroundColor: shade,
-          borderRadius: '2px',
+          borderRadius: '50%',
         }}
       />
       {/* Body */}
