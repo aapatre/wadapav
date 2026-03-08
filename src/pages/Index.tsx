@@ -298,7 +298,7 @@ const Index = () => {
         {/* Tab Bar */}
         <div className="flex shrink-0 border-b border-border/50">
           {tabs.map(tab => {
-            const isLocked = forceCrewTab && tab.key !== 'workers';
+            const isLocked = (forceCrewTab && tab.key !== 'workers') || (forceUpgradeTab && tab.key !== 'upgrades');
             const isPrestigeLocked = tab.key === 'prestige' && !prestigeTabUnlocked;
             return (
             <button
