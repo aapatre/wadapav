@@ -83,7 +83,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
     <motion.button
       onMouseDown={handleTap}
       onTouchStart={handleTap}
-      className="relative w-full h-full flex flex-col items-center justify-end cursor-pointer select-none md:origin-bottom md:scale-[1.3]"
+      className="relative w-full h-full flex flex-col items-center justify-end cursor-pointer select-none"
       whileTap={{ scale: 0.98 }}
       style={{
         filter: isPressed ? 'brightness(1.15)' : 'brightness(1)',
