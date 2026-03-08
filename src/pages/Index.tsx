@@ -59,7 +59,7 @@ const Index = () => {
   ];
 
   return (
-    <div className="h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden">
+    <div className="h-[100dvh] bg-background flex flex-col max-w-md mx-auto relative overflow-hidden" style={{ paddingTop: 'env(safe-area-inset-top)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       {/* Welcome tutorial for first-time players */}
       <AnimatePresence>
         {showTutorial && (
