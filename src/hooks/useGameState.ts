@@ -69,12 +69,15 @@ const INITIAL_UPGRADES: Upgrade[] = [
 
 const SAVE_KEY = 'wadapav_tycoon_save';
 
-function getWorkerCost(worker: Worker): number {
-  return Math.floor(worker.baseCost * Math.pow(2, worker.quantity));
+// Location-based cost scaling: each map makes things progressively more expensive
+const LOCATION_COST_SCALE = [1, 2, 4, 8, 16, 32];
+
+function getWorkerCost(worker: Worker, locationIndex: number = 0): number {
+  return Math.floor(worker.baseCost * LOCATION_COST_SCALE[locationIndex] * Math.pow(2, worker.quantity));
 }
 
-function getUpgradeCost(upgrade: Upgrade): number {
-  return Math.floor(upgrade.baseCost * Math.pow(1.15, upgrade.level));
+function getUpgradeCost(upgrade: Upgrade, locationIndex: number = 0): number {
+  return Math.floor(upgrade.baseCost * LOCATION_COST_SCALE[locationIndex] * Math.pow(1.15, upgrade.level));
 }
 
 function calculateProductionPerSecond(workers: Worker[], prestigeMultiplier: number, tapMultiplier: number): number {
