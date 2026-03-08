@@ -40,12 +40,21 @@ const Index = () => {
   const [showTutorial, setShowTutorial] = useState(() => !hasSeenTutorial());
   const [showCrewHint, setShowCrewHint] = useState(false);
   const [showMilestone, setShowMilestone] = useState(false);
+  const [forceCrewTab, setForceCrewTab] = useState(false);
   const crewHintShownRef = useRef(hasSeenCrewHint());
   const milestoneShownRef = useRef(hasSeenMilestone());
 
   // Show crew hint when player can afford first worker (₹500)
   const firstWorkerCost = getWorkerCost(state.workers[0]);
   const hasAnyWorker = state.workers.some(w => w.quantity > 0);
+
+  // Once player buys first worker, release the lock
+  useEffect(() => {
+    if (forceCrewTab && hasAnyWorker) {
+      setForceCrewTab(false);
+    }
+  }, [hasAnyWorker, forceCrewTab]);
+
   useEffect(() => {
     if (!crewHintShownRef.current && !showTutorial && !hasAnyWorker && state.currency >= firstWorkerCost) {
       crewHintShownRef.current = true;
