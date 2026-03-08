@@ -199,7 +199,7 @@ export function useGameState() {
       const workerIdx = prev.workers.findIndex(w => w.id === workerId);
       if (workerIdx === -1) return prev;
       const worker = prev.workers[workerIdx];
-      const cost = getWorkerCost(worker);
+      const cost = getWorkerCost(worker, prev.currentLocation);
       if (prev.currency < cost) return prev;
 
       const newWorkers = prev.workers.map((w, i) =>
