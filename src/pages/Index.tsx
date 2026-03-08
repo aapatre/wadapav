@@ -46,6 +46,16 @@ const Index = () => {
 
   return (
     <div className="h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden">
+      {/* Welcome tutorial for first-time players */}
+      <AnimatePresence>
+        {showTutorial && (
+          <WelcomeTutorial
+            onComplete={() => setShowTutorial(false)}
+            onSwitchToCrewTab={() => setActiveTab('workers')}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.02]"
         style={{
