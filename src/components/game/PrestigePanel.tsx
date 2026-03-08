@@ -56,7 +56,9 @@ export default function PrestigePanel({
 
         {!canPrestige && (
           <div className="text-center text-sm font-body text-muted-foreground py-2">
-            Earn 1M to unlock prestige...
+            {currentLocation >= locations.length - 1
+              ? 'Max location reached!'
+              : `Earn ${formatCurrency(prestigeCostRequired)} to prestige...`}
           </div>
         )}
       </div>
