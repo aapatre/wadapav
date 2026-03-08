@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&family=Press+Start+2P&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -47,7 +47,7 @@
     --mumbai-sky: 210 35% 70%;
 
     --font-display: 'Press Start 2P', monospace;
-    --font-body: 'Pixelify Sans', monospace;
+    --font-body: 'DotGothic16', monospace;
 
     --sidebar-background: 220 20% 10%;
     --sidebar-foreground: 60 30% 90%;
