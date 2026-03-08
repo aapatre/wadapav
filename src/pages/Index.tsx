@@ -104,13 +104,13 @@ const Index = () => {
   const tabHasAffordable: Record<Tab, boolean> = {
     upgrades: canAffordUpgrade,
     workers: canAffordWorker,
-    prestige: canPrestige,
+    prestige: prestigeTabUnlocked && canPrestige,
   };
 
   const tabs: { key: Tab; label: string; iconId: string }[] = [
     { key: 'upgrades', label: 'UPGRADES', iconId: 'tap3' },
     { key: 'workers', label: 'CREW', iconId: 'masher' },
-    { key: 'prestige', label: 'PRESTIGE', iconId: 'star' },
+    { key: 'prestige', label: prestigeTabUnlocked ? 'PRESTIGE' : '????', iconId: 'star' },
   ];
 
   return (
