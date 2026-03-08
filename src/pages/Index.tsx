@@ -252,6 +252,44 @@ const Index = () => {
           )}
         </AnimatePresence>
 
+        {/* Post-upgrade toast */}
+        <AnimatePresence>
+          {postUpgradeToast && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="relative z-10 mx-3 mt-1"
+            >
+              <div className="bg-card/80 backdrop-blur-sm border border-primary/40 px-3 py-2 flex items-center justify-center gap-2">
+                <span className="text-[10px]">😎</span>
+                <span className="text-[10px] font-body text-foreground/80">
+                  Nice one boss! Keep checking <span className="font-bold text-primary">Upgrades</span> — more goodies drop as you earn more ₹₹₹
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Post-crew toast */}
+        <AnimatePresence>
+          {postCrewToast && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="relative z-10 mx-3 mt-1"
+            >
+              <div className="bg-card/80 backdrop-blur-sm border border-secondary/40 px-3 py-2 flex items-center justify-center gap-2">
+                <span className="text-[10px]">🤙</span>
+                <span className="text-[10px] font-body text-foreground/80">
+                  Your crew is cooking now! Peep the <span className="font-bold text-primary">Upgrades</span> & <span className="font-bold text-secondary">Crew</span> tabs often — new unlocks = big money moves 💰
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
           {/* Nudge: earn ₹500 for a surprise — only after first upgrade bought */}
         <AnimatePresence>
           {!showTutorial && hasFirstUpgrade && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
