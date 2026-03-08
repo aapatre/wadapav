@@ -143,15 +143,25 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
   }, []);
 
   const startMusic = useCallback(async () => {
-    if (started || notesRef.current.length === 0) return;
+    if (started) return;
 
-    const ctx = new AudioContext();
-    audioCtxRef.current = ctx;
+    // On mobile, AudioContext must be created & resumed inside a user gesture
+    if (!audioCtxRef.current) {
+      const ctx = new AudioContext();
+      audioCtxRef.current = ctx;
+      const gain = ctx.createGain();
+      gain.gain.value = mutedRef.current ? 0 : volumeRef.current * 0.15;
+      gain.connect(ctx.destination);
+      gainRef.current = gain;
+    }
 
-    const gain = ctx.createGain();
-    gain.gain.value = mutedRef.current ? 0 : volumeRef.current * 0.15;
-    gain.connect(ctx.destination);
-    gainRef.current = gain;
+    // Resume suspended context (required on iOS Safari & mobile Chrome)
+    if (audioCtxRef.current.state === 'suspended') {
+      await audioCtxRef.current.resume();
+    }
+
+    // If MIDI not loaded yet, wait and retry
+    if (notesRef.current.length === 0) return;
 
     scheduleLoop();
     setStarted(true);
