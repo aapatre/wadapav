@@ -12,7 +12,7 @@ interface Props {
 export default function UpgradePanel({ upgrades, currency, onBuy, getCost }: Props) {
   return (
     <div className="space-y-2">
-      <h3 className="font-display font-bold text-lg text-foreground px-1">🔧 Upgrades</h3>
+      <h3 className="font-display font-bold text-[10px] text-foreground px-1">⚒️ UPGRADES</h3>
       {upgrades.map(upgrade => {
         const cost = getCost(upgrade);
         const canAfford = currency >= cost;
@@ -24,27 +24,27 @@ export default function UpgradePanel({ upgrades, currency, onBuy, getCost }: Pro
             whileTap={canAfford && !maxed ? { scale: 0.97 } : {}}
             onClick={() => !maxed && canAfford && onBuy(upgrade.id)}
             disabled={!canAfford || maxed}
-            className={`w-full flex items-center gap-3 p-3 rounded-lg border transition-all ${
+            className={`w-full flex items-center gap-3 p-3 border-2 transition-all ${
               maxed
-                ? 'bg-muted/50 border-border opacity-60'
+                ? 'bg-muted/50 border-border opacity-50 pixel-border'
                 : canAfford
-                  ? 'bg-card border-primary/30 hover:border-primary/60 cursor-pointer shadow-sm'
-                  : 'bg-card border-border opacity-70'
+                  ? 'bg-card border-primary/40 hover:border-primary cursor-pointer pixel-border-primary'
+                  : 'bg-card border-border opacity-60 pixel-border'
             }`}
           >
             <span className="text-2xl">{upgrade.emoji}</span>
             <div className="flex-1 text-left">
-              <div className="font-display font-semibold text-sm text-foreground">{upgrade.name}</div>
-              <div className="text-xs font-body text-muted-foreground">{upgrade.description}</div>
+              <div className="font-display font-semibold text-[8px] text-foreground">{upgrade.name}</div>
+              <div className="text-sm font-body text-muted-foreground">{upgrade.description}</div>
             </div>
             <div className="text-right">
-              <div className="text-xs font-body text-muted-foreground">Lv.{upgrade.level}/{upgrade.maxLevel}</div>
+              <div className="text-sm font-body text-muted-foreground">Lv.{upgrade.level}/{upgrade.maxLevel}</div>
               {!maxed && (
-                <div className={`text-sm font-display font-bold ${canAfford ? 'text-chutney' : 'text-muted-foreground'}`}>
+                <div className={`text-sm font-body font-bold ${canAfford ? 'text-chutney' : 'text-muted-foreground'}`}>
                   {formatCurrency(cost)}
                 </div>
               )}
-              {maxed && <div className="text-xs font-display text-coin font-bold">MAX</div>}
+              {maxed && <div className="text-[8px] font-display text-coin font-bold">MAX</div>}
             </div>
           </motion.button>
         );

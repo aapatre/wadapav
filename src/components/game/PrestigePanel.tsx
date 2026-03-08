@@ -19,24 +19,24 @@ export default function PrestigePanel({
 }: Props) {
   return (
     <div className="space-y-3">
-      <h3 className="font-display font-bold text-lg text-foreground px-1">🌟 Mumbai Expansion</h3>
+      <h3 className="font-display font-bold text-[10px] text-foreground px-1">⭐ MUMBAI MAP</h3>
 
-      <div className="bg-card border border-border rounded-lg p-4 space-y-3">
+      <div className="bg-card border-2 border-border p-4 space-y-3 pixel-border">
         <div className="flex justify-between text-sm font-body">
           <span className="text-muted-foreground">Total Earned</span>
-          <span className="font-semibold text-foreground">{formatCurrency(totalEarned)}</span>
+          <span className="font-bold text-foreground">{formatCurrency(totalEarned)}</span>
         </div>
         <div className="flex justify-between text-sm font-body">
-          <span className="text-muted-foreground">Prestige Points</span>
-          <span className="font-semibold text-coin">⭐ {currentPoints}</span>
+          <span className="text-muted-foreground">Prestige Pts</span>
+          <span className="font-bold text-coin">⭐ {currentPoints}</span>
         </div>
         <div className="flex justify-between text-sm font-body">
-          <span className="text-muted-foreground">Earnings Bonus</span>
-          <span className="font-semibold text-chutney">{((prestigeMultiplier - 1) * 100).toFixed(0)}%</span>
+          <span className="text-muted-foreground">Bonus</span>
+          <span className="font-bold text-chutney">{((prestigeMultiplier - 1) * 100).toFixed(0)}%</span>
         </div>
         <div className="flex justify-between text-sm font-body">
-          <span className="text-muted-foreground">Total Prestiges</span>
-          <span className="font-semibold text-foreground">{totalPrestiges}</span>
+          <span className="text-muted-foreground">Prestiges</span>
+          <span className="font-bold text-foreground">{totalPrestiges}</span>
         </div>
 
         {canPrestige && (
@@ -44,36 +44,36 @@ export default function PrestigePanel({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onPrestige}
-            className="w-full py-3 rounded-lg bg-gradient-to-r from-coin to-secondary font-display font-bold text-secondary-foreground shadow-lg"
+            className="w-full py-3 bg-primary text-primary-foreground font-display font-bold text-[9px] pixel-border-primary"
           >
-            ⭐ Prestige for {pointsAvailable} PP
+            ⭐ PRESTIGE +{pointsAvailable} PP
           </motion.button>
         )}
 
         {!canPrestige && (
-          <div className="text-center text-xs font-body text-muted-foreground py-2">
-            Earn ₹1M total to unlock prestige
+          <div className="text-center text-sm font-body text-muted-foreground py-2">
+            Earn ₹1M to unlock prestige...
           </div>
         )}
       </div>
 
-      <h4 className="font-display font-semibold text-sm text-foreground px-1 pt-2">📍 Locations</h4>
+      <h4 className="font-display font-semibold text-[8px] text-foreground px-1 pt-2">📍 LOCATIONS</h4>
       <div className="space-y-1.5">
         {locations.map((loc, i) => (
           <div
             key={i}
-            className={`flex items-center gap-2 p-2 rounded-lg text-sm font-body ${
+            className={`flex items-center gap-2 p-2 border-2 text-sm font-body ${
               i === currentLocation
-                ? 'bg-primary/10 border border-primary/30 text-foreground'
+                ? 'bg-primary/10 border-primary/40 text-foreground pixel-border-primary'
                 : i <= totalPrestiges
-                  ? 'text-muted-foreground'
-                  : 'text-muted-foreground/40'
+                  ? 'border-border text-muted-foreground pixel-border'
+                  : 'border-border/30 text-muted-foreground/30 pixel-border'
             }`}
           >
             <span>{loc.emoji}</span>
             <span className="flex-1">{loc.name}</span>
             <span className="text-xs">{loc.multiplier}x</span>
-            {i === currentLocation && <span className="text-xs text-primary font-semibold">📍</span>}
+            {i === currentLocation && <span className="text-xs text-primary font-bold animate-blink">◄</span>}
           </div>
         ))}
       </div>
