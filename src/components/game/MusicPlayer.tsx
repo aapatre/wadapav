@@ -104,7 +104,7 @@ async function loadPCM(): Promise<{ pcm: Float32Array; sampleRate: number }> {
 }
 
 // ——— Component ———
-const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
+const MusicPlayer = ({ onReset, onShowAbout }: { onReset?: () => void; onShowAbout?: () => void }) => {
   const [sfxOff, setSfxOffState] = useState(() => getSfxMuted());
   const [confirmReset, setConfirmReset] = useState(false);
   const [open, setOpen] = useState(false);
@@ -273,6 +273,17 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
                 <span className="text-[9px] font-display text-[#0A66C2] tracking-wider">🔗 LINKEDIN</span>
                 <span className="block text-[8px] font-body text-muted-foreground mt-0.5">in/aapatre</span>
               </a>
+            </div>
+
+            {/* About / Behind the Pav */}
+            <div className="mt-2 pt-1.5 border-t border-border/30">
+              <button
+                onClick={() => { onShowAbout?.(); setOpen(false); }}
+                className="w-full text-center bg-muted/50 border border-border/50 hover:bg-muted/80 transition-colors px-2 py-1.5"
+              >
+                <span className="text-[9px] font-display text-foreground/80 tracking-wider">🍔 BEHIND THE PAV</span>
+                <span className="block text-[8px] font-body text-muted-foreground mt-0.5">Why this game exists</span>
+              </button>
             </div>
 
             {/* Credit */}

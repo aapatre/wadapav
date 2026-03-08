@@ -16,6 +16,7 @@ import {
   hasSeenPrestigeUnlock, markPrestigeUnlockSeen,
 } from '@/components/game/PrestigeUnlockPrompts';
 import PolicemanCharacter from '@/components/game/PolicemanCharacter';
+import BehindThePav, { hasSeenBehindThePav } from '@/components/game/BehindThePav';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -58,7 +59,9 @@ const Index = () => {
   const [showPrestigeUnlock, setShowPrestigeUnlock] = useState(false);
   const [showPrestigeNudge, setShowPrestigeNudge] = useState(false);
   const prestigeUnlockShownRef = useRef(hasSeenPrestigeUnlock());
-  const prestigeNudgeShownRef = useRef(false); // resets each session, triggers per-location
+  const prestigeNudgeShownRef = useRef(false);
+  const [showBehindThePav, setShowBehindThePav] = useState(false);
+  const behindThePavShownRef = useRef(hasSeenBehindThePav());
   const prestigeTabUnlocked = state.currentLocation > 0 || state.totalEarned >= 100_000;
 
   // Show upgrade hint when player can afford first upgrade (₹100)
@@ -123,7 +126,12 @@ const Index = () => {
       prestigeNudgeShownRef.current = true;
       setShowPrestigeNudge(true);
     }
-  }, [state.currency, state.totalEarned, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige]);
+    // Behind the Pav — after first prestige
+    if (!behindThePavShownRef.current && state.totalPrestiges >= 1) {
+      behindThePavShownRef.current = true;
+      setTimeout(() => setShowBehindThePav(true), 1500); // slight delay after prestige animation
+    }
+  }, [state.currency, state.totalEarned, state.totalPrestiges, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige]);
 
   const currentLocation = locations[state.currentLocation];
 
@@ -208,6 +216,13 @@ const Index = () => {
         )}
       </AnimatePresence>
 
+      {/* Behind the Pav — skills reveal */}
+      <AnimatePresence>
+        {showBehindThePav && (
+          <BehindThePav onClose={() => setShowBehindThePav(false)} />
+        )}
+      </AnimatePresence>
+
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
         style={{
@@ -234,7 +249,7 @@ const Index = () => {
             WADA PAV TYCOON
           </h1>
           <div className="flex items-center gap-1">
-            <MusicPlayer onReset={resetGame} />
+            <MusicPlayer onReset={resetGame} onShowAbout={() => setShowBehindThePav(true)} />
             <div className="bg-card/70 backdrop-blur-sm px-2 py-0.5 text-[10px] font-body text-muted-foreground">
               {state.totalProduced.toLocaleString()} served
             </div>
