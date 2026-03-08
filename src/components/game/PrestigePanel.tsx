@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { formatCurrency } from '@/hooks/useGameState';
+import PixelIcon from './PixelIcon';
 
 interface Props {
   canPrestige: boolean;
@@ -26,9 +27,11 @@ export default function PrestigePanel({
           <span className="text-muted-foreground">Total Earned</span>
           <span className="font-bold text-foreground">{formatCurrency(totalEarned)}</span>
         </div>
-        <div className="flex justify-between text-sm font-body">
+        <div className="flex justify-between items-center text-sm font-body">
           <span className="text-muted-foreground">Prestige Pts</span>
-          <span className="font-bold text-coin">* {currentPoints}</span>
+          <span className="font-bold text-coin flex items-center gap-1">
+            <PixelIcon id="star" size={16} /> {currentPoints}
+          </span>
         </div>
         <div className="flex justify-between text-sm font-body">
           <span className="text-muted-foreground">Bonus</span>
@@ -44,9 +47,9 @@ export default function PrestigePanel({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onPrestige}
-            className="w-full py-3 bg-primary text-primary-foreground font-display font-bold text-[9px] pixel-border-primary"
+            className="w-full py-3 bg-primary text-primary-foreground font-display font-bold text-[9px] pixel-border-primary flex items-center justify-center gap-2"
           >
-            * PRESTIGE +{pointsAvailable} PP *
+            <PixelIcon id="star" size={16} /> PRESTIGE +{pointsAvailable} PP
           </motion.button>
         )}
 
@@ -70,7 +73,7 @@ export default function PrestigePanel({
                   : 'border-border/30 text-muted-foreground/30 pixel-border'
             }`}
           >
-            <span className="font-display text-[8px]">{loc.icon}</span>
+            <PixelIcon id={`loc${i}`} size={24} />
             <span className="flex-1">{loc.name}</span>
             <span className="font-display text-[8px]">{loc.multiplier}x</span>
             {i === currentLocation && <span className="text-primary font-display text-[8px] animate-blink">&lt;</span>}

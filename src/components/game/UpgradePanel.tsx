@@ -1,6 +1,7 @@
 import { Upgrade } from '@/hooks/useGameState';
 import { formatCurrency } from '@/hooks/useGameState';
 import { motion } from 'framer-motion';
+import PixelIcon from './PixelIcon';
 
 interface Props {
   upgrades: Upgrade[];
@@ -32,7 +33,7 @@ export default function UpgradePanel({ upgrades, currency, onBuy, getCost }: Pro
                   : 'bg-card border-border opacity-60 pixel-border'
             }`}
           >
-            <span className="font-display text-[10px] text-primary">{upgrade.icon}</span>
+            <PixelIcon id={upgrade.id} size={32} />
             <div className="flex-1 text-left">
               <div className="font-display font-semibold text-[8px] text-foreground">{upgrade.name}</div>
               <div className="text-sm font-body text-muted-foreground">{upgrade.description}</div>

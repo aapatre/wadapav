@@ -5,6 +5,7 @@ import CookingStation from '@/components/game/CookingStation';
 import UpgradePanel from '@/components/game/UpgradePanel';
 import WorkerPanel from '@/components/game/WorkerPanel';
 import PrestigePanel from '@/components/game/PrestigePanel';
+import PixelIcon from '@/components/game/PixelIcon';
 
 type Tab = 'upgrades' | 'workers' | 'prestige';
 
@@ -18,10 +19,10 @@ const Index = () => {
 
   const currentLocation = locations[state.currentLocation];
 
-  const tabs: { key: Tab; label: string; icon: string }[] = [
-    { key: 'upgrades', label: 'UPGR', icon: '[+]' },
-    { key: 'workers', label: 'CREW', icon: '[=]' },
-    { key: 'prestige', label: 'STAR', icon: '[*]' },
+  const tabs: { key: Tab; label: string; iconId: string }[] = [
+    { key: 'upgrades', label: 'UPGR', iconId: 'tap3' },
+    { key: 'workers', label: 'CREW', iconId: 'masher' },
+    { key: 'prestige', label: 'STAR', iconId: 'star' },
   ];
 
   return (
@@ -64,13 +65,14 @@ const Index = () => {
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`flex-1 py-2.5 text-[8px] font-display transition-all ${
+            className={`flex-1 py-2 text-[8px] font-display transition-all flex items-center justify-center gap-1.5 ${
               activeTab === tab.key
                 ? 'text-primary border-b-3 border-primary bg-muted'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            {tab.icon} {tab.label}
+            <PixelIcon id={tab.iconId} size={18} />
+            {tab.label}
           </button>
         ))}
       </div>
@@ -110,8 +112,8 @@ const Index = () => {
 
       {/* Stats footer */}
       <div className="bg-card border-t-2 border-border px-4 py-2 flex justify-between text-sm font-body text-muted-foreground">
-        <span>[=] {state.totalProduced.toLocaleString()} served</span>
-        <span>[$] {formatCurrency(state.totalEarned)} earned</span>
+        <span>{state.totalProduced.toLocaleString()} served</span>
+        <span>{formatCurrency(state.totalEarned)} earned</span>
       </div>
     </div>
   );
