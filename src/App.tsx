@@ -46,6 +46,13 @@ function useRequestFullscreen() {
 const App = () => {
   useRequestFullscreen();
 
+  // Disable right-click context menu
+  useEffect(() => {
+    const block = (e: Event) => e.preventDefault();
+    document.addEventListener('contextmenu', block);
+    return () => document.removeEventListener('contextmenu', block);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
