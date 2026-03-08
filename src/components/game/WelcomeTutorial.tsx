@@ -118,11 +118,11 @@ export default function WelcomeTutorial({ onComplete }: Props) {
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <div className="text-6xl mb-4">🟠</div>
-            <h1 className="font-display font-extrabold text-2xl text-primary tracking-[0.25em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            <img src={cartScene} alt="Wada Pav Cart" className="w-40 h-40 mx-auto object-contain pointer-events-none" draggable={false} />
+            <h1 className="font-display font-extrabold text-2xl text-primary tracking-[0.3em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
               WADA PAV
             </h1>
-            <h1 className="font-display font-extrabold text-2xl text-coin tracking-[0.25em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            <h1 className="font-display font-extrabold text-2xl text-coin tracking-[0.3em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
               TYCOON
             </h1>
           </motion.div>
