@@ -102,13 +102,14 @@ const MusicPlayer = () => {
 
   return (
     <div className="relative" ref={panelRef}>
-      {/* Gear button */}
+      {/* Gear button — no background, white icon with dark outline */}
       <button
         onClick={() => setOpen(o => !o)}
-        className="bg-card/70 backdrop-blur-sm p-1 hover:bg-card/90 transition-colors"
+        className="p-1 hover:opacity-80 transition-opacity drop-shadow-[0_1px_0_rgba(0,0,0,0.9)]"
         aria-label="Settings"
+        style={{ filter: 'drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black) drop-shadow(0 1px 0 black) drop-shadow(0 -1px 0 black)' }}
       >
-        <PixelIcon id="gear" size={16} />
+        <PixelIcon id="gear" size={22} className="brightness-[10] contrast-200" />
       </button>
 
       {/* Dropdown panel */}
@@ -119,7 +120,8 @@ const MusicPlayer = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -4, scale: 0.95 }}
             transition={{ duration: 0.12 }}
-            className="absolute right-0 top-full mt-1 bg-card/95 backdrop-blur-sm border border-border/50 p-2.5 z-50 min-w-[160px]"
+            className="absolute right-0 top-full mt-1 bg-card/95 backdrop-blur-sm border border-border/50 p-2.5 min-w-[160px]"
+            style={{ zIndex: 9999 }}
           >
             {/* Volume control */}
             <div className="flex items-center gap-2">
