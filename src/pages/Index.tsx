@@ -5,7 +5,6 @@ import CookingStation from '@/components/game/CookingStation';
 import UpgradePanel from '@/components/game/UpgradePanel';
 import WorkerPanel from '@/components/game/WorkerPanel';
 import PrestigePanel from '@/components/game/PrestigePanel';
-import cartImg from '@/assets/cart.png';
 
 type Tab = 'upgrades' | 'workers' | 'prestige';
 
@@ -20,54 +19,54 @@ const Index = () => {
   const currentLocation = locations[state.currentLocation];
 
   const tabs: { key: Tab; label: string; emoji: string }[] = [
-    { key: 'upgrades', label: 'Upgrades', emoji: '🔧' },
-    { key: 'workers', label: 'Workers', emoji: '👥' },
-    { key: 'prestige', label: 'Prestige', emoji: '🌟' },
+    { key: 'upgrades', label: 'UPGR', emoji: '⚒️' },
+    { key: 'workers', label: 'CREW', emoji: '👥' },
+    { key: 'prestige', label: 'STAR', emoji: '⭐' },
   ];
 
   return (
     <div className="min-h-screen bg-background flex flex-col max-w-md mx-auto relative overflow-hidden">
-      {/* Header with cart bg */}
-      <div className="relative">
-        <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
-          <img src={cartImg} alt="" className="w-full object-contain" />
-        </div>
+      {/* Scanline overlay */}
+      <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03]"
+        style={{
+          backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(0 0% 0%) 2px, hsl(0 0% 0%) 4px)',
+        }}
+      />
 
-        {/* Title */}
-        <div className="text-center pt-4 pb-1 relative z-10">
-          <h1 className="text-2xl font-display font-extrabold text-foreground tracking-tight">
-            🌶️ Wada Pav Tycoon
-          </h1>
-        </div>
-
-        {/* Currency */}
-        <CurrencyDisplay
-          currency={state.currency}
-          perSecond={state.productionPerSecond}
-          location={currentLocation}
-          prestigePoints={state.prestigePoints}
-        />
-
-        {/* Cooking Station */}
-        <CookingStation
-          tapPower={state.tapPower}
-          tapMultiplier={state.tapMultiplier}
-          prestigeMultiplier={state.prestigeMultiplier}
-          locationMultiplier={currentLocation.multiplier}
-          comboCount={state.comboCount}
-          onTap={tap}
-        />
+      {/* Title */}
+      <div className="text-center pt-4 pb-1 relative z-10">
+        <h1 className="text-xs font-display font-extrabold text-primary tracking-wider">
+          🌶️ WADA PAV TYCOON 🌶️
+        </h1>
       </div>
 
+      {/* Currency */}
+      <CurrencyDisplay
+        currency={state.currency}
+        perSecond={state.productionPerSecond}
+        location={currentLocation}
+        prestigePoints={state.prestigePoints}
+      />
+
+      {/* Cooking Station */}
+      <CookingStation
+        tapPower={state.tapPower}
+        tapMultiplier={state.tapMultiplier}
+        prestigeMultiplier={state.prestigeMultiplier}
+        locationMultiplier={currentLocation.multiplier}
+        comboCount={state.comboCount}
+        onTap={tap}
+      />
+
       {/* Tab Bar */}
-      <div className="flex border-b border-border bg-card/50 sticky top-0 z-20">
+      <div className="flex border-b-2 border-border bg-card sticky top-0 z-20">
         {tabs.map(tab => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
-            className={`flex-1 py-2.5 text-sm font-display font-semibold transition-all ${
+            className={`flex-1 py-2.5 text-xs font-display transition-all ${
               activeTab === tab.key
-                ? 'text-primary border-b-2 border-primary bg-card'
+                ? 'text-primary border-b-3 border-primary bg-muted'
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
@@ -77,7 +76,7 @@ const Index = () => {
       </div>
 
       {/* Tab Content */}
-      <div className="flex-1 overflow-y-auto p-4 pb-8">
+      <div className="flex-1 overflow-y-auto p-3 pb-8">
         {activeTab === 'upgrades' && (
           <UpgradePanel
             upgrades={state.upgrades}
@@ -110,7 +109,7 @@ const Index = () => {
       </div>
 
       {/* Stats footer */}
-      <div className="bg-card/80 border-t border-border px-4 py-2 flex justify-between text-xs font-body text-muted-foreground">
+      <div className="bg-card border-t-2 border-border px-4 py-2 flex justify-between text-sm font-body text-muted-foreground">
         <span>🍽️ {state.totalProduced.toLocaleString()} served</span>
         <span>💰 {formatCurrency(state.totalEarned)} earned</span>
       </div>

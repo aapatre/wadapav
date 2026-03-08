@@ -65,7 +65,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
         {[0, 1, 2].map(i => (
           <div
             key={i}
-            className="w-3 h-3 rounded-full bg-muted-foreground/20 animate-steam"
+            className="w-2 h-2 bg-muted-foreground/30 animate-steam"
             style={{ animationDelay: `${i * 0.5}s` }}
           />
         ))}
@@ -78,7 +78,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            className="absolute top-2 right-4 bg-spice text-primary-foreground font-display font-bold text-sm px-3 py-1 rounded-full z-10"
+            className="absolute top-2 right-4 bg-accent text-accent-foreground font-display font-bold text-[8px] px-2 py-1 z-10 pixel-border-primary animate-blink"
           >
             COMBO x{comboCount}! 🔥
           </motion.div>
@@ -90,25 +90,25 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
         onMouseDown={handleTap}
         onTouchStart={handleTap}
         whileTap={{ scale: 0.92 }}
-        className={`relative cursor-pointer select-none transition-all duration-150 rounded-full p-2 ${
+        className={`relative cursor-pointer select-none transition-all duration-150 p-2 ${
           isPressed ? 'animate-sizzle' : ''
         }`}
         style={{
-          filter: isPressed ? 'brightness(1.2)' : 'brightness(1)',
+          filter: isPressed ? 'brightness(1.3)' : 'brightness(1)',
         }}
       >
         <img
           src={wadapavImg}
           alt="Wada Pav"
-          className="w-48 h-48 object-contain drop-shadow-lg pointer-events-none"
+          className="w-40 h-40 object-contain drop-shadow-[0_0_15px_hsl(var(--coin-gold)/0.4)] pointer-events-none"
           draggable={false}
         />
         {/* Glow ring */}
-        <div className="absolute inset-0 rounded-full animate-pulse-glow pointer-events-none" />
+        <div className="absolute inset-2 animate-pulse-glow pointer-events-none" />
       </motion.button>
 
       <p className="text-sm font-body text-muted-foreground mt-2">
-        Tap to make Wada Pav! ({formatCurrency(tapPower * tapMultiplier * prestigeMultiplier * locationMultiplier)}/tap)
+        TAP TO COOK! ({formatCurrency(tapPower * tapMultiplier * prestigeMultiplier * locationMultiplier)}/tap)
       </p>
 
       {/* Floating currency texts */}
@@ -121,7 +121,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
             className={`absolute pointer-events-none font-display font-bold ${
-              f.isCombo ? 'text-spice text-xl' : 'text-coin text-lg'
+              f.isCombo ? 'text-accent text-[10px]' : 'text-coin text-xs'
             }`}
             style={{ left: f.x, top: f.y }}
           >
