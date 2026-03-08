@@ -179,6 +179,19 @@ export default function CustomerCrowd() {
 
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {/* SVG pixelation filter */}
+      <svg className="absolute w-0 h-0">
+        <defs>
+          <filter id="pixelate">
+            <feFlood x="0" y="0" height="2" width="2" />
+            <feComposite width="5" height="5" />
+            <feTile result="a" />
+            <feComposite in="SourceGraphic" in2="a" operator="in" />
+            <feMorphology operator="dilate" radius="2.5" />
+          </filter>
+        </defs>
+      </svg>
+
       <AnimatePresence>
         {customers.map(c => {
           const phase = phases[c.id] || 'entering';
