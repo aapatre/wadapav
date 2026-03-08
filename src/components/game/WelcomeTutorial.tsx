@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
 import potatoIcon from '@/assets/icons/potato.png';
+import wadapavChiliIcon from '@/assets/icons/wadapav-chili.png';
 import heartIcon from '@/assets/icons/heart.png';
 import crownIcon from '@/assets/icons/crown.png';
 import tawaFireIcon from '@/assets/icons/tawa-fire.png';
