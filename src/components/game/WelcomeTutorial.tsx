@@ -110,29 +110,29 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="w-full max-w-sm text-center space-y-6"
+          className="w-full max-w-sm text-center space-y-8"
         >
           {/* Big pixel title */}
           <motion.div
             animate={{ y: [0, -6, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <div className="text-5xl mb-3">🟠</div>
-            <h1 className="font-display font-extrabold text-lg text-primary tracking-widest drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            <div className="text-6xl mb-4">🟠</div>
+            <h1 className="font-display font-extrabold text-2xl text-primary tracking-[0.25em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
               WADA PAV
             </h1>
-            <h1 className="font-display font-extrabold text-lg text-coin tracking-widest drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
+            <h1 className="font-display font-extrabold text-2xl text-coin tracking-[0.25em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]">
               TYCOON
             </h1>
           </motion.div>
 
-          <p className="font-body text-xs text-muted-foreground italic">
+          <p className="font-body text-sm text-muted-foreground italic tracking-wide">
             Mumbai's street food empire awaits
           </p>
 
           <motion.button
             onClick={handleNext}
-            className="px-8 py-3 font-display font-bold text-[10px] bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-widest animate-pulse"
+            className="px-10 py-3.5 font-display font-bold text-xs bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-[0.2em] animate-pulse"
             whileTap={{ scale: 0.95 }}
           >
             TAP TO START
@@ -140,7 +140,7 @@ export default function WelcomeTutorial({ onComplete }: Props) {
 
           <button
             onClick={handleSkip}
-            className="block mx-auto text-[9px] font-body text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+            className="block mx-auto text-[10px] font-body text-muted-foreground/50 hover:text-muted-foreground transition-colors tracking-wide"
           >
             skip intro
           </button>
@@ -153,38 +153,38 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -40 }}
           transition={{ duration: 0.3 }}
-          className="w-full max-w-sm bg-card border-2 border-primary/50 p-5 text-center space-y-4"
+          className="w-full max-w-sm bg-card border-2 border-primary/50 p-6 text-center space-y-5"
         >
-          <div className="text-4xl">{current.emoji}</div>
-          <h2 className="font-display font-extrabold text-sm text-primary tracking-wide">
+          <div className="text-5xl">{current.emoji}</div>
+          <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em]">
             {current.title}
           </h2>
-          <p className="font-body text-xs text-foreground/80 leading-relaxed">
+          <p className="font-body text-sm text-foreground/80 leading-relaxed tracking-wide">
             {current.text}
           </p>
 
           {/* Step dots */}
-          <div className="flex items-center justify-center gap-1.5 pt-1">
+          <div className="flex items-center justify-center gap-2 pt-1">
             {STEPS.map((_, i) => (
               <div
                 key={i}
-                className={`w-2 h-2 transition-all ${
+                className={`w-2.5 h-2.5 transition-all ${
                   i === step ? 'bg-primary scale-110' : i < step ? 'bg-primary/40' : 'bg-muted-foreground/30'
                 }`}
               />
             ))}
           </div>
 
-          <div className="flex items-center gap-2 pt-1">
+          <div className="flex items-center gap-3 pt-1">
             <button
               onClick={handleSkip}
-              className="flex-1 py-2 text-[10px] font-display text-muted-foreground hover:text-foreground transition-colors"
+              className="flex-1 py-2.5 text-xs font-display text-muted-foreground hover:text-foreground transition-colors tracking-wider"
             >
               SKIP
             </button>
             <button
               onClick={handleNext}
-              className="flex-1 py-2 text-[10px] font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+              className="flex-1 py-2.5 text-xs font-display font-bold bg-primary text-primary-foreground hover:bg-primary/90 transition-colors tracking-wider"
             >
               {isLast ? 'LET\'S COOK! 🔥' : 'NEXT →'}
             </button>
