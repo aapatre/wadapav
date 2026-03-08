@@ -109,7 +109,7 @@ const MusicPlayer = () => {
         aria-label="Settings"
         style={{ filter: 'drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black) drop-shadow(0 1px 0 black) drop-shadow(0 -1px 0 black)' }}
       >
-        <PixelIcon id="gear" size={22} className="brightness-[10] contrast-200" />
+        <PixelIcon id="gear" size={28} className="brightness-0 invert" />
       </button>
 
       {/* Dropdown panel */}
