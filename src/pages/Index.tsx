@@ -56,9 +56,22 @@ const Index = () => {
   const prestigeNudgeShownRef = useRef(false); // resets each session, triggers per-location
   const prestigeTabUnlocked = state.currentLocation > 0 || state.totalEarned >= 100_000;
 
+  // Show upgrade hint when player can afford first upgrade (₹100)
+  const firstUpgrade = state.upgrades[0];
+  const hasFirstUpgrade = firstUpgrade.level > 0;
+  const firstUpgradeCost = getUpgradeCost(firstUpgrade);
+
   // Show crew hint when player can afford first worker (₹500)
   const firstWorkerCost = getWorkerCost(state.workers[0]);
   const hasAnyWorker = state.workers.some(w => w.quantity > 0);
+  const milestoneShownRef = useRef(hasSeenMilestone());
+
+  // Release upgrade tab lock after first upgrade bought
+  useEffect(() => {
+    if (forceUpgradeTab && hasFirstUpgrade) {
+      setForceUpgradeTab(false);
+    }
+  }, [hasFirstUpgrade, forceUpgradeTab]);
 
   // Once player buys first worker, release the lock
   useEffect(() => {
@@ -68,6 +81,12 @@ const Index = () => {
   }, [hasAnyWorker, forceCrewTab]);
 
   useEffect(() => {
+    // ₹100 upgrade hint
+    if (!upgradeHintShownRef.current && !showTutorial && !hasFirstUpgrade && state.currency >= firstUpgradeCost) {
+      upgradeHintShownRef.current = true;
+      setShowUpgradeHint(true);
+    }
+    // ₹500 crew hint
     if (!crewHintShownRef.current && !showTutorial && !hasAnyWorker && state.currency >= firstWorkerCost) {
       crewHintShownRef.current = true;
       setShowCrewHint(true);
@@ -89,7 +108,7 @@ const Index = () => {
       prestigeNudgeShownRef.current = true;
       setShowPrestigeNudge(true);
     }
-  }, [state.currency, state.totalEarned, firstWorkerCost, showTutorial, hasAnyWorker, canPrestige]);
+  }, [state.currency, state.totalEarned, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige]);
 
   const currentLocation = locations[state.currentLocation];
 
