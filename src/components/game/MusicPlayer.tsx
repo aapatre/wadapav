@@ -140,10 +140,9 @@ const MusicPlayer = ({ onReset }: { onReset?: () => void }) => {
   // Load and cache the audio buffer on mount
   useEffect(() => {
     loadPCM().then(({ pcm, sampleRate }) => {
-      // We don't create an AudioContext yet — that happens on user gesture
-      // Store raw PCM so we can build the buffer later
-      const buf = new AudioBuffer({ length: pcm.length, numberOfChannels: 1, sampleRate });
-      buf.copyToChannel(pcm, 0);
+      const floats = new Float32Array(pcm.buffer.slice(0) as ArrayBuffer);
+      const buf = new AudioBuffer({ length: floats.length, numberOfChannels: 1, sampleRate });
+      buf.copyToChannel(floats, 0);
       bufferRef.current = buf;
       readyRef.current = true;
     }).catch(console.error);
