@@ -146,7 +146,13 @@ const Index = () => {
       behindThePavShownRef.current = true;
       setTimeout(() => setShowBehindThePav(true), 1500); // slight delay after prestige animation
     }
-  }, [state.currency, state.totalEarned, state.totalPrestiges, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige]);
+    // Final map dialog — when reaching the last location (Mumbai Airport)
+    if (!finalMapShownRef.current && state.currentLocation === locations.length - 1) {
+      finalMapShownRef.current = true;
+      markFinalMapSeen();
+      setTimeout(() => setShowFinalMap(true), 1000);
+    }
+  }, [state.currency, state.totalEarned, state.totalPrestiges, state.currentLocation, firstUpgradeCost, firstWorkerCost, showTutorial, hasFirstUpgrade, hasAnyWorker, canPrestige, locations.length]);
 
   const currentLocation = locations[state.currentLocation];
 
