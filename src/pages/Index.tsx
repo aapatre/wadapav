@@ -341,6 +341,7 @@ const Index = () => {
             currency={state.currency}
             productionPerSecond={state.productionPerSecond}
             onSteal={stealCurrency}
+            blocked={forceCrewTab}
           />
         </div>
       </div>
