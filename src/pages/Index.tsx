@@ -432,11 +432,11 @@ const Index = () => {
         </div>
 
         {/* Footer credit */}
-        <div className="shrink-0 border-t border-border/30 px-3 py-1.5 flex items-center justify-center gap-2">
-          <span className="text-[8px] font-body text-muted-foreground/60">Built by</span>
-          <a href="https://antariksh.me" target="_blank" rel="noopener noreferrer" className="text-[8px] font-body text-primary/70 hover:text-primary transition-colors">antariksh.me</a>
-          <span className="text-[8px] text-muted-foreground/40">•</span>
-          <a href="https://linkedin.com/in/aapatre" target="_blank" rel="noopener noreferrer" className="text-[8px] font-body text-[#0A66C2]/70 hover:text-[#0A66C2] transition-colors">LinkedIn</a>
+        <div className="shrink-0 border-t border-border/30 px-3 py-2.5 flex items-center justify-center gap-3">
+          <span className="text-[10px] font-display text-muted-foreground/70 tracking-wider">Built by</span>
+          <a href="https://antariksh.me" target="_blank" rel="noopener noreferrer" className="text-[10px] font-display text-primary hover:text-primary/80 transition-colors tracking-wider">antariksh.me</a>
+          <span className="text-[10px] text-muted-foreground/40">•</span>
+          <a href="https://linkedin.com/in/aapatre" target="_blank" rel="noopener noreferrer" className="text-[10px] font-display text-[#0A66C2] hover:text-[#0A66C2]/80 transition-colors tracking-wider">HIRE ME: LinkedIn</a>
         </div>
       </div>
 
