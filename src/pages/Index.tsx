@@ -432,11 +432,11 @@ const Index = () => {
         </div>
 
         {/* Footer credit */}
-        <div className="shrink-0 border-t border-border/30 px-3 py-2 flex items-center justify-center gap-2">
-          <span className="text-[9px] font-display text-muted-foreground/70 tracking-wider">Built by</span>
-          <a href="https://antariksh.me" target="_blank" rel="noopener noreferrer" className="text-[9px] font-display text-primary hover:text-primary/80 transition-colors tracking-wider">antariksh.me</a>
-          <span className="text-[9px] text-muted-foreground/40">•</span>
-          <a href="https://linkedin.com/in/aapatre" target="_blank" rel="noopener noreferrer" className="text-[9px] font-display tracking-wider hover:text-[#0A66C2] transition-colors">
+        <div className="shrink-0 border-t border-border/30 px-3 py-1.5 flex items-center justify-center gap-2">
+          <span className="text-[7px] font-display text-muted-foreground/70 tracking-wider">Built by</span>
+          <a href="https://antariksh.me" target="_blank" rel="noopener noreferrer" className="text-[7px] font-display text-primary hover:text-primary/80 transition-colors tracking-wider">antariksh.me</a>
+          <span className="text-[7px] text-muted-foreground/40">•</span>
+          <a href="https://linkedin.com/in/aapatre" target="_blank" rel="noopener noreferrer" className="text-[7px] font-display tracking-wider hover:text-[#0A66C2] transition-colors">
             <span className="text-muted-foreground/70">HIRE ME: </span><span className="text-[#0A66C2]">LinkedIn</span>
           </a>
         </div>
