@@ -2,6 +2,7 @@ import { Upgrade } from '@/hooks/useGameState';
 import { formatCurrency } from '@/hooks/useGameState';
 import { motion } from 'framer-motion';
 import PixelIcon from './PixelIcon';
+import { sfxBuy } from '@/hooks/useSfx';
 
 interface Props {
   upgrades: Upgrade[];
