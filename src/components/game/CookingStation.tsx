@@ -32,7 +32,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
   const handleTap = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     onTap();
     const isCombo = comboCount >= 20;
-    const comboMultiplier = comboCount >= 100 ? 3 : comboCount >= 50 ? 2.5 : comboCount >= 20 ? 1.5 : 1;
+    const comboMultiplier = comboCount >= 100 ? 2 : comboCount >= 50 ? 1.8 : comboCount >= 20 ? 1.2 : 1;
     const earned = tapPower * tapMultiplier * prestigeMultiplier * locationMultiplier * comboMultiplier;
 
     const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
