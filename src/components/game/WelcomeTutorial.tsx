@@ -161,7 +161,7 @@ export default function WelcomeTutorial({ onComplete }: Props) {
           className="w-full max-w-sm bg-card border-2 border-primary/50 p-6 text-center space-y-5"
         >
           {current.icon && (
-            <img src={current.icon} alt={current.title} className="w-16 h-16 mx-auto object-contain [image-rendering:pixelated]" draggable={false} />
+            <img src={current.icon} alt={current.title} className={`mx-auto object-contain [image-rendering:pixelated] ${current.icon === wadapavChiliIcon ? 'w-28 h-28' : 'w-16 h-16'}`} draggable={false} />
           )}
           <h2 className="font-display font-extrabold text-base text-primary tracking-[0.15em]">
             {current.title}
