@@ -82,7 +82,7 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
             exit={{ scale: 0, opacity: 0 }}
             className="absolute top-2 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground font-display font-bold text-[8px] px-3 py-1 z-20 pixel-border-primary animate-blink"
           >
-            🔥 COMBO x{comboCount}! {comboCount >= 100 ? '3x' : comboCount >= 50 ? '2.5x' : '1.5x'} 🔥
+            🔥 COMBO x{comboCount}! {comboCount >= 100 ? '2x' : comboCount >= 50 ? '1.8x' : '1.2x'} 🔥
           </motion.div>
         )}
       </AnimatePresence>
