@@ -87,12 +87,15 @@ const Index = () => {
         )}
       </AnimatePresence>
 
-      {/* Crew hire hint — shown when player can afford first worker */}
+      {/* Crew hire hint — forces player to crew tab */}
       <AnimatePresence>
         {showCrewHint && (
           <CrewHintPrompt
             onComplete={() => setShowCrewHint(false)}
-            onSwitchToCrewTab={() => setActiveTab('workers')}
+            onSwitchToCrewTab={() => {
+              setActiveTab('workers');
+              setForceCrewTab(true);
+            }}
           />
         )}
       </AnimatePresence>
