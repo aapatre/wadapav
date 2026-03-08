@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
+import potatoIcon from '@/assets/icons/potato.png';
+import heartIcon from '@/assets/icons/heart.png';
+import crownIcon from '@/assets/icons/crown.png';
+import tawaFireIcon from '@/assets/icons/tawa-fire.png';
+import growthIcon from '@/assets/icons/growth.png';
 
 interface Props {
   onComplete: () => void;
@@ -10,37 +15,37 @@ const STEPS = [
   {
     title: 'WADA PAV TYCOON',
     text: '',
-    emoji: '🟠',
+    icon: null,
     type: 'splash' as const,
   },
   {
-    title: 'The Wada Pav 🍔',
+    title: 'The Wada Pav',
     text: 'A crispy fried potato dumpling, stuffed inside a soft pav bun, slathered with spicy chutneys and a fried green chilli on the side. Simple. Deadly. Addictive.',
-    emoji: '🥔',
+    icon: potatoIcon,
     type: 'story' as const,
   },
   {
-    title: 'Mumbai\'s Soul Food 🏙️',
+    title: 'Mumbai\'s Soul Food',
     text: 'From CST station to Juhu beach, wada pav is Mumbai\'s great equaliser — ₹15 feeds a billionaire and a taxi driver the same joy. It\'s not just food, it\'s the heartbeat of the city.',
-    emoji: '❤️',
+    icon: heartIcon,
     type: 'story' as const,
   },
   {
-    title: 'Your Empire Begins 🔥',
+    title: 'Your Empire Begins',
     text: 'You just bought a small cart near CST station. One tawa, one dream. Can you build Mumbai\'s greatest wada pav empire? Let\'s find out, boss!',
-    emoji: '🛒',
+    icon: crownIcon,
     type: 'story' as const,
   },
   {
-    title: 'Tap to Cook! 👆',
+    title: 'Tap to Cook!',
     text: 'Tap the cart to fry wada pavs and earn ₹ rupees. The faster you tap, the bigger your combo multiplier!',
-    emoji: '⚡',
+    icon: tawaFireIcon,
     type: 'tutorial' as const,
   },
   {
-    title: 'Grow Your Business 📈',
+    title: 'Grow Your Business',
     text: 'Buy upgrades to boost earnings, hire crew to automate production, and prestige to unlock new Mumbai locations with bigger multipliers!',
-    emoji: '🚀',
+    icon: growthIcon,
     type: 'tutorial' as const,
   },
 ];
