@@ -398,9 +398,6 @@ const Index = () => {
             comboCount={state.comboCount}
             onTap={tap}
             hasCrewMember={state.workers.some(w => w.quantity > 0)}
-            currency={state.currency}
-            productionPerSecond={state.productionPerSecond}
-            onSteal={stealCurrency}
             blocked={forceCrewTab || forceUpgradeTab}
             blockedMessage={forceUpgradeTab ? {
               title: 'UPGRADE YOUR POTATOES! 🥔',
