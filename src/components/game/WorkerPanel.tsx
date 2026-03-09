@@ -117,7 +117,7 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost, highlig
                 <div className="w-7 h-7 flex items-center justify-center text-lg font-display text-muted-foreground">?</div>
               </div>
               <div className="flex-1 text-left min-w-0">
-                <div className="font-display font-semibold text-[7px] text-muted-foreground/70">???</div>
+                <div className="font-display font-semibold text-[9px] text-muted-foreground/70">???</div>
                 <div className="text-xs font-body text-muted-foreground/50">Hire previous crew first</div>
               </div>
               <div className="text-right shrink-0">
