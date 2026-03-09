@@ -75,7 +75,6 @@ export default function PolicemanCharacter({ currency, currentLocation }: Props)
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center p-6"
           style={{ zIndex: 9997 }}
-          onClick={handleDismiss}
         >
           <motion.div
             initial={{ scale: 0.7, y: 40, rotate: -5 }}
