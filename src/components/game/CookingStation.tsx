@@ -22,9 +22,6 @@ interface Props {
   comboCount: number;
   onTap: () => void;
   hasCrewMember: boolean;
-  currency: number;
-  productionPerSecond: number;
-  onSteal: (amount: number) => void;
   blocked?: boolean;
   blockedMessage?: { title: string; body: string };
 }
