@@ -335,6 +335,7 @@ export function useGameState() {
     buyUpgrade,
     prestige,
     stealCurrency,
+    addCurrency,
     resetGame,
     canPrestige,
     prestigePointsAvailable,

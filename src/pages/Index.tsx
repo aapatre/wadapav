@@ -518,6 +518,18 @@ const Index = () => {
       {/* Policeman random appearance */}
       <PolicemanCharacter currency={state.currency} />
 
+      {/* Investor prompt */}
+      <InvestorPrompt
+        totalEarned={state.totalEarned}
+        totalProduced={state.totalProduced}
+        totalPrestiges={state.totalPrestiges}
+        currentLocationName={currentLocation.name}
+        currentLocationIndex={state.currentLocation}
+        totalLocations={locations.length}
+        onAccept={addCurrency}
+        onDecline={() => {}}
+      />
+
       {/* Final map congratulations dialog */}
       <FinalMapDialog open={showFinalMap} onClose={() => setShowFinalMap(false)} />
     </div>
