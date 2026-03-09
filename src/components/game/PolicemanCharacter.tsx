@@ -93,13 +93,13 @@ export default function PolicemanCharacter({ currency }: Props) {
             <div className="flex gap-2">
               <button
                 onClick={handleCTA}
-                className="flex-1 bg-[#0A66C2] text-white font-display text-[8px] px-3 py-2 hover:bg-[#004182] transition-colors tracking-wider"
+                className="flex-1 bg-[#0A66C2] text-white font-display text-[10px] px-3 py-2 hover:bg-[#004182] transition-colors tracking-wider"
               >
                 🔗 {dialogue.cta}
               </button>
               <button
                 onClick={handleDismiss}
-                className="text-[8px] font-display text-muted-foreground px-2 py-2 hover:text-foreground transition-colors tracking-wider border border-border/50"
+                className="text-[10px] font-display text-muted-foreground px-2 py-2 hover:text-foreground transition-colors tracking-wider border border-border/50"
               >
                 DISMISS
               </button>

@@ -57,7 +57,7 @@ export default function MilestonePrompt({ onComplete }: Props) {
 
         <button
           onClick={onComplete}
-          className="bg-muted text-muted-foreground font-display text-[8px] px-4 py-1.5 hover:bg-muted/80 transition-colors tracking-wider"
+          className="bg-muted text-muted-foreground font-display text-[10px] px-4 py-1.5 hover:bg-muted/80 transition-colors tracking-wider"
         >
           NAH, I'LL KEEP FRYING
         </button>

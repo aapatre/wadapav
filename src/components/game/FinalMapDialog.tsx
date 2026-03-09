@@ -57,7 +57,7 @@ export default function FinalMapDialog({ open, onClose }: Props) {
                 href="https://linkedin.com/in/aapatre"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[hsl(210,80%,45%)] text-[hsl(0,0%,100%)] font-display font-bold text-[9px] pixel-border tracking-wider hover:bg-[hsl(210,80%,40%)] transition-colors"
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[hsl(210,80%,45%)] text-[hsl(0,0%,100%)] font-display font-bold text-[11px] pixel-border tracking-wider hover:bg-[hsl(210,80%,40%)] transition-colors"
               >
                 💼 CONNECT ON LINKEDIN
               </a>
@@ -65,7 +65,7 @@ export default function FinalMapDialog({ open, onClose }: Props) {
                 href="https://linktr.ee/aapatre"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-secondary text-secondary-foreground font-display font-bold text-[9px] pixel-border tracking-wider hover:bg-secondary/80 transition-colors"
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-secondary text-secondary-foreground font-display font-bold text-[11px] pixel-border tracking-wider hover:bg-secondary/80 transition-colors"
               >
                 🔗 ALL MY SOCIALS
               </a>
@@ -75,7 +75,7 @@ export default function FinalMapDialog({ open, onClose }: Props) {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={onClose}
-              className="w-full py-2 border-2 border-border text-muted-foreground font-display text-[8px] pixel-border hover:bg-muted/50 transition-colors"
+              className="w-full py-2 border-2 border-border text-muted-foreground font-display text-[10px] pixel-border hover:bg-muted/50 transition-colors"
             >
               KEEP GRINDING 💪
             </motion.button>
