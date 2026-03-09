@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatCurrency } from '@/hooks/useGameState';
 import shareIcon from '@/assets/icons/share.png';
@@ -34,6 +34,16 @@ function buildShareText({
 
 export default function ShareButton(props: Props) {
   const [showCopied, setShowCopied] = useState(false);
+  const [isWiggling, setIsWiggling] = useState(false);
+
+  // Periodic attention-grabbing animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsWiggling(true);
+      setTimeout(() => setIsWiggling(false), 1000);
+    }, 20000); // Every 20 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   const handleShare = async () => {
     const text = buildShareText(props);
@@ -65,8 +75,21 @@ export default function ShareButton(props: Props) {
         onClick={handleShare}
         className="bg-card/70 backdrop-blur-sm px-3 py-1 hover:bg-card/90 transition-colors border border-border"
         title="Share your stats"
+        animate={isWiggling ? {
+          rotate: [0, -5, 5, -5, 5, 0],
+          scale: [1, 1.1, 1.1, 1.1, 1.1, 1],
+        } : {}}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
       >
-        <span className="text-[7px] font-display text-primary tracking-[0.15em]">SHARE</span>
+        <motion.span 
+          className="text-[7px] font-display text-primary tracking-[0.15em]"
+          animate={isWiggling ? { 
+            textShadow: ['0 0 0px hsl(var(--primary))', '0 0 8px hsl(var(--primary))', '0 0 0px hsl(var(--primary))']
+          } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          SHARE!
+        </motion.span>
       </motion.button>
 
       <AnimatePresence>
