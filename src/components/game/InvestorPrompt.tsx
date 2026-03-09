@@ -127,9 +127,9 @@ export default function InvestorPrompt(props: Props) {
               draggable={false}
             />
             
-            <h2 className="font-display text-lg text-primary mb-2">INVESTOR ALERT!</h2>
+            <h2 className="font-display text-base text-primary mb-2">INVESTOR ALERT!</h2>
             
-            <p className="text-xs text-foreground/80 mb-3">
+            <p className="text-sm text-foreground/80 mb-3">
               A business tycoon noticed your thriving wada pav cart! They'll invest{' '}
               <span className="text-primary font-bold">{formatCurrency(reward)}</span>{' '}
               if you spread the word about your empire!
