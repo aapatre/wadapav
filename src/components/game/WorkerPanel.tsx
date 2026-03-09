@@ -84,7 +84,10 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost, highlig
                     : 'bg-card/60 border-border/40 opacity-50'
               }`}
             >
-              <div className={`p-1.5 ${canAfford ? 'bg-primary/10' : 'bg-muted/30'}`}>
+              <div 
+                className={`p-1.5 transition-all ${canAfford ? 'bg-primary/10' : 'bg-muted/30'}`}
+                style={{ filter: !canAfford ? 'grayscale(100%)' : 'none' }}
+              >
                 <PixelIcon id={worker.id} size={28} />
               </div>
               <div className="flex-1 text-left min-w-0">
