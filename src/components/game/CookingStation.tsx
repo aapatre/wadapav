@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import cartScene from '@/assets/cart-scene.png';
 import handPointerIcon from '@/assets/icons/hand-pointer.png';
 import CustomerCrowd from './CustomerCrowd';
-import ThiefCharacter from './ThiefCharacter';
 import { formatCurrency } from '@/hooks/useGameState';
 import { sfxTap, sfxComboStart, sfxComboUp } from '@/hooks/useSfx';
 
@@ -23,16 +22,13 @@ interface Props {
   comboCount: number;
   onTap: () => void;
   hasCrewMember: boolean;
-  currency: number;
-  productionPerSecond: number;
-  onSteal: (amount: number) => void;
   blocked?: boolean;
   blockedMessage?: { title: string; body: string };
 }
 
 let floatId = 0;
 
-export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, currency, productionPerSecond, onSteal, blocked, blockedMessage }: Props) {
+export default function CookingStation({ tapPower, tapMultiplier, prestigeMultiplier, locationMultiplier, comboCount, onTap, hasCrewMember, blocked, blockedMessage }: Props) {
   const [floats, setFloats] = useState<FloatingText[]>([]);
   const [isPressed, setIsPressed] = useState(false);
   const [tapCount, setTapCount] = useState(0);
@@ -115,7 +111,6 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
 
       {/* Customers behind cart — only when crew is hired */}
       {hasCrewMember && <CustomerCrowd />}
-      <ThiefCharacter currency={currency} productionPerSecond={productionPerSecond} onSteal={onSteal} />
 
       {/* Tap hint — visible until first tap */}
       <AnimatePresence>

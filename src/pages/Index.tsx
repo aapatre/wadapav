@@ -21,6 +21,7 @@ import ReminderNotification from '@/components/game/ReminderNotification';
 import FinalMapDialog, { hasSeenFinalMap, markFinalMapSeen } from '@/components/game/FinalMapDialog';
 import ShareButton from '@/components/game/ShareButton';
 import InvestorPrompt from '@/components/game/InvestorPrompt';
+import ThiefCharacter from '@/components/game/ThiefCharacter';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -246,6 +247,13 @@ const Index = () => {
         )}
       </AnimatePresence>
 
+      {/* Thief — rendered at page level so it overlays the entire screen */}
+      <ThiefCharacter
+        currency={state.currency}
+        productionPerSecond={state.productionPerSecond}
+        onSteal={stealCurrency}
+      />
+
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
         style={{
@@ -398,9 +406,6 @@ const Index = () => {
             comboCount={state.comboCount}
             onTap={tap}
             hasCrewMember={state.workers.some(w => w.quantity > 0)}
-            currency={state.currency}
-            productionPerSecond={state.productionPerSecond}
-            onSteal={stealCurrency}
             blocked={forceCrewTab || forceUpgradeTab}
             blockedMessage={forceUpgradeTab ? {
               title: 'UPGRADE YOUR POTATOES! 🥔',

@@ -340,9 +340,9 @@ export default function ThiefCharacter({ currency, productionPerSecond, onSteal 
         {thief && (
           <motion.div
             key={thief.id}
-            className="absolute cursor-pointer z-[100]"
+            className="fixed cursor-pointer z-[90]"
             style={{
-              bottom: 44,
+              bottom: 120,
               left: '50%',
             }}
             initial={{ x: thief.fromLeft ? -250 : 250, opacity: 0 }}
@@ -393,7 +393,7 @@ export default function ThiefCharacter({ currency, productionPerSecond, onSteal 
             animate={{ opacity: 0, y: -50 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5 }}
-            className={`absolute z-30 font-display text-[10px] font-bold pointer-events-none ${
+            className={`fixed z-[90] font-display text-[10px] font-bold pointer-events-none ${
               stolenText.caught ? 'text-accent' : 'text-destructive'
             }`}
             style={{ bottom: 120, left: '50%', transform: 'translateX(-50%)' }}
