@@ -29,19 +29,24 @@ export default function PolicemanCharacter({ currency, currentLocation }: Props)
   const [dialogue, setDialogue] = useState(DIALOGUES[0]);
   const timerRef = useRef<number | null>(null);
   const currencyRef = useRef(currency);
+  const locationRef = useRef(currentLocation);
   currencyRef.current = currency;
+  locationRef.current = currentLocation;
 
   const scheduleAppearance = useCallback(() => {
     const delay = MIN_INTERVAL + Math.random() * (MAX_INTERVAL - MIN_INTERVAL);
     timerRef.current = window.setTimeout(() => {
-      if (currencyRef.current >= CURRENCY_THRESHOLD) {
-        const count = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-        setDialogue(DIALOGUES[count % DIALOGUES.length]);
-        localStorage.setItem(STORAGE_KEY, String(count + 1));
+      const loc = locationRef.current;
+      const seenKey = STORAGE_KEY_PREFIX + loc;
+      const alreadySeen = localStorage.getItem(seenKey) === '1';
+
+      if (currencyRef.current >= CURRENCY_THRESHOLD && !alreadySeen) {
+        setDialogue(DIALOGUES[loc % DIALOGUES.length]);
         setVisible(true);
-      } else {
+      } else if (!alreadySeen) {
         scheduleAppearance();
       }
+      // If already seen for this location, stop scheduling
     }, delay);
   }, []);
 
