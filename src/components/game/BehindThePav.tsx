@@ -111,13 +111,13 @@ export default function BehindThePav({ onClose }: Props) {
         {skill && (
           <>
             <div className="text-3xl">{skill.emoji}</div>
-            <h3 className="font-display text-[9px] text-primary tracking-wider">
+            <h3 className="font-display text-[11px] text-primary tracking-wider">
               {skill.title.toUpperCase()}
             </h3>
-            <p className="font-body text-[12px] text-foreground font-bold leading-relaxed italic">
+            <p className="font-body text-sm text-foreground font-bold leading-relaxed italic">
               "{skill.hook}"
             </p>
-            <p className="font-body text-[10px] text-muted-foreground leading-relaxed">
+            <p className="font-body text-xs text-muted-foreground leading-relaxed">
               {skill.detail}
             </p>
 
@@ -135,7 +135,7 @@ export default function BehindThePav({ onClose }: Props) {
 
             <button
               onClick={next}
-              className="bg-primary text-primary-foreground font-display text-[8px] px-6 py-2 hover:bg-primary/80 transition-colors tracking-wider"
+              className="bg-primary text-primary-foreground font-display text-[10px] px-6 py-2 hover:bg-primary/80 transition-colors tracking-wider"
             >
               {activeIdx < SKILLS.length - 1 ? 'NEXT →' : 'AND SO… →'}
             </button>
