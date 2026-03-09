@@ -91,7 +91,7 @@ export default function WorkerPanel({ workers, currency, onBuy, getCost, highlig
                 <PixelIcon id={worker.id} size={28} />
               </div>
               <div className="flex-1 text-left min-w-0">
-                <div className="font-display font-semibold text-[7px] text-foreground truncate">{worker.name}</div>
+                <div className="font-display font-semibold text-[9px] text-foreground truncate">{worker.name}</div>
                 <div className="text-xs font-body text-muted-foreground">
                   {formatCurrency(worker.baseProduction)}/s each
                 </div>
