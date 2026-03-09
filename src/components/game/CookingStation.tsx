@@ -111,7 +111,6 @@ export default function CookingStation({ tapPower, tapMultiplier, prestigeMultip
 
       {/* Customers behind cart — only when crew is hired */}
       {hasCrewMember && <CustomerCrowd />}
-      <ThiefCharacter currency={currency} productionPerSecond={productionPerSecond} onSteal={onSteal} />
 
       {/* Tap hint — visible until first tap */}
       <AnimatePresence>
