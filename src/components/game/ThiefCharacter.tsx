@@ -393,7 +393,7 @@ export default function ThiefCharacter({ currency, productionPerSecond, onSteal 
             animate={{ opacity: 0, y: -50 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1.5 }}
-            className={`absolute z-30 font-display text-[10px] font-bold pointer-events-none ${
+            className={`fixed z-[90] font-display text-[10px] font-bold pointer-events-none ${
               stolenText.caught ? 'text-accent' : 'text-destructive'
             }`}
             style={{ bottom: 120, left: '50%', transform: 'translateX(-50%)' }}
