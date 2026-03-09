@@ -246,13 +246,7 @@ const Index = () => {
           <BehindThePav onClose={() => setShowBehindThePav(false)} />
         )}
       </AnimatePresence>
-
-      {/* Thief — rendered at page level so it overlays the entire screen */}
-      <ThiefCharacter
-        currency={state.currency}
-        productionPerSecond={state.productionPerSecond}
-        onSteal={stealCurrency}
-      />
+      {/* Thief tutorial / stolen text still render here via fixed positioning */}
 
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
