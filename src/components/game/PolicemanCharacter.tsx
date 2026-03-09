@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import policemanIcon from '@/assets/icons/policeman.png';
 
 const LINKEDIN_URL = 'https://linkedin.com/in/aapatre';
-const STORAGE_KEY = 'wadapav-policeman-count';
+const STORAGE_KEY_PREFIX = 'wadapav-policeman-seen-loc-';
 const MIN_INTERVAL = 120_000; // 2 min
 const MAX_INTERVAL = 300_000; // 5 min
 const CURRENCY_THRESHOLD = 30_000; // only appear after ₹30k
