@@ -63,15 +63,10 @@ export default function ShareButton(props: Props) {
       <motion.button
         whileTap={{ scale: 0.85 }}
         onClick={handleShare}
-        className="bg-card/70 backdrop-blur-sm p-1 hover:bg-card/90 transition-colors"
+        className="bg-card/70 backdrop-blur-sm px-2 py-1 hover:bg-card/90 transition-colors border border-border"
         title="Share your stats"
       >
-        <img
-          src={shareIcon}
-          alt="Share"
-          className="w-5 h-5 object-contain [image-rendering:pixelated]"
-          draggable={false}
-        />
+        <span className="text-[7px] font-display text-primary">SHARE</span>
       </motion.button>
 
       <AnimatePresence>
