@@ -105,7 +105,7 @@ export default function PolicemanCharacter({ currency }: Props) {
               </button>
             </div>
 
-            <p className="text-[7px] font-body text-muted-foreground/60">
+            <p className="text-[9px] font-body text-muted-foreground/60">
               *No actual laws were broken in the making of this vada pav*
             </p>
           </motion.div>
