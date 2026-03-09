@@ -73,7 +73,7 @@ export default function ShareButton(props: Props) {
       <motion.button
         whileTap={{ scale: 0.85 }}
         onClick={handleShare}
-        className="bg-card/70 backdrop-blur-sm px-3 py-1 hover:bg-card/90 transition-colors border border-border"
+        className="bg-card/70 backdrop-blur-sm px-3 py-1 hover:bg-card/90 transition-colors border border-border flex items-center justify-center"
         title="Share your stats"
         animate={isWiggling ? {
           rotate: [0, -5, 5, -5, 5, 0],
