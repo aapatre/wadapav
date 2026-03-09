@@ -406,6 +406,12 @@ const Index = () => {
               body: 'Oh come on, your customers deserve better potatoes! Head to the <span class="font-bold" style="color:hsl(var(--primary))">Upgrades tab</span> and grab <span class="font-bold" style="color:hsl(var(--coin-gold))">Better Potatoes</span> — they\'ll make you more money too!'
             } : undefined}
           />
+          {/* Thief character — same container as cart/customers for matching position */}
+          <ThiefCharacter
+            currency={state.currency}
+            productionPerSecond={state.productionPerSecond}
+            onSteal={stealCurrency}
+          />
         </div>
       </div>
 
