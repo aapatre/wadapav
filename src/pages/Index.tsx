@@ -247,6 +247,13 @@ const Index = () => {
         )}
       </AnimatePresence>
 
+      {/* Thief — rendered at page level so it overlays the entire screen */}
+      <ThiefCharacter
+        currency={state.currency}
+        productionPerSecond={state.productionPerSecond}
+        onSteal={stealCurrency}
+      />
+
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
         style={{
