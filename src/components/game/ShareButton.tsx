@@ -37,13 +37,13 @@ export default function ShareButton(props: Props) {
   const [isWiggling, setIsWiggling] = useState(false);
 
   // Periodic attention-grabbing animation
-  useState(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setIsWiggling(true);
       setTimeout(() => setIsWiggling(false), 1000);
     }, 20000); // Every 20 seconds
     return () => clearInterval(interval);
-  });
+  }, []);
 
   const handleShare = async () => {
     const text = buildShareText(props);
