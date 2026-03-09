@@ -21,6 +21,7 @@ import ReminderNotification from '@/components/game/ReminderNotification';
 import FinalMapDialog, { hasSeenFinalMap, markFinalMapSeen } from '@/components/game/FinalMapDialog';
 import ShareButton from '@/components/game/ShareButton';
 import InvestorPrompt from '@/components/game/InvestorPrompt';
+import ThiefCharacter from '@/components/game/ThiefCharacter';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
