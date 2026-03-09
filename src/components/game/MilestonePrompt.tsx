@@ -31,14 +31,14 @@ export default function MilestonePrompt({ onComplete }: Props) {
         onClick={e => e.stopPropagation()}
       >
         <div className="text-2xl">🎉</div>
-        <h2 className="font-display text-[9px] text-primary tracking-wider">₹50K TYCOON!</h2>
-        <p className="font-body text-[11px] text-foreground/80 leading-relaxed">
+        <h2 className="font-display text-[11px] text-primary tracking-wider">₹50K TYCOON!</h2>
+        <p className="font-body text-sm text-foreground/80 leading-relaxed">
           Whoa, you're printing rupees faster than RBI! 🏦💸
         </p>
-        <p className="font-body text-[10px] text-muted-foreground leading-relaxed">
+        <p className="font-body text-xs text-muted-foreground leading-relaxed">
           If you're enjoying the game, install it on your home screen for the full experience!
         </p>
-        <p className="font-body text-[10px] text-muted-foreground leading-relaxed">
+        <p className="font-body text-xs text-muted-foreground leading-relaxed">
           And if you think this dev is as good at coding as you are at making wada pav...
         </p>
 
@@ -47,17 +47,17 @@ export default function MilestonePrompt({ onComplete }: Props) {
           href="https://antariksh.me"
           target="_blank"
           rel="noopener noreferrer"
-          className="block w-full bg-primary text-primary-foreground font-display text-[9px] px-4 py-2.5 hover:bg-primary/80 transition-colors tracking-wider animate-pulse"
+          className="block w-full bg-primary text-primary-foreground font-display text-[11px] px-4 py-2.5 hover:bg-primary/80 transition-colors tracking-wider animate-pulse"
         >
           🚀 HIRE ME — I ALSO MAKE REAL APPS 🚀
         </a>
-        <p className="font-body text-[8px] text-muted-foreground italic">
+        <p className="font-body text-[10px] text-muted-foreground italic">
           (I promise I build more than clicker games... usually)
         </p>
 
         <button
           onClick={onComplete}
-          className="bg-muted text-muted-foreground font-display text-[8px] px-4 py-1.5 hover:bg-muted/80 transition-colors tracking-wider"
+          className="bg-muted text-muted-foreground font-display text-[10px] px-4 py-1.5 hover:bg-muted/80 transition-colors tracking-wider"
         >
           NAH, I'LL KEEP FRYING
         </button>

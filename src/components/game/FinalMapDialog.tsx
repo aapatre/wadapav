@@ -35,19 +35,19 @@ export default function FinalMapDialog({ open, onClose }: Props) {
               >
                 <PixelIcon id="loc5" size={48} />
               </motion.div>
-              <h3 className="font-display font-bold text-sm text-foreground">
+              <h3 className="font-display font-bold text-base text-foreground">
                 🎉 YOU MADE IT!
               </h3>
-              <p className="font-body text-xs text-muted-foreground leading-relaxed">
+              <p className="font-body text-sm text-muted-foreground leading-relaxed">
                 Mumbai Airport — the final destination... <span className="text-foreground font-semibold">for now</span>.
               </p>
             </div>
 
             <div className="bg-muted/50 border border-border p-3 space-y-2">
-              <p className="font-body text-[11px] text-foreground/80 leading-relaxed">
+              <p className="font-body text-sm text-foreground/80 leading-relaxed">
                 Who knows what's in store for the future? Maybe there's an update with new locations, maybe there's a totally new game dropping... 👀
               </p>
-              <p className="font-body text-[11px] text-foreground/80 leading-relaxed">
+              <p className="font-body text-sm text-foreground/80 leading-relaxed">
                 Stay connected so you don't miss out!
               </p>
             </div>
@@ -57,7 +57,7 @@ export default function FinalMapDialog({ open, onClose }: Props) {
                 href="https://linkedin.com/in/aapatre"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[hsl(210,80%,45%)] text-[hsl(0,0%,100%)] font-display font-bold text-[9px] pixel-border tracking-wider hover:bg-[hsl(210,80%,40%)] transition-colors"
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-[hsl(210,80%,45%)] text-[hsl(0,0%,100%)] font-display font-bold text-[11px] pixel-border tracking-wider hover:bg-[hsl(210,80%,40%)] transition-colors"
               >
                 💼 CONNECT ON LINKEDIN
               </a>
@@ -65,7 +65,7 @@ export default function FinalMapDialog({ open, onClose }: Props) {
                 href="https://linktr.ee/aapatre"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full py-2.5 bg-secondary text-secondary-foreground font-display font-bold text-[9px] pixel-border tracking-wider hover:bg-secondary/80 transition-colors"
+                className="flex items-center justify-center gap-2 w-full py-2.5 bg-secondary text-secondary-foreground font-display font-bold text-[11px] pixel-border tracking-wider hover:bg-secondary/80 transition-colors"
               >
                 🔗 ALL MY SOCIALS
               </a>
@@ -75,7 +75,7 @@ export default function FinalMapDialog({ open, onClose }: Props) {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={onClose}
-              className="w-full py-2 border-2 border-border text-muted-foreground font-display text-[8px] pixel-border hover:bg-muted/50 transition-colors"
+              className="w-full py-2 border-2 border-border text-muted-foreground font-display text-[10px] pixel-border hover:bg-muted/50 transition-colors"
             >
               KEEP GRINDING 💪
             </motion.button>

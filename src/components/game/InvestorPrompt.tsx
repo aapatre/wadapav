@@ -127,9 +127,9 @@ export default function InvestorPrompt(props: Props) {
               draggable={false}
             />
             
-            <h2 className="font-display text-lg text-primary mb-2">INVESTOR ALERT!</h2>
+            <h2 className="font-display text-base text-primary mb-2">INVESTOR ALERT!</h2>
             
-            <p className="text-xs text-foreground/80 mb-3">
+            <p className="text-sm text-foreground/80 mb-3">
               A business tycoon noticed your thriving wada pav cart! They'll invest{' '}
               <span className="text-primary font-bold">{formatCurrency(reward)}</span>{' '}
               if you spread the word about your empire!
@@ -139,14 +139,14 @@ export default function InvestorPrompt(props: Props) {
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={handleDecline}
-                className="flex-1 bg-muted/50 border border-border px-3 py-2 text-xs font-display text-foreground/60 hover:bg-muted transition-colors"
+                className="flex-1 bg-muted/50 border border-border px-3 py-2 text-sm font-display text-foreground/60 hover:bg-muted transition-colors"
               >
                 NOT NOW
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.95 }}
                 onClick={handleShare}
-                className="flex-1 bg-primary text-primary-foreground px-3 py-2 text-xs font-display hover:bg-primary/90 transition-colors"
+                className="flex-1 bg-primary text-primary-foreground px-3 py-2 text-sm font-display hover:bg-primary/90 transition-colors"
               >
                 SHARE & EARN
               </motion.button>

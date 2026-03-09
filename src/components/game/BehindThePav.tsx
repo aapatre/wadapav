@@ -89,18 +89,18 @@ export default function BehindThePav({ onClose }: Props) {
             >
               🍔
             </motion.div>
-            <h2 className="font-display text-[10px] text-primary tracking-wider">
+            <h2 className="font-display text-xs text-primary tracking-wider">
               BEHIND THE PAV
             </h2>
-            <p className="font-body text-[11px] text-foreground/80 leading-relaxed">
+            <p className="font-body text-sm text-foreground/80 leading-relaxed">
               Plot twist: <span className="text-primary font-bold">this game was a job application all along</span> 😏
             </p>
-            <p className="font-body text-[10px] text-muted-foreground leading-relaxed">
+            <p className="font-body text-xs text-muted-foreground leading-relaxed">
               You've been playing for a while now. Every mechanic you enjoyed was a deliberate design choice. Here's the thinking behind it…
             </p>
             <button
               onClick={next}
-              className="bg-primary text-primary-foreground font-display text-[8px] px-6 py-2 hover:bg-primary/80 transition-colors tracking-wider"
+              className="bg-primary text-primary-foreground font-display text-[10px] px-6 py-2 hover:bg-primary/80 transition-colors tracking-wider"
             >
               SHOW ME →
             </button>
@@ -111,13 +111,13 @@ export default function BehindThePav({ onClose }: Props) {
         {skill && (
           <>
             <div className="text-3xl">{skill.emoji}</div>
-            <h3 className="font-display text-[9px] text-primary tracking-wider">
+            <h3 className="font-display text-[11px] text-primary tracking-wider">
               {skill.title.toUpperCase()}
             </h3>
-            <p className="font-body text-[12px] text-foreground font-bold leading-relaxed italic">
+            <p className="font-body text-sm text-foreground font-bold leading-relaxed italic">
               "{skill.hook}"
             </p>
-            <p className="font-body text-[10px] text-muted-foreground leading-relaxed">
+            <p className="font-body text-xs text-muted-foreground leading-relaxed">
               {skill.detail}
             </p>
 
@@ -135,7 +135,7 @@ export default function BehindThePav({ onClose }: Props) {
 
             <button
               onClick={next}
-              className="bg-primary text-primary-foreground font-display text-[8px] px-6 py-2 hover:bg-primary/80 transition-colors tracking-wider"
+              className="bg-primary text-primary-foreground font-display text-[10px] px-6 py-2 hover:bg-primary/80 transition-colors tracking-wider"
             >
               {activeIdx < SKILLS.length - 1 ? 'NEXT →' : 'AND SO… →'}
             </button>
@@ -152,13 +152,13 @@ export default function BehindThePav({ onClose }: Props) {
             >
               🚀
             </motion.div>
-            <h2 className="font-display text-[10px] text-primary tracking-wider">
+            <h2 className="font-display text-xs text-primary tracking-wider">
               SO, ABOUT THAT HIRE…
             </h2>
-            <p className="font-body text-[11px] text-foreground/80 leading-relaxed">
+            <p className="font-body text-sm text-foreground/80 leading-relaxed">
               If a simple-looking clicker game kept you engaged this long, imagine what I could build for <span className="text-primary font-bold">your</span> product.
             </p>
-            <p className="font-body text-[10px] text-muted-foreground leading-relaxed">
+            <p className="font-body text-xs text-muted-foreground leading-relaxed">
               Cross-domain thinking. User obsession. Shipping things that people actually enjoy using.
             </p>
 
@@ -167,7 +167,7 @@ export default function BehindThePav({ onClose }: Props) {
                 href="https://linkedin.com/in/aapatre"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-[#0A66C2] text-white font-display text-[8px] px-3 py-2.5 hover:bg-[#004182] transition-colors tracking-wider text-center"
+                className="flex-1 bg-[#0A66C2] text-white font-display text-[10px] px-3 py-2.5 hover:bg-[#004182] transition-colors tracking-wider text-center"
               >
                 🔗 LINKEDIN
               </a>
@@ -175,7 +175,7 @@ export default function BehindThePav({ onClose }: Props) {
                 href="https://antariksh.me"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-primary text-primary-foreground font-display text-[8px] px-3 py-2.5 hover:bg-primary/80 transition-colors tracking-wider text-center"
+                className="flex-1 bg-primary text-primary-foreground font-display text-[10px] px-3 py-2.5 hover:bg-primary/80 transition-colors tracking-wider text-center"
               >
                 🚀 PORTFOLIO
               </a>
@@ -183,7 +183,7 @@ export default function BehindThePav({ onClose }: Props) {
 
             <button
               onClick={onClose}
-              className="text-[8px] font-display text-muted-foreground hover:text-foreground transition-colors tracking-wider pt-1"
+              className="text-[10px] font-display text-muted-foreground hover:text-foreground transition-colors tracking-wider pt-1"
             >
               BACK TO MAKING PAV →
             </button>

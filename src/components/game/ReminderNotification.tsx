@@ -107,10 +107,10 @@ export default function ReminderNotification({
             >
               {notification.emoji}
             </motion.span>
-            <span className="text-[10px] font-body text-foreground/80 flex-1 text-left">
+            <span className="text-xs font-body text-foreground/80 flex-1 text-left">
               {notification.text}
             </span>
-            <span className="text-[8px] font-display text-coin tracking-wider shrink-0 bg-coin/10 px-2 py-1">
+            <span className="text-[10px] font-display text-coin tracking-wider shrink-0 bg-coin/10 px-2 py-1">
               {notification.label} →
             </span>
           </div>
