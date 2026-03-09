@@ -351,6 +351,12 @@ const Index = () => {
           />
         )}
 
+      {/* Thief — rendered at page level so it overlays the entire screen */}
+      <ThiefCharacter
+        currency={state.currency}
+        productionPerSecond={state.productionPerSecond}
+        onSteal={stealCurrency}
+      />
 
         <AnimatePresence>
           {!showTutorial && hasFirstUpgrade && !hasAnyWorker && !showCrewHint && state.currency < firstWorkerCost && (
