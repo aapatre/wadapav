@@ -86,7 +86,7 @@ export default function PolicemanCharacter({ currency }: Props) {
               <img src={policemanIcon} alt="Policeman" className="w-16 h-16 mx-auto object-contain" draggable={false} />
             </motion.div>
 
-            <p className="font-body text-[11px] text-foreground/90 leading-relaxed">
+            <p className="font-body text-sm text-foreground/90 leading-relaxed">
               {dialogue.line}
             </p>
 
