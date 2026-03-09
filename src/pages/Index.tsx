@@ -20,6 +20,7 @@ import BehindThePav, { hasSeenBehindThePav } from '@/components/game/BehindThePa
 import ReminderNotification from '@/components/game/ReminderNotification';
 import FinalMapDialog, { hasSeenFinalMap, markFinalMapSeen } from '@/components/game/FinalMapDialog';
 import ShareButton from '@/components/game/ShareButton';
+import InvestorPrompt from '@/components/game/InvestorPrompt';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -41,7 +42,7 @@ type Tab = 'upgrades' | 'workers' | 'prestige';
 
 const Index = () => {
   const {
-    state, tap, buyWorker, buyUpgrade, prestige, stealCurrency, resetGame,
+    state, tap, buyWorker, buyUpgrade, prestige, stealCurrency, addCurrency, resetGame,
     canPrestige, prestigePointsAvailable, prestigeCostRequired,
     getWorkerCost, getUpgradeCost, locations, formatCurrency,
   } = useGameState();
@@ -516,6 +517,18 @@ const Index = () => {
 
       {/* Policeman random appearance */}
       <PolicemanCharacter currency={state.currency} />
+
+      {/* Investor prompt */}
+      <InvestorPrompt
+        totalEarned={state.totalEarned}
+        totalProduced={state.totalProduced}
+        totalPrestiges={state.totalPrestiges}
+        currentLocationName={currentLocation.name}
+        currentLocationIndex={state.currentLocation}
+        totalLocations={locations.length}
+        onAccept={addCurrency}
+        onDecline={() => {}}
+      />
 
       {/* Final map congratulations dialog */}
       <FinalMapDialog open={showFinalMap} onClose={() => setShowFinalMap(false)} />

@@ -288,6 +288,14 @@ export function useGameState() {
     }));
   }, []);
 
+  const addCurrency = useCallback((amount: number) => {
+    setState(prev => ({
+      ...prev,
+      currency: prev.currency + amount,
+      totalEarned: prev.totalEarned + amount,
+    }));
+  }, []);
+
   const resetGame = useCallback(() => {
     // Clear all game-related localStorage keys
     const keysToRemove = [
@@ -327,6 +335,7 @@ export function useGameState() {
     buyUpgrade,
     prestige,
     stealCurrency,
+    addCurrency,
     resetGame,
     canPrestige,
     prestigePointsAvailable,
