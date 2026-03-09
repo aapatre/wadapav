@@ -56,8 +56,9 @@ export default function PolicemanCharacter({ currency, currentLocation }: Props)
   }, [scheduleAppearance]);
 
   const handleDismiss = () => {
+    // Mark as seen for this location — won't appear again here
+    localStorage.setItem(STORAGE_KEY_PREFIX + locationRef.current, '1');
     setVisible(false);
-    scheduleAppearance();
   };
 
   const handleCTA = () => {
