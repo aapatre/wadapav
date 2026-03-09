@@ -19,6 +19,7 @@ import PolicemanCharacter from '@/components/game/PolicemanCharacter';
 import BehindThePav, { hasSeenBehindThePav } from '@/components/game/BehindThePav';
 import ReminderNotification from '@/components/game/ReminderNotification';
 import FinalMapDialog, { hasSeenFinalMap, markFinalMapSeen } from '@/components/game/FinalMapDialog';
+import ShareButton from '@/components/game/ShareButton';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -270,6 +271,15 @@ const Index = () => {
             WADA PAV TYCOON
           </h1>
           <div className="flex items-center gap-1">
+            <ShareButton
+              currency={state.currency}
+              totalEarned={state.totalEarned}
+              totalProduced={state.totalProduced}
+              totalPrestiges={state.totalPrestiges}
+              currentLocationName={currentLocation.name}
+              currentLocationIndex={state.currentLocation}
+              totalLocations={locations.length}
+            />
             <MusicPlayer onReset={resetGame} onShowAbout={() => setShowBehindThePav(true)} />
             <div className="bg-card/70 backdrop-blur-sm px-2 py-0.5 text-[10px] font-body text-muted-foreground">
               {state.totalProduced.toLocaleString()} served
