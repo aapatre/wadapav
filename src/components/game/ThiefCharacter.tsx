@@ -340,7 +340,7 @@ export default function ThiefCharacter({ currency, productionPerSecond, onSteal 
         {thief && (
           <motion.div
             key={thief.id}
-            className="fixed cursor-pointer z-[90]"
+            className="fixed cursor-pointer z-[40]"
             style={{
               bottom: 120,
               left: '50%',
