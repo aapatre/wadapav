@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatCurrency } from '@/hooks/useGameState';
 import shareIcon from '@/assets/icons/share.png';
