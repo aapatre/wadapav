@@ -246,13 +246,7 @@ const Index = () => {
           <BehindThePav onClose={() => setShowBehindThePav(false)} />
         )}
       </AnimatePresence>
-
-      {/* Thief — rendered at page level so it overlays the entire screen */}
-      <ThiefCharacter
-        currency={state.currency}
-        productionPerSecond={state.productionPerSecond}
-        onSteal={stealCurrency}
-      />
+      {/* Thief tutorial / stolen text still render here via fixed positioning */}
 
       {/* Scanline overlay */}
       <div className="fixed inset-0 pointer-events-none z-[100] opacity-[0.02]"
@@ -411,6 +405,12 @@ const Index = () => {
               title: 'UPGRADE YOUR POTATOES! 🥔',
               body: 'Oh come on, your customers deserve better potatoes! Head to the <span class="font-bold" style="color:hsl(var(--primary))">Upgrades tab</span> and grab <span class="font-bold" style="color:hsl(var(--coin-gold))">Better Potatoes</span> — they\'ll make you more money too!'
             } : undefined}
+          />
+          {/* Thief character — same container as cart/customers for matching position */}
+          <ThiefCharacter
+            currency={state.currency}
+            productionPerSecond={state.productionPerSecond}
+            onSteal={stealCurrency}
           />
         </div>
       </div>

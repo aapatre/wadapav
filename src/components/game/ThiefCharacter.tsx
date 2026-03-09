@@ -328,64 +328,66 @@ export default function ThiefCharacter({ currency, productionPerSecond, onSteal 
     }
   }, [thief, phase, scheduleSpawn]);
 
-  return (
+    return (
     <>
-      {/* Tutorial */}
+      {/* Tutorial — fixed overlay, works from any container */}
       <AnimatePresence>
         {showTutorial && <ThiefTutorialPrompt onComplete={handleTutorialComplete} />}
       </AnimatePresence>
 
-      {/* Thief */}
-      <AnimatePresence>
-        {thief && (
-          <motion.div
-            key={thief.id}
-            className="absolute cursor-pointer z-[25]"
-            style={{
-              bottom: 44,
-              left: '50%',
-            }}
-            initial={{ x: thief.fromLeft ? -250 : 250, opacity: 0 }}
-            animate={
-              phase === 'entering' || phase === 'lurking'
-                ? { x: thief.offsetX, opacity: 1 }
-                : phase === 'caught'
-                ? { x: thief.offsetX, opacity: 0, scale: 0.3, y: -30 }
-                : { x: thief.fromLeft ? -250 : 250, opacity: 0 }
-            }
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: phase === 'entering' ? 1.5 : phase === 'caught' ? 0.5 : 2,
-              ease: 'easeInOut',
-            }}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleTapThief();
-            }}
-            onTouchStart={(e) => {
-              e.stopPropagation();
-              handleTapThief();
-            }}
-          >
-            {/* Pulsing warning ring when lurking */}
-            {phase === 'lurking' && (
-              <motion.div
-                className="absolute inset-0 border-2 border-destructive/50 rounded-full"
-                style={{ margin: -6 }}
-                animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0.2, 0.6] }}
-                transition={{ duration: 1, repeat: Infinity }}
+      {/* Thief — positioned absolute within the cart container (same as CustomerCrowd) */}
+      <div className="absolute inset-0 pointer-events-none overflow-visible z-[25]">
+        <AnimatePresence>
+          {thief && (
+            <motion.div
+              key={thief.id}
+              className="absolute cursor-pointer pointer-events-auto"
+              style={{
+                bottom: 44,
+                left: '50%',
+              }}
+              initial={{ x: thief.fromLeft ? -250 : 250, opacity: 0 }}
+              animate={
+                phase === 'entering' || phase === 'lurking'
+                  ? { x: thief.offsetX, opacity: 1 }
+                  : phase === 'caught'
+                  ? { x: thief.offsetX, opacity: 0, scale: 0.3, y: -30 }
+                  : { x: thief.fromLeft ? -250 : 250, opacity: 0 }
+              }
+              exit={{ opacity: 0 }}
+              transition={{
+                duration: phase === 'entering' ? 1.5 : phase === 'caught' ? 0.5 : 2,
+                ease: 'easeInOut',
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleTapThief();
+              }}
+              onTouchStart={(e) => {
+                e.stopPropagation();
+                handleTapThief();
+              }}
+            >
+              {/* Pulsing warning ring when lurking */}
+              {phase === 'lurking' && (
+                <motion.div
+                  className="absolute inset-0 border-2 border-destructive/50 rounded-full"
+                  style={{ margin: -6 }}
+                  animate={{ scale: [1, 1.3, 1], opacity: [0.6, 0.2, 0.6] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                />
+              )}
+              <ThiefSprite
+                height={thief.height}
+                walking={phase === 'entering' || phase === 'escaped' || phase === 'stealing'}
+                tapsLeft={thief.tapsRequired - thief.tapsReceived}
               />
-            )}
-            <ThiefSprite
-              height={thief.height}
-              walking={phase === 'entering' || phase === 'escaped' || phase === 'stealing'}
-              tapsLeft={thief.tapsRequired - thief.tapsReceived}
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
-      {/* Stolen / caught floating text */}
+      {/* Stolen / caught floating text — fixed so it works from any container */}
       <AnimatePresence>
         {stolenText && (
           <motion.div
