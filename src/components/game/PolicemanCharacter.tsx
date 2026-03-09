@@ -21,9 +21,10 @@ const DIALOGUES = [
 
 interface Props {
   currency: number;
+  currentLocation: number;
 }
 
-export default function PolicemanCharacter({ currency }: Props) {
+export default function PolicemanCharacter({ currency, currentLocation }: Props) {
   const [visible, setVisible] = useState(false);
   const [dialogue, setDialogue] = useState(DIALOGUES[0]);
   const timerRef = useRef<number | null>(null);
