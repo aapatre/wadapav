@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import policemanIcon from '@/assets/icons/policeman.png';
 
 const LINKEDIN_URL = 'https://linkedin.com/in/aapatre';
-const STORAGE_KEY = 'wadapav-policeman-count';
+const STORAGE_KEY_PREFIX = 'wadapav-policeman-seen-loc-';
 const MIN_INTERVAL = 120_000; // 2 min
 const MAX_INTERVAL = 300_000; // 5 min
 const CURRENCY_THRESHOLD = 30_000; // only appear after ₹30k
@@ -21,26 +21,32 @@ const DIALOGUES = [
 
 interface Props {
   currency: number;
+  currentLocation: number;
 }
 
-export default function PolicemanCharacter({ currency }: Props) {
+export default function PolicemanCharacter({ currency, currentLocation }: Props) {
   const [visible, setVisible] = useState(false);
   const [dialogue, setDialogue] = useState(DIALOGUES[0]);
   const timerRef = useRef<number | null>(null);
   const currencyRef = useRef(currency);
+  const locationRef = useRef(currentLocation);
   currencyRef.current = currency;
+  locationRef.current = currentLocation;
 
   const scheduleAppearance = useCallback(() => {
     const delay = MIN_INTERVAL + Math.random() * (MAX_INTERVAL - MIN_INTERVAL);
     timerRef.current = window.setTimeout(() => {
-      if (currencyRef.current >= CURRENCY_THRESHOLD) {
-        const count = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-        setDialogue(DIALOGUES[count % DIALOGUES.length]);
-        localStorage.setItem(STORAGE_KEY, String(count + 1));
+      const loc = locationRef.current;
+      const seenKey = STORAGE_KEY_PREFIX + loc;
+      const alreadySeen = localStorage.getItem(seenKey) === '1';
+
+      if (currencyRef.current >= CURRENCY_THRESHOLD && !alreadySeen) {
+        setDialogue(DIALOGUES[loc % DIALOGUES.length]);
         setVisible(true);
-      } else {
+      } else if (!alreadySeen) {
         scheduleAppearance();
       }
+      // If already seen for this location, stop scheduling
     }, delay);
   }, []);
 
@@ -50,8 +56,9 @@ export default function PolicemanCharacter({ currency }: Props) {
   }, [scheduleAppearance]);
 
   const handleDismiss = () => {
+    // Mark as seen for this location — won't appear again here
+    localStorage.setItem(STORAGE_KEY_PREFIX + locationRef.current, '1');
     setVisible(false);
-    scheduleAppearance();
   };
 
   const handleCTA = () => {
@@ -68,7 +75,6 @@ export default function PolicemanCharacter({ currency }: Props) {
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center p-6"
           style={{ zIndex: 9997 }}
-          onClick={handleDismiss}
         >
           <motion.div
             initial={{ scale: 0.7, y: 40, rotate: -5 }}

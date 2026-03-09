@@ -521,7 +521,7 @@ const Index = () => {
       </div>
 
       {/* Policeman random appearance */}
-      <PolicemanCharacter currency={state.currency} />
+      <PolicemanCharacter currency={state.currency} currentLocation={state.currentLocation} />
 
       {/* Investor prompt */}
       <InvestorPrompt
