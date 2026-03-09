@@ -36,7 +36,10 @@ export default function UpgradePanel({ upgrades, currency, onBuy, getCost }: Pro
                   : 'bg-card/60 border-border/40 opacity-50'
             }`}
           >
-            <div className={`p-1.5 ${canAfford && !maxed ? 'bg-primary/10' : 'bg-muted/30'}`}>
+            <div 
+              className={`p-1.5 transition-all ${canAfford && !maxed ? 'bg-primary/10' : 'bg-muted/30'}`}
+              style={{ filter: !canAfford || maxed ? 'grayscale(100%)' : 'none' }}
+            >
               <PixelIcon id={upgrade.id} size={28} />
             </div>
             <div className="flex-1 text-left min-w-0">
