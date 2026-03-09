@@ -35,19 +35,19 @@ export default function FinalMapDialog({ open, onClose }: Props) {
               >
                 <PixelIcon id="loc5" size={48} />
               </motion.div>
-              <h3 className="font-display font-bold text-sm text-foreground">
+              <h3 className="font-display font-bold text-base text-foreground">
                 🎉 YOU MADE IT!
               </h3>
-              <p className="font-body text-xs text-muted-foreground leading-relaxed">
+              <p className="font-body text-sm text-muted-foreground leading-relaxed">
                 Mumbai Airport — the final destination... <span className="text-foreground font-semibold">for now</span>.
               </p>
             </div>
 
             <div className="bg-muted/50 border border-border p-3 space-y-2">
-              <p className="font-body text-[11px] text-foreground/80 leading-relaxed">
+              <p className="font-body text-sm text-foreground/80 leading-relaxed">
                 Who knows what's in store for the future? Maybe there's an update with new locations, maybe there's a totally new game dropping... 👀
               </p>
-              <p className="font-body text-[11px] text-foreground/80 leading-relaxed">
+              <p className="font-body text-sm text-foreground/80 leading-relaxed">
                 Stay connected so you don't miss out!
               </p>
             </div>
