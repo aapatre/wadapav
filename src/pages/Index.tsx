@@ -342,12 +342,6 @@ const Index = () => {
           )}
         </AnimatePresence>
 
-        {/* Idle tap reminder — CST station only */}
-        <IdleTapReminder
-          lastTapTime={state.lastTapTime}
-          hasCrewMember={hasAnyWorker}
-          currentLocation={state.currentLocation}
-        />
 
         {/* Periodic reminder notifications */}
         {!showTutorial && !forceUpgradeTab && !forceCrewTab && !postUpgradeToast && !postCrewToast && (
@@ -414,6 +408,12 @@ const Index = () => {
               title: 'UPGRADE YOUR POTATOES! 🥔',
               body: 'Oh come on, your customers deserve better potatoes! Head to the <span class="font-bold" style="color:hsl(var(--primary))">Upgrades tab</span> and grab <span class="font-bold" style="color:hsl(var(--coin-gold))">Better Potatoes</span> — they\'ll make you more money too!'
             } : undefined}
+          />
+          {/* Idle tap reminder — overlaid on cart, CST station only */}
+          <IdleTapReminder
+            lastTapTime={state.lastTapTime}
+            hasCrewMember={hasAnyWorker}
+            currentLocation={state.currentLocation}
           />
           {/* Thief character — same container as cart/customers for matching position */}
           <ThiefCharacter
