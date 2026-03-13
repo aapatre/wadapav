@@ -45,10 +45,13 @@ export default function ShareButton(props: Props) {
     return () => clearInterval(interval);
   }, []);
 
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
   const handleShare = async () => {
     const text = buildShareText(props);
 
-    if (navigator.share) {
+    // Use native share only on mobile devices
+    if (isMobile && navigator.share) {
       try {
         await navigator.share({ text });
         return;
@@ -57,7 +60,7 @@ export default function ShareButton(props: Props) {
       }
     }
 
-    // Fallback: copy to clipboard
+    // Desktop or fallback: copy to clipboard
     try {
       await navigator.clipboard.writeText(text);
       setShowCopied(true);
