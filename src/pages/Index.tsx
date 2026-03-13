@@ -544,6 +544,9 @@ const Index = () => {
         onDecline={() => {}}
       />
 
+      {/* Celeb prompt at ₹2500 */}
+      <CelebPrompt currency={state.currency} onAccept={addCurrency} />
+
       {/* Final map congratulations dialog */}
       <FinalMapDialog open={showFinalMap} onClose={() => setShowFinalMap(false)} />
     </div>
