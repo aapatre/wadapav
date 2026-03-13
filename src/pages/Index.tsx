@@ -342,12 +342,6 @@ const Index = () => {
           )}
         </AnimatePresence>
 
-        {/* Idle tap reminder — CST station only */}
-        <IdleTapReminder
-          lastTapTime={state.lastTapTime}
-          hasCrewMember={hasAnyWorker}
-          currentLocation={state.currentLocation}
-        />
 
         {/* Periodic reminder notifications */}
         {!showTutorial && !forceUpgradeTab && !forceCrewTab && !postUpgradeToast && !postCrewToast && (
