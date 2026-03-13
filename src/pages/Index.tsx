@@ -548,6 +548,19 @@ const Index = () => {
       {/* Celeb prompt at ₹2500 */}
       <CelebPrompt currency={state.currency} onAccept={addCurrency} />
 
+      {/* Award prompt at Gateway of India */}
+      <AwardPrompt
+        currency={state.currency}
+        currentLocation={state.currentLocation}
+        totalEarned={state.totalEarned}
+        totalProduced={state.totalProduced}
+        totalPrestiges={state.totalPrestiges}
+        currentLocationName={currentLocation.name}
+        currentLocationIndex={state.currentLocation}
+        totalLocations={locations.length}
+        onAccept={addCurrency}
+      />
+
       {/* Final map congratulations dialog */}
       <FinalMapDialog open={showFinalMap} onClose={() => setShowFinalMap(false)} />
     </div>
