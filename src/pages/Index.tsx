@@ -22,6 +22,8 @@ import FinalMapDialog, { hasSeenFinalMap, markFinalMapSeen } from '@/components/
 import ShareButton from '@/components/game/ShareButton';
 import InvestorPrompt from '@/components/game/InvestorPrompt';
 import ThiefCharacter from '@/components/game/ThiefCharacter';
+import IdleTapReminder from '@/components/game/IdleTapReminder';
+import CelebPrompt from '@/components/game/CelebPrompt';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -340,6 +342,13 @@ const Index = () => {
           )}
         </AnimatePresence>
 
+        {/* Idle tap reminder — CST station only */}
+        <IdleTapReminder
+          lastTapTime={state.lastTapTime}
+          hasCrewMember={hasAnyWorker}
+          currentLocation={state.currentLocation}
+        />
+
         {/* Periodic reminder notifications */}
         {!showTutorial && !forceUpgradeTab && !forceCrewTab && !postUpgradeToast && !postCrewToast && (
           <ReminderNotification
@@ -534,6 +543,9 @@ const Index = () => {
         onAccept={addCurrency}
         onDecline={() => {}}
       />
+
+      {/* Celeb prompt at ₹2500 */}
+      <CelebPrompt currency={state.currency} onAccept={addCurrency} />
 
       {/* Final map congratulations dialog */}
       <FinalMapDialog open={showFinalMap} onClose={() => setShowFinalMap(false)} />
