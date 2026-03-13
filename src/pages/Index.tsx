@@ -24,6 +24,7 @@ import InvestorPrompt from '@/components/game/InvestorPrompt';
 import ThiefCharacter from '@/components/game/ThiefCharacter';
 import IdleTapReminder from '@/components/game/IdleTapReminder';
 import CelebPrompt from '@/components/game/CelebPrompt';
+import AwardPrompt from '@/components/game/AwardPrompt';
 
 import bgCST from '@/assets/backgrounds/cst-station.png';
 import bgGateway from '@/assets/backgrounds/gateway-of-india.png';
@@ -546,6 +547,19 @@ const Index = () => {
 
       {/* Celeb prompt at ₹2500 */}
       <CelebPrompt currency={state.currency} onAccept={addCurrency} />
+
+      {/* Award prompt at Gateway of India */}
+      <AwardPrompt
+        currency={state.currency}
+        currentLocation={state.currentLocation}
+        totalEarned={state.totalEarned}
+        totalProduced={state.totalProduced}
+        totalPrestiges={state.totalPrestiges}
+        currentLocationName={currentLocation.name}
+        currentLocationIndex={state.currentLocation}
+        totalLocations={locations.length}
+        onAccept={addCurrency}
+      />
 
       {/* Final map congratulations dialog */}
       <FinalMapDialog open={showFinalMap} onClose={() => setShowFinalMap(false)} />

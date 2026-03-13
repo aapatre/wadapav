@@ -312,6 +312,7 @@ export function useGameState() {
       'wadapav-sfx-muted',
       'wadapav-behind-the-pav',
       'wadapav-celeb-prompt',
+      'wadapav-award-prompt',
     ];
     keysToRemove.forEach(k => localStorage.removeItem(k));
 
