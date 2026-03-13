@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatCurrency } from '@/hooks/useGameState';
 import starIcon from '@/assets/icons/star.png';
@@ -15,21 +15,26 @@ interface Props {
 
 export default function CelebPrompt({ currency, onAccept }: Props) {
   const [show, setShow] = useState(false);
-  const [hasTriggered, setHasTriggered] = useState(false);
+  const triggeredRef = useRef(false);
+  const timerRef = useRef<number | null>(null);
 
   useEffect(() => {
+    if (triggeredRef.current) return;
     const alreadyShown = localStorage.getItem(STORAGE_KEY);
-    if (alreadyShown || hasTriggered) return;
+    if (alreadyShown) { triggeredRef.current = true; return; }
 
-    if (currency >= TRIGGER_AMOUNT) {
-      // Small delay for dramatic effect
-      const timer = setTimeout(() => {
+    if (currency >= TRIGGER_AMOUNT && !timerRef.current) {
+      triggeredRef.current = true;
+      timerRef.current = window.setTimeout(() => {
         setShow(true);
-        setHasTriggered(true);
       }, 2000 + Math.random() * 3000);
-      return () => clearTimeout(timer);
     }
-  }, [currency, hasTriggered]);
+  }, [currency]);
+
+  // Cleanup
+  useEffect(() => {
+    return () => { if (timerRef.current) clearTimeout(timerRef.current); };
+  }, []);
 
   const handleLike = () => {
     window.open(LINKEDIN_URL, '_blank', 'noopener,noreferrer');
